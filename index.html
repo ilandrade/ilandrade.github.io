@@ -27,6 +27,113 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
+  <style>
+    /* Additional styles to ensure proper display */
+    .section {
+      padding: 60px 0;
+      overflow: hidden;
+    }
+    
+    .hero {
+      width: 100%;
+      min-height: 100vh;
+      background: url("assets/img/hero-bg.jpg") top center;
+      background-size: cover;
+      position: relative;
+      padding: 120px 0;
+    }
+
+    .hero:before {
+      content: "";
+      background: rgba(5, 13, 24, 0.3);
+      position: absolute;
+      bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h2 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 48px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      color: #fff;
+      font-weight: 500;
+      font-size: 26px;
+    }
+
+    .section-title {
+      text-align: center;
+      padding-bottom: 30px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      position: relative;
+      color: #45505b;
+    }
+
+    .section-title h2::after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: #0563bb;
+      bottom: 0;
+      left: calc(50% - 20px);
+    }
+
+    .portfolio .portfolio-item {
+      margin-bottom: 30px;
+    }
+
+    .portfolio .portfolio-wrap {
+      overflow: hidden;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .portfolio .portfolio-wrap img {
+      transition: 0.3s;
+    }
+
+    .portfolio .portfolio-wrap:hover img {
+      transform: scale(1.1);
+    }
+
+    .portfolio .portfolio-info {
+      opacity: 0;
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      bottom: 0;
+      z-index: 3;
+      transition: all ease-in-out 0.3s;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+    }
+
+    .portfolio .portfolio-wrap:hover .portfolio-info {
+      opacity: 1;
+      bottom: 20px;
+    }
+  </style>
+
   <!-- =======================================================
   * Template Name: MyResume
   * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
