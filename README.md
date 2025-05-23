@@ -1,14 +1,14 @@
 # Isabella Andrade - Personal Portfolio
 
-A modern and responsive personal portfolio website built with HTML, CSS, and JavaScript. This portfolio showcases my work, skills, and experience as a software developer.
+A modern, responsive personal portfolio website built with HTML, CSS, and JavaScript. This portfolio showcases my work, skills, and experience as a software developer.
 
 ## Features
 
 - Responsive design that works on all devices
-- Modern and clean UI
-- Smooth scrolling and animations
-- Portfolio section with filtering
-- Contact form
+- Modern and clean UI with smooth animations
+- Interactive portfolio section with project details
+- Skills section with progress bars
+- Contact form for easy communication
 - Social media integration
 - Mobile-friendly navigation
 
@@ -27,28 +27,15 @@ A modern and responsive personal portfolio website built with HTML, CSS, and Jav
 
 ```
 personalpage/
-├── index.html
+├── index.html              # Main HTML file
 ├── assets/
 │   ├── css/
-│   │   └── style.css
+│   │   └── style.css      # Main stylesheet
 │   ├── js/
-│   │   └── main.js
-│   └── img/
-│       ├── hero-bg.jpg
-│       ├── profile-img.jpg
-│       └── portfolio/
-├── vendor/
-│   ├── bootstrap/
-│   ├── bootstrap-icons/
-│   ├── boxicons/
-│   ├── glightbox/
-│   ├── isotope-layout/
-│   ├── php-email-form/
-│   ├── purecounter/
-│   ├── remixicon/
-│   ├── swiper/
-│   └── waypoints/
-└── README.md
+│   │   └── main.js        # JavaScript functionality
+│   └── img/               # Image assets
+├── vendor/                # Third-party libraries
+└── README.md             # Project documentation
 ```
 
 ## Setup and Installation
@@ -68,25 +55,20 @@ cd ilandrade.github.io
 ## Customization
 
 ### Personal Information
-Edit the `index.html` file to update:
-- Your name and title
-- About section content
-- Resume information
-- Portfolio projects
-- Contact details
+- Update the content in `index.html` with your personal information
+- Modify the About section with your bio
+- Add your own projects to the Portfolio section
+- Update contact information and social media links
 
 ### Styling
-Modify the `assets/css/style.css` file to:
-- Change colors
-- Adjust layouts
-- Update fonts
-- Customize animations
+- Customize colors in the CSS variables (in `style.css`)
+- Modify fonts and typography
+- Adjust spacing and layout as needed
 
 ### Images
-Replace the images in the `assets/img/` directory with your own:
-- Profile picture
-- Hero background
-- Portfolio project images
+- Replace the hero background image
+- Add your own project screenshots
+- Update profile picture and other images
 
 ## Contributing
 
@@ -98,6 +80,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Template based on [MyResume](https://bootstrapmade.com/free-html-bootstrap-template-my-resume/) by BootstrapMade
-- Icons from [Bootstrap Icons](https://icons.getbootstrap.com/) and [Font Awesome](https://fontawesome.com/)
-- Animations powered by [AOS](https://michalsnik.github.io/aos/) 
+- Template based on MyResume
+- Icons from Bootstrap Icons and Font Awesome
+- Images from Unsplash 
