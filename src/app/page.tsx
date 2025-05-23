@@ -34,7 +34,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-6 text-center">About Me</h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-            I'm a passionate software developer focused on creating elegant solutions to complex problems.
+            I&apos;m a passionate software developer focused on creating elegant solutions to complex problems.
             With a strong foundation in web development and a keen eye for detail, I strive to build
             applications that are both functional and user-friendly.
           </p>
