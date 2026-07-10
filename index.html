@@ -81,8 +81,8 @@
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(to right, rgba(3, 10, 20, 0.68) 0%, rgba(3, 10, 20, 0.35) 45%, rgba(3, 10, 20, 0.05) 75%),
-        linear-gradient(to bottom, rgba(3, 10, 20, 0.55) 0%, rgba(3, 10, 20, 0) 30%, rgba(3, 10, 20, 0) 72%, #1e4f7e 100%);
+        radial-gradient(ellipse 64% 58% at 50% 46%, rgba(3, 10, 20, 0.58) 0%, rgba(3, 10, 20, 0.22) 55%, transparent 80%),
+        linear-gradient(to bottom, rgba(3, 10, 20, 0.40) 0%, rgba(3, 10, 20, 0) 25%, rgba(3, 10, 20, 0) 72%, #1e4f7e 100%);
     }
 
     .typed-cursor { color: #67e8f9; font-weight: 300; }
@@ -164,8 +164,6 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 10px 34px rgba(56, 189, 248, 0.50);
     }
 
-    .nav-link { color: #8fb3cc; transition: color 0.2s; }
-    .nav-link:hover { color: #fff; }
 
     /* Dive line: experience timeline as a descent rope with sonar pings */
     .timeline-entry {
@@ -212,15 +210,7 @@
     }
     #surface-btn.visible { opacity: 1; pointer-events: auto; }
 
-    #navbar {
-      background: linear-gradient(to bottom, rgba(12, 28, 50, 0.55), rgba(6, 16, 32, 0.38));
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
-      backdrop-filter: blur(22px) saturate(180%);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
 
-    #mobile-menu { display: none; }
-    #mobile-menu.open { display: flex; }
 
     .profile-wrapper { position: relative; display: inline-block; }
     .profile-wrapper::after {
@@ -282,7 +272,7 @@
       pointer-events: none;
     }
     #waves { position: absolute; inset: 0; }
-    main, footer, header { position: relative; z-index: 1; }
+    main, footer { position: relative; z-index: 1; }
 
     a:focus-visible, button:focus-visible {
       outline: 2px solid #67e8f9;
@@ -302,44 +292,6 @@
   <!-- Ambient particles: bubbles in the shallows, marine snow in the deep -->
   <canvas id="sea" aria-hidden="true"></canvas>
 
-  <!-- ===== NAVBAR ===== -->
-  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-cyan-200/[0.06]">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-
-      <a href="#hero" class="font-display font-semibold text-xl tracking-tight">
-        IA<span class="text-biolume">.</span>
-      </a>
-
-      <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#experience" class="nav-link">Experience</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#leadership" class="nav-link">Leadership</a>
-        <a href="#education" class="nav-link">Education</a>
-        <a href="#writing" class="nav-link">Writing</a>
-      </nav>
-
-      <div class="flex items-center gap-5">
-        <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub" class="nav-link text-lg"><i class="bi bi-github"></i></a>
-        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn" class="nav-link text-lg"><i class="bi bi-linkedin"></i></a>
-        <button id="menu-toggle" class="md:hidden nav-link text-xl" aria-label="Toggle menu">
-          <i class="bi bi-list"></i>
-        </button>
-      </div>
-    </div>
-
-    <div id="mobile-menu" class="flex-col md:hidden px-6 pb-5 gap-4 text-sm font-medium border-t border-cyan-200/[0.06]">
-      <a href="#about" class="nav-link pt-4">About</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#experience" class="nav-link">Experience</a>
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#leadership" class="nav-link">Leadership</a>
-      <a href="#education" class="nav-link">Education</a>
-      <a href="#writing" class="nav-link">Writing</a>
-    </div>
-  </header>
-
 
   <!-- Depth gauge -->
   <div id="gauge" class="hidden lg:flex" aria-hidden="true">
@@ -352,14 +304,14 @@
   <main>
 
   <!-- ===== HERO: the waterline ===== -->
-  <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-16 pt-20 overflow-hidden">
+  <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-16 overflow-hidden">
 
     <canvas id="waves" aria-hidden="true"></canvas>
     <div class="hero-scrim"></div>
 
-    <div class="max-w-6xl mx-auto w-full relative z-10">
+    <div class="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center text-center">
 
-      <p class="font-mono text-cyan-300/80 text-xs tracking-[0.3em] uppercase mb-8" data-aos="fade-up">
+      <p class="font-mono text-cyan-200/90 text-xs tracking-[0.3em] uppercase mb-8" data-aos="fade-up">
         Harvard University · CS &amp; Economics
       </p>
 
@@ -371,18 +323,22 @@
         <span class="typed text-white font-medium" data-typed-items="Student Founder, AI Product Builder, Venture Fellow, Ocean Person  "></span>
       </div>
 
-      <p class="text-slate-400/80 text-base mb-12 max-w-lg" data-aos="fade-up" data-aos-delay="220">
+      <p class="text-slate-300/80 text-base mb-12 max-w-lg" data-aos="fade-up" data-aos-delay="220">
         Life is not fair but I fight to make it fair.
       </p>
 
-      <div class="flex flex-wrap items-center gap-4" data-aos="fade-up" data-aos-delay="300">
+      <div class="flex flex-wrap items-center justify-center gap-4" data-aos="fade-up" data-aos-delay="300">
         <a href="#about"
            class="glass-btn-primary text-white text-sm font-semibold px-7 py-3 rounded-full">
           Dive In
         </a>
-        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank"
-           class="glass-btn text-slate-200 hover:text-white text-sm font-semibold px-7 py-3 rounded-full">
-          Connect
+        <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub"
+           class="glass-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-slate-100 hover:text-white">
+          <i class="bi bi-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn"
+           class="glass-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-slate-100 hover:text-white">
+          <i class="bi bi-linkedin"></i>
         </a>
       </div>
     </div>
@@ -966,13 +922,6 @@
       }
     }
 
-    // Mobile menu
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
 
     // ============================================================
     // THE SURFACE FROM ABOVE — aerial ocean shader in the hero.
