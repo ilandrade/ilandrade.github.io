@@ -87,30 +87,81 @@
 
     .typed-cursor { color: #67e8f9; font-weight: 300; }
 
-    /* Skill pill */
+    /* Skill pill: small liquid-glass capsule */
     .skill-pill {
-      border: 1px solid rgba(125, 211, 252, 0.18);
-      background: rgba(56, 189, 248, 0.05);
-      color: #b8d9ef;
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.13), rgba(25, 60, 100, 0.08));
+      -webkit-backdrop-filter: blur(10px) saturate(160%);
+      backdrop-filter: blur(10px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      color: #cfe6f5;
       transition: border-color 0.25s, background 0.25s, color 0.25s, box-shadow 0.25s;
     }
     .skill-pill:hover {
       border-color: rgba(103, 232, 249, 0.55);
-      background: rgba(103, 232, 249, 0.10);
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.22), rgba(40, 90, 130, 0.14));
       color: #fff;
-      box-shadow: 0 0 18px rgba(103, 232, 249, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 18px rgba(103, 232, 249, 0.14);
     }
 
-    /* Cards: dark glass with bioluminescent hover */
+    /* Cards: liquid glass floating in the water column.
+       Frosted fill, hairline border, and a specular sheen along the
+       top-left edge where the light hits */
     .card {
-      border: 1px solid rgba(125, 211, 252, 0.10);
-      background: rgba(8, 20, 38, 0.45);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(150deg, rgba(125, 211, 252, 0.10) 0%, rgba(56, 130, 190, 0.05) 45%, rgba(10, 30, 55, 0.20) 100%);
+      -webkit-backdrop-filter: blur(18px) saturate(170%);
+      backdrop-filter: blur(18px) saturate(170%);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+        0 14px 44px rgba(1, 8, 18, 0.40);
       transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
     }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(115deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.04) 20%, transparent 45%);
+      pointer-events: none;
+    }
     .card:hover {
-      border-color: rgba(103, 232, 249, 0.40);
-      box-shadow: 0 8px 40px rgba(2, 8, 20, 0.5), 0 0 28px rgba(103, 232, 249, 0.10);
+      border-color: rgba(103, 232, 249, 0.45);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        0 18px 56px rgba(1, 8, 18, 0.50),
+        0 0 32px rgba(103, 232, 249, 0.12);
       transform: translateY(-4px);
+    }
+
+    /* Glass buttons */
+    .glass-btn {
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.14), rgba(20, 50, 85, 0.10));
+      -webkit-backdrop-filter: blur(14px) saturate(170%);
+      backdrop-filter: blur(14px) saturate(170%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.20), 0 8px 24px rgba(1, 8, 18, 0.30);
+      transition: border-color 0.25s, background 0.25s, color 0.25s, box-shadow 0.25s;
+    }
+    .glass-btn:hover {
+      border-color: rgba(103, 232, 249, 0.60);
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.24), rgba(40, 90, 130, 0.16));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 8px 28px rgba(103, 232, 249, 0.18);
+    }
+    .glass-btn-primary {
+      background: linear-gradient(140deg, rgba(56, 189, 248, 0.80), rgba(10, 110, 180, 0.70));
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      backdrop-filter: blur(14px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.50), 0 8px 28px rgba(56, 189, 248, 0.35);
+      transition: box-shadow 0.25s, filter 0.25s;
+    }
+    .glass-btn-primary:hover {
+      filter: brightness(1.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 10px 34px rgba(56, 189, 248, 0.50);
     }
 
     .nav-link { color: #8fb3cc; transition: color 0.2s; }
@@ -162,9 +213,10 @@
     #surface-btn.visible { opacity: 1; pointer-events: auto; }
 
     #navbar {
-      background: rgba(6, 16, 32, 0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(12, 28, 50, 0.55), rgba(6, 16, 32, 0.38));
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      backdrop-filter: blur(22px) saturate(180%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     #mobile-menu { display: none; }
@@ -181,10 +233,10 @@
       z-index: -1;
     }
 
-    /* Depth gauge (right rail, desktop only) */
+    /* Depth gauge (right rail, desktop only): a glass dive computer */
     #gauge {
       position: fixed;
-      right: 1.5rem;
+      right: 1.25rem;
       top: 50%;
       transform: translateY(-50%);
       z-index: 40;
@@ -192,6 +244,13 @@
       align-items: center;
       gap: 0.75rem;
       pointer-events: none;
+      padding: 0.8rem 0.45rem;
+      border-radius: 999px;
+      background: linear-gradient(160deg, rgba(125, 211, 252, 0.05), rgba(10, 30, 55, 0.22));
+      -webkit-backdrop-filter: blur(8px) saturate(150%);
+      backdrop-filter: blur(8px) saturate(150%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 6px 18px rgba(1, 8, 18, 0.30);
     }
     #gauge-track {
       position: relative;
@@ -318,11 +377,11 @@
 
       <div class="flex flex-wrap items-center gap-4" data-aos="fade-up" data-aos-delay="300">
         <a href="#about"
-           class="bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold px-7 py-3 rounded-full transition-colors shadow-[0_0_24px_rgba(56,189,248,0.35)]">
+           class="glass-btn-primary text-white text-sm font-semibold px-7 py-3 rounded-full">
           Dive In
         </a>
         <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank"
-           class="border border-cyan-100/15 hover:border-biolume/60 text-slate-300 hover:text-white text-sm font-semibold px-7 py-3 rounded-full transition-colors">
+           class="glass-btn text-slate-200 hover:text-white text-sm font-semibold px-7 py-3 rounded-full">
           Connect
         </a>
       </div>
@@ -374,22 +433,24 @@
             Happiest near the ocean — which is why you're currently ten meters underwater.
           </p>
 
-          <div class="grid grid-cols-2 gap-6">
-            <div>
-              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Location</p>
-              <p class="text-white text-sm font-medium">Cambridge, MA</p>
-            </div>
-            <div>
-              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">University</p>
-              <p class="text-white text-sm font-medium">Harvard College</p>
-            </div>
-            <div>
-              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Email</p>
-              <p class="text-white text-sm font-medium break-all">isabellaandrade@college.harvard.edu</p>
-            </div>
-            <div>
-              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Focus</p>
-              <p class="text-white text-sm font-medium">AI Tooling · Venture · Product</p>
+          <div class="card rounded-3xl p-7">
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Location</p>
+                <p class="text-white text-sm font-medium">Cambridge, MA</p>
+              </div>
+              <div>
+                <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">University</p>
+                <p class="text-white text-sm font-medium">Harvard College</p>
+              </div>
+              <div>
+                <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Email</p>
+                <p class="text-white text-sm font-medium break-all">isabellaandrade@college.harvard.edu</p>
+              </div>
+              <div>
+                <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Focus</p>
+                <p class="text-white text-sm font-medium">AI Tooling · Venture · Product</p>
+              </div>
             </div>
           </div>
         </div>
@@ -625,7 +686,7 @@
       <div class="grid md:grid-cols-2 gap-5">
 
         <!-- Passio Go -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="0">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="0">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-phone text-aqua"></i>
@@ -643,7 +704,7 @@
         </div>
 
         <!-- This site -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="80">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-water text-aqua"></i>
@@ -680,7 +741,7 @@
       <div class="grid md:grid-cols-2 gap-5">
 
         <!-- Massachusetts AI Coalition -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="0">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="0">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-diagram-3 text-aqua"></i>
@@ -695,7 +756,7 @@
         </div>
 
         <!-- HUCEG -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="80">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-sun text-aqua"></i>
@@ -710,7 +771,7 @@
         </div>
 
         <!-- SHPE -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="160">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="160">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-people text-aqua"></i>
@@ -725,7 +786,7 @@
         </div>
 
         <!-- Harvard AI Safety Team -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="240">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="240">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-shield-check text-aqua"></i>
@@ -756,7 +817,7 @@
         <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
       </div>
 
-      <div class="card rounded-2xl p-8 md:p-10" data-aos="fade-up">
+      <div class="card rounded-3xl p-8 md:p-10" data-aos="fade-up">
         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
           <div class="flex items-start gap-5">
             <div class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0">
@@ -800,7 +861,7 @@
       <div class="space-y-5">
 
         <!-- Deepfakes paper -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up">
+        <div class="card rounded-3xl p-7" data-aos="fade-up">
           <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
             <div class="flex items-start gap-4">
               <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
@@ -822,7 +883,7 @@
         </div>
 
         <!-- Algorithmic Bias paper -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up">
+        <div class="card rounded-3xl p-7" data-aos="fade-up">
           <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
             <div class="flex items-start gap-4">
               <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
@@ -873,7 +934,7 @@
 
   <!-- Surface button -->
   <a href="#hero" id="surface-btn" aria-label="Back to the surface"
-     class="fixed bottom-6 right-6 bg-sky-500 hover:bg-sky-400 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors z-40 shadow-[0_0_20px_rgba(56,189,248,0.4)]">
+     class="glass-btn-primary fixed bottom-6 right-6 text-white w-11 h-11 rounded-full flex items-center justify-center z-40">
     <i class="bi bi-arrow-up-short text-lg"></i>
   </a>
 
