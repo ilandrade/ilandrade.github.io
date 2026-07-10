@@ -5,8 +5,9 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Isabella Andrade</title>
-  <meta name="description" content="Isabella Andrade — Software Developer, AI Enthusiast, and Harvard CS & Economics student.">
+  <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student.">
   <meta name="keywords" content="Isabella Andrade, Harvard, Software Developer, AI, Portfolio">
+  <meta name="theme-color" content="#07162b">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -15,7 +16,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Bootstrap Icons -->
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -31,20 +32,14 @@
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
-            display: ['Space Grotesk', 'sans-serif'],
+            display: ['Fraunces', 'serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
           },
           colors: {
-            accent: '#3B82F6',
+            ice: '#eaf6ff',
+            aqua: '#38bdf8',
+            biolume: '#67e8f9',
           },
-          keyframes: {
-            fadeInDown: {
-              '0%': { opacity: '0', transform: 'translateY(-10px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            }
-          },
-          animation: {
-            fadeInDown: 'fadeInDown 0.3s ease-out',
-          }
         }
       }
     }
@@ -53,62 +48,88 @@
   <style>
     * { box-sizing: border-box; }
 
+    /* The descent: one continuous gradient from sunlit water to the abyss */
     body {
-      background-color: #050816;
-      color: #fff;
+      background: linear-gradient(to bottom,
+        #0b2342 0%,
+        #081c37 10%,
+        #061831 22%,
+        #051229 38%,
+        #040d20 55%,
+        #030917 72%,
+        #020610 86%,
+        #01030a 100%);
+      color: #eaf6ff;
       font-family: 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* Gradient hero text */
+    .font-display { font-family: 'Fraunces', serif; }
+
+    /* Hero name: light catching the surface */
     .gradient-text {
-      background: linear-gradient(135deg, #ffffff 30%, #60a5fa 100%);
+      background: linear-gradient(160deg, #ffffff 25%, #9ddcff 70%, #67e8f9 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    /* Typed cursor */
-    .typed-cursor {
-      color: #3B82F6;
-      font-weight: 300;
+    /* Sun rays filtering through the surface */
+    .light-rays {
+      position: absolute;
+      top: -20%;
+      left: 8%;
+      width: 84%;
+      height: 75%;
+      background:
+        linear-gradient(112deg, transparent 42%, rgba(147, 219, 255, 0.06) 46%, transparent 51%),
+        linear-gradient(100deg, transparent 60%, rgba(147, 219, 255, 0.05) 65%, transparent 71%),
+        linear-gradient(124deg, transparent 22%, rgba(103, 232, 249, 0.04) 28%, transparent 35%);
+      filter: blur(6px);
+      transform-origin: top center;
+      animation: raySway 16s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes raySway {
+      from { transform: rotate(-1.6deg) translateX(-14px); opacity: 0.8; }
+      to   { transform: rotate(1.6deg) translateX(14px); opacity: 1; }
     }
 
-    /* Skill pill hover */
+    .typed-cursor { color: #67e8f9; font-weight: 300; }
+
+    /* Skill pill */
     .skill-pill {
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      background: rgba(59, 130, 246, 0.05);
-      color: #cbd5e1;
-      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      border: 1px solid rgba(125, 211, 252, 0.18);
+      background: rgba(56, 189, 248, 0.05);
+      color: #b8d9ef;
+      transition: border-color 0.25s, background 0.25s, color 0.25s, box-shadow 0.25s;
     }
     .skill-pill:hover {
-      border-color: rgba(59, 130, 246, 0.6);
-      background: rgba(59, 130, 246, 0.12);
+      border-color: rgba(103, 232, 249, 0.55);
+      background: rgba(103, 232, 249, 0.10);
       color: #fff;
+      box-shadow: 0 0 18px rgba(103, 232, 249, 0.12);
     }
 
-    /* Card hover */
+    /* Cards: dark glass with bioluminescent hover */
     .card {
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(255, 255, 255, 0.02);
-      transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
+      border: 1px solid rgba(125, 211, 252, 0.10);
+      background: rgba(8, 20, 38, 0.45);
+      transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
     }
     .card:hover {
-      border-color: rgba(59, 130, 246, 0.35);
-      background: rgba(59, 130, 246, 0.04);
-      transform: translateY(-3px);
+      border-color: rgba(103, 232, 249, 0.40);
+      box-shadow: 0 8px 40px rgba(2, 8, 20, 0.5), 0 0 28px rgba(103, 232, 249, 0.10);
+      transform: translateY(-4px);
     }
 
-    /* Nav link */
-    .nav-link {
-      color: #94a3b8;
-      transition: color 0.2s;
-    }
+    .nav-link { color: #8fb3cc; transition: color 0.2s; }
     .nav-link:hover { color: #fff; }
 
-    /* Experience timeline dot */
+    /* Dive line: experience timeline as a descent rope with sonar pings */
     .timeline-entry {
-      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 1px solid rgba(125, 211, 252, 0.15);
       padding-left: 2rem;
       position: relative;
     }
@@ -116,80 +137,132 @@
       content: '';
       position: absolute;
       left: -5px;
-      top: 4px;
+      top: 5px;
       width: 9px;
       height: 9px;
-      background: #3B82F6;
+      background: #67e8f9;
       border-radius: 50%;
+      box-shadow: 0 0 10px rgba(103, 232, 249, 0.7);
+    }
+    .timeline-entry:hover::after {
+      content: '';
+      position: absolute;
+      left: -13px;
+      top: -3px;
+      width: 25px;
+      height: 25px;
+      border: 1px solid rgba(103, 232, 249, 0.5);
+      border-radius: 50%;
+      animation: ping 1.4s ease-out infinite;
+    }
+    @keyframes ping {
+      from { transform: scale(0.35); opacity: 1; }
+      to   { transform: scale(1.6); opacity: 0; }
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: #050816; }
-    ::-webkit-scrollbar-thumb { background: #3B82F6; border-radius: 2px; }
+    ::-webkit-scrollbar-track { background: #030917; }
+    ::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 2px; }
+    ::selection { background: rgba(56, 189, 248, 0.35); }
 
-    /* Scroll-top button */
-    #scroll-top {
+    #surface-btn {
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s;
     }
-    #scroll-top.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    #surface-btn.visible { opacity: 1; pointer-events: auto; }
 
-    /* Nav backdrop */
     #navbar {
-      background: rgba(5, 8, 22, 0.7);
+      background: rgba(6, 16, 32, 0.6);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
 
-    /* Mobile menu */
-    #mobile-menu {
-      display: none;
-    }
-    #mobile-menu.open {
-      display: flex;
-    }
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
 
-    /* Profile image wrapper offset border */
-    .profile-wrapper {
-      position: relative;
-      display: inline-block;
-    }
+    .profile-wrapper { position: relative; display: inline-block; }
     .profile-wrapper::after {
       content: '';
       position: absolute;
       inset: 0;
-      border: 2px solid rgba(59, 130, 246, 0.35);
+      border: 2px solid rgba(103, 232, 249, 0.30);
       border-radius: 1rem;
       transform: translate(10px, 10px);
       z-index: -1;
     }
 
-    /* Noise texture overlay on hero */
-    .hero-noise {
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 150px 150px;
+    /* Depth gauge (right rail, desktop only) */
+    #gauge {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      pointer-events: none;
+    }
+    #gauge-track {
+      position: relative;
+      width: 1px;
+      height: 130px;
+      background: rgba(125, 211, 252, 0.18);
+    }
+    #gauge-marker {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 7px;
+      height: 7px;
+      transform: translate(-50%, -50%);
+      background: #67e8f9;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(103, 232, 249, 0.8);
+    }
+    .gauge-label {
+      writing-mode: vertical-rl;
+      letter-spacing: 0.25em;
+    }
+
+    /* Canvases */
+    #sea {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    #waves { position: absolute; inset: 0; }
+    main, footer, header { position: relative; z-index: 1; }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #67e8f9;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .light-rays, .timeline-entry:hover::after { animation: none; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- Ambient particles: bubbles in the shallows, marine snow in the deep -->
+  <canvas id="sea" aria-hidden="true"></canvas>
+
   <!-- ===== NAVBAR ===== -->
-  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.04]">
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-cyan-200/[0.06]">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
-      <!-- Logo -->
-      <a href="#hero" class="font-display font-bold text-xl tracking-tight">
-        IA<span class="text-blue-400">.</span>
+      <a href="#hero" class="font-display font-semibold text-xl tracking-tight">
+        IA<span class="text-biolume">.</span>
       </a>
 
-      <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
         <a href="#about" class="nav-link">About</a>
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#experience" class="nav-link">Experience</a>
@@ -199,7 +272,6 @@
         <a href="#writing" class="nav-link">Writing</a>
       </nav>
 
-      <!-- Social + mobile toggle -->
       <div class="flex items-center gap-5">
         <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub" class="nav-link text-lg"><i class="bi bi-github"></i></a>
         <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn" class="nav-link text-lg"><i class="bi bi-linkedin"></i></a>
@@ -209,8 +281,7 @@
       </div>
     </div>
 
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="flex-col md:hidden px-6 pb-5 gap-4 text-sm font-medium border-t border-white/[0.04]">
+    <div id="mobile-menu" class="flex-col md:hidden px-6 pb-5 gap-4 text-sm font-medium border-t border-cyan-200/[0.06]">
       <a href="#about" class="nav-link pt-4">About</a>
       <a href="#skills" class="nav-link">Skills</a>
       <a href="#experience" class="nav-link">Experience</a>
@@ -222,66 +293,77 @@
   </header>
 
 
-  <!-- ===== HERO ===== -->
-  <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-16 pt-20 hero-noise overflow-hidden">
+  <!-- Depth gauge -->
+  <div id="gauge" class="hidden lg:flex" aria-hidden="true">
+    <span id="gauge-depth" class="font-mono text-[11px] text-cyan-200/80 tracking-widest">0000 M</span>
+    <div id="gauge-track"><div id="gauge-marker"></div></div>
+    <span id="gauge-zone" class="gauge-label font-mono text-[10px] text-cyan-300/50">SURFACE</span>
+  </div>
 
-    <!-- Background glow -->
-    <div class="absolute top-1/3 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl pointer-events-none"></div>
 
-    <div class="max-w-6xl mx-auto w-full relative">
+  <main>
 
-      <p class="text-blue-400 text-xs font-semibold tracking-[0.25em] uppercase mb-8" data-aos="fade-up">
-        Harvard University &nbsp;·&nbsp; CS &amp; Economics
+  <!-- ===== HERO: the waterline ===== -->
+  <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-16 pt-20 overflow-hidden">
+
+    <div class="light-rays"></div>
+    <canvas id="waves" aria-hidden="true"></canvas>
+
+    <div class="max-w-6xl mx-auto w-full relative z-10">
+
+      <p class="font-mono text-cyan-300/80 text-xs tracking-[0.3em] uppercase mb-8" data-aos="fade-up">
+        Harvard University · CS &amp; Economics
       </p>
 
-      <h1 class="font-display font-bold text-[clamp(3rem,10vw,8rem)] leading-[0.95] tracking-tight gradient-text mb-8" data-aos="fade-up" data-aos-delay="80">
+      <h1 class="font-display font-semibold text-[clamp(3rem,10vw,7.5rem)] leading-[0.95] tracking-tight gradient-text mb-8" data-aos="fade-up" data-aos-delay="80">
         Isabella<br>Andrade
       </h1>
 
-      <div class="text-xl md:text-2xl text-slate-400 mb-4 h-8" data-aos="fade-up" data-aos-delay="160">
-        <span class="typed text-white font-medium" data-typed-items="Full-Stack Engineer, AI x Energy Believer, Curious by Design, Venture Fellow  "></span>
+      <div class="text-xl md:text-2xl text-slate-300 mb-4 h-8" data-aos="fade-up" data-aos-delay="160">
+        <span class="typed text-white font-medium" data-typed-items="Student Founder, AI Product Builder, Venture Fellow, Ocean Person  "></span>
       </div>
 
-      <p class="text-slate-500 text-base mb-12 max-w-lg" data-aos="fade-up" data-aos-delay="220">
+      <p class="text-slate-400/80 text-base mb-12 max-w-lg" data-aos="fade-up" data-aos-delay="220">
         Life is not fair but I fight to make it fair.
       </p>
 
       <div class="flex flex-wrap items-center gap-4" data-aos="fade-up" data-aos-delay="300">
         <a href="#about"
-           class="bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-7 py-3 rounded-full transition-colors">
-          About Me
+           class="bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold px-7 py-3 rounded-full transition-colors shadow-[0_0_24px_rgba(56,189,248,0.35)]">
+          Dive In
         </a>
         <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank"
-           class="border border-white/15 hover:border-blue-400/60 text-slate-300 hover:text-white text-sm font-semibold px-7 py-3 rounded-full transition-colors">
+           class="border border-cyan-100/15 hover:border-biolume/60 text-slate-300 hover:text-white text-sm font-semibold px-7 py-3 rounded-full transition-colors">
           Connect
         </a>
       </div>
     </div>
 
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 text-xs" data-aos="fade-up" data-aos-delay="500">
-      <span class="tracking-widest uppercase text-[10px]">Scroll</span>
+    <p class="hidden md:block absolute right-10 bottom-[34%] font-mono text-[10px] tracking-[0.2em] text-cyan-200/40 z-10" data-aos="fade" data-aos-delay="700">
+      (the water follows your cursor)
+    </p>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cyan-200/50 text-xs z-10" data-aos="fade-up" data-aos-delay="500">
+      <span class="font-mono tracking-[0.3em] uppercase text-[10px]">Dive</span>
       <i class="bi bi-chevron-down animate-bounce text-sm"></i>
     </div>
   </section>
 
 
-  <!-- ===== ABOUT ===== -->
+  <!-- ===== ABOUT · sunlight zone ===== -->
   <section id="about" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <!-- Section heading -->
-      <div class="flex items-center gap-4 mb-20" data-aos="fade-up">
-        <span class="font-display font-bold text-blue-400 text-sm tracking-widest">01</span>
-        <div class="w-px h-5 bg-blue-400/40"></div>
-        <h2 class="font-display font-bold text-4xl md:text-5xl">About Me</h2>
-        <div class="flex-1 h-px bg-white/[0.06] ml-4 hidden md:block"></div>
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
+        <div>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-sky-300/70 mb-3">−0010 M · SUNLIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">About Me</h2>
+        </div>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
       </div>
 
       <div class="grid md:grid-cols-2 gap-16 items-center">
 
-        <!-- Photo -->
         <div class="flex justify-center md:justify-start" data-aos="fade-right">
           <div class="profile-wrapper">
             <img
@@ -292,32 +374,33 @@
           </div>
         </div>
 
-        <!-- Bio -->
         <div data-aos="fade-left">
-          <p class="text-slate-300 text-lg leading-relaxed mb-5">
-            I'm a Harvard student pursuing a double A.B. in Computer Science and Economics, passionate about ethical AI — especially AI safety and governance.
+          <p class="text-slate-200 text-lg leading-relaxed mb-5">
+            I'm a Harvard student pursuing a double A.B. in Computer Science and Economics. I build AI tools, research their failure modes, and study the markets they're reshaping.
           </p>
-          <p class="text-slate-400 leading-relaxed mb-10">
-            With experience as a software developer and venture fellow, I bridge the gap between building AI systems and understanding their market and societal impact. I've explored AI's implications in healthcare and clean energy — areas where I believe transformative growth is imminent.
+          <p class="text-slate-400 leading-relaxed mb-5">
+            Currently a student founder with TekTrek in San Francisco and an incoming Product Experience Specialist at Lovable — with past lives in software engineering at Verapath, healthcare LLM research at Harvard Medical School, and venture fellowships at Glade Brook and Milemark.
+          </p>
+          <p class="font-display italic text-cyan-200/90 text-lg leading-relaxed mb-10">
+            Happiest near the ocean — which is why you're currently ten meters underwater.
           </p>
 
-          <!-- Quick stats -->
           <div class="grid grid-cols-2 gap-6">
             <div>
-              <p class="text-[10px] text-slate-600 uppercase tracking-widest mb-1">Location</p>
+              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Location</p>
               <p class="text-white text-sm font-medium">Cambridge, MA</p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-600 uppercase tracking-widest mb-1">University</p>
+              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">University</p>
               <p class="text-white text-sm font-medium">Harvard College</p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-600 uppercase tracking-widest mb-1">Email</p>
+              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Email</p>
               <p class="text-white text-sm font-medium break-all">isabellaandrade@college.harvard.edu</p>
             </div>
             <div>
-              <p class="text-[10px] text-slate-600 uppercase tracking-widest mb-1">Focus</p>
-              <p class="text-white text-sm font-medium">AI Safety · Clean Energy · VC</p>
+              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Focus</p>
+              <p class="text-white text-sm font-medium">AI Tooling · Venture · Product</p>
             </div>
           </div>
         </div>
@@ -326,53 +409,52 @@
   </section>
 
 
-  <!-- ===== SKILLS ===== -->
-  <section id="skills" class="py-32 px-6 md:px-16 bg-white/[0.015]">
+  <!-- ===== SKILLS · sunlight zone ===== -->
+  <section id="skills" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-center gap-4 mb-20" data-aos="fade-up">
-        <span class="font-display font-bold text-blue-400 text-sm tracking-widest">02</span>
-        <div class="w-px h-5 bg-blue-400/40"></div>
-        <h2 class="font-display font-bold text-4xl md:text-5xl">Skills</h2>
-        <div class="flex-1 h-px bg-white/[0.06] ml-4 hidden md:block"></div>
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
+        <div>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-sky-300/70 mb-3">−0150 M · SUNLIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Skills</h2>
+        </div>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-10">
 
         <div data-aos="fade-up" data-aos-delay="0">
-          <h3 class="text-[10px] text-blue-400 uppercase tracking-[0.2em] font-semibold mb-5">Languages</h3>
+          <h3 class="font-mono text-[10px] text-sky-300/80 uppercase tracking-[0.2em] mb-5">Languages &amp; Data</h3>
           <div class="flex flex-wrap gap-2">
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Python</span>
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">C#</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">JavaScript</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">TypeScript</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Java</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">C++</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">R</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">HTML/CSS</span>
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">SQL</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Excel</span>
           </div>
         </div>
 
         <div data-aos="fade-up" data-aos-delay="100">
-          <h3 class="text-[10px] text-blue-400 uppercase tracking-[0.2em] font-semibold mb-5">Frameworks & Tools</h3>
+          <h3 class="font-mono text-[10px] text-sky-300/80 uppercase tracking-[0.2em] mb-5">Web &amp; Tools</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Next.js</span>
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">React</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Spring Boot</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">EF Core</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">MySQL</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">MongoDB</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Git</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Next.js</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Blazor</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Razor Pages</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Git &amp; GitHub</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Azure DevOps</span>
           </div>
         </div>
 
         <div data-aos="fade-up" data-aos-delay="200">
-          <h3 class="text-[10px] text-blue-400 uppercase tracking-[0.2em] font-semibold mb-5">AI / Research</h3>
+          <h3 class="font-mono text-[10px] text-sky-300/80 uppercase tracking-[0.2em] mb-5">AI Tools</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">OpenAI API</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Meta Llama 3</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">RLHF</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Prompt Engineering</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">AI Safety</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Market Research</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Claude Code</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Codex</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Windsurf</span>
+            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Lovable</span>
           </div>
         </div>
 
@@ -381,85 +463,133 @@
   </section>
 
 
-  <!-- ===== EXPERIENCE ===== -->
+  <!-- ===== EXPERIENCE · twilight zone ===== -->
   <section id="experience" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-center gap-4 mb-20" data-aos="fade-up">
-        <span class="font-display font-bold text-blue-400 text-sm tracking-widest">03</span>
-        <div class="w-px h-5 bg-blue-400/40"></div>
-        <h2 class="font-display font-bold text-4xl md:text-5xl">Experience</h2>
-        <div class="flex-1 h-px bg-white/[0.06] ml-4 hidden md:block"></div>
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
+        <div>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-aqua/80 mb-3">−0400 M · TWILIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Experience</h2>
+        </div>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
       </div>
 
       <div class="space-y-14">
 
+        <!-- Lovable -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="font-mono text-aqua text-sm">Aug 2026</p>
+          </div>
+          <div class="timeline-entry">
+            <h3 class="font-display font-semibold text-xl mb-1">Incoming Product Experience Specialist</h3>
+            <a href="https://lovable.dev/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Lovable <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Joining Lovable to work at the edge of AI-assisted software creation.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TekTrek -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="font-mono text-aqua text-sm">Jun 2026 – Present</p>
+          </div>
+          <div class="timeline-entry">
+            <h3 class="font-display font-semibold text-xl mb-1">Student Founder</h3>
+            <p class="text-aqua text-sm font-medium mb-5">TekTrek</p>
+            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Selected as one of forty young builders from MIT, Harvard, and Princeton — out of 400+ applicants — to spend the summer building in San Francisco.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Glade Brook -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="font-mono text-aqua text-sm">Mar – May 2026</p>
+          </div>
+          <div class="timeline-entry">
+            <h3 class="font-display font-semibold text-xl mb-1">Spring Fellow</h3>
+            <p class="text-aqua text-sm font-medium mb-5">Glade Brook Capital</p>
+            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Built an internal knowledge-management tool to centralize firm-wide research — owned it from problem identification through deployment.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Produced a research brief on AI in the sciences for investment partners, including a deep dive on orbital data center technology for a portfolio company.
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <!-- Y Lab -->
         <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
-            <p class="text-blue-400 text-sm font-medium">Jan 2026 – Present</p>
+            <p class="font-mono text-aqua text-sm">Jan – Jun 2026</p>
           </div>
           <div class="timeline-entry">
-            <h3 class="font-display font-bold text-xl mb-1">Research Assistant</h3>
-            <a href="https://ylab.top/" target="_blank" class="text-blue-400 text-sm font-medium mb-5 inline-block hover:text-blue-300 transition-colors">Y Lab, Harvard Medical School <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <h3 class="font-display font-semibold text-xl mb-1">Research Assistant</h3>
+            <a href="https://ylab.top/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Y Lab, Harvard Medical School <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
-                Conducting a PRISMA-guided systematic literature review on demographic bias in healthcare LLM applications, synthesizing how studies define and measure bias.
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Ran a PRISMA-guided systematic review on demographic bias in healthcare LLMs — screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.
               </li>
               <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
-                Queried PubMed and ran a multi-stage screening pipeline; screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Translated technical ML findings for a clinical audience; co-authoring a manuscript for publication this fall.
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- AIR Inc -->
+        <!-- Verapath -->
         <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
-            <p class="text-blue-400 text-sm font-medium">June 2024 – Jan 2026</p>
+            <p class="font-mono text-aqua text-sm">Jun 2024 – Jan 2026</p>
           </div>
           <div class="timeline-entry">
-            <h3 class="font-display font-bold text-xl mb-1">Software Developer Intern</h3>
-            <a href="https://www.aicrisk.com/" target="_blank" class="text-blue-400 text-sm font-medium mb-5 inline-block hover:text-blue-300 transition-colors">Artificial Intelligence Risk Inc. <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <h3 class="font-display font-semibold text-xl mb-1">Software Engineer Intern</h3>
+            <p class="text-aqua text-sm font-medium mb-5">Verapath</p>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
-                Integrated Meta Llama 3 and OpenAI GPT-4o mini into a production platform using C#, MySQL, and EF Core to expand client-facing capabilities.
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Prototyped prompt-based agents with OpenAI Codex as a pair-programming tool, validating outputs against structured evaluation criteria and stakeholder feedback.
               </li>
               <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
-                Built prompt-based agents for AI risk mitigation (e.g. "Financial Wiz Agent") with structured prompts, evaluation criteria, and safety-focused outputs.
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Improved front-end responsiveness by auditing stylesheet load order, refactoring media queries, and resolving UI issues across the full stack.
               </li>
               <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
-                Created a repeatable testing workflow for main-branch deployments to reduce regression risk and improve release confidence.
-              </li>
-              <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
-                Configured EF Core DbContext and code-first migrations; automated database wipes and repopulation with SQL scripts for reliable environments.
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Translated product requirements into scoped work items in Azure DevOps, managing execution and surfacing blockers early.
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- Milemark Capital -->
+        <!-- Milemark -->
         <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
-            <p class="text-blue-400 text-sm font-medium">May – Aug 2025</p>
+            <p class="font-mono text-aqua text-sm">May – Aug 2025</p>
           </div>
           <div class="timeline-entry">
-            <h3 class="font-display font-bold text-xl mb-1">Venture Fellow</h3>
-            <p class="text-blue-400 text-sm font-medium mb-5">Milemark Capital</p>
+            <h3 class="font-display font-semibold text-xl mb-1">Venture Fellow</h3>
+            <p class="text-aqua text-sm font-medium mb-5">Milemark Capital</p>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
-                Led market research on agentic AI across healthcare, fintech, and agtech; synthesized findings into investment memos and client-ready presentations.
-              </li>
-              <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
-                Supported due diligence for early-stage companies by analyzing business models, financials, product differentiation, and technical feasibility.
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Tracked agentic AI adoption across healthcare, fintech, and agtech; synthesized patterns into concise written briefs for investors.
               </li>
             </ul>
           </div>
@@ -468,18 +598,18 @@
         <!-- Goldman Sachs -->
         <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
-            <p class="text-blue-400 text-sm font-medium">Sep 2024 – Jan 2025</p>
+            <p class="font-mono text-aqua text-sm">Sep 2024 – Jan 2025</p>
           </div>
           <div class="timeline-entry">
-            <h3 class="font-display font-bold text-xl mb-1">Engineering Leader</h3>
-            <p class="text-blue-400 text-sm font-medium mb-5">Goldman Sachs Emerging Leaders Program</p>
+            <h3 class="font-display font-semibold text-xl mb-1">Engineering Leader</h3>
+            <p class="text-aqua text-sm font-medium mb-5">Goldman Sachs Emerging Leaders Program</p>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
-                Developed a mutual fund calculator using Spring Boot, MongoDB, and Next.js; modeled projected returns using CAPM and compound interest.
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
+                Developed a mutual fund calculator with Spring Boot, MongoDB, and Next.js — modeled projected returns using CAPM and compound interest.
               </li>
               <li class="flex gap-3">
-                <span class="text-blue-500 shrink-0 mt-0.5">▸</span>
+                <span class="text-biolume shrink-0 mt-0.5">▸</span>
                 Presented the project at the Goldman Sachs Dallas summit.
               </li>
             </ul>
@@ -491,15 +621,16 @@
   </section>
 
 
-  <!-- ===== PROJECTS ===== -->
-  <section id="projects" class="py-32 px-6 md:px-16 bg-white/[0.015]">
+  <!-- ===== PROJECTS · midnight zone ===== -->
+  <section id="projects" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-center gap-4 mb-20" data-aos="fade-up">
-        <span class="font-display font-bold text-blue-400 text-sm tracking-widest">04</span>
-        <div class="w-px h-5 bg-blue-400/40"></div>
-        <h2 class="font-display font-bold text-4xl md:text-5xl">Projects</h2>
-        <div class="flex-1 h-px bg-white/[0.06] ml-4 hidden md:block"></div>
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
+        <div>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−1200 M · MIDNIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Projects</h2>
+        </div>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
       </div>
 
       <div class="grid md:grid-cols-2 gap-5">
@@ -507,18 +638,36 @@
         <!-- Passio Go -->
         <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="0">
           <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
-              <i class="bi bi-phone text-blue-400"></i>
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
+              <i class="bi bi-phone text-aqua"></i>
             </div>
             <div class="flex gap-2">
-              <span class="text-xs text-slate-500 bg-white/5 px-3 py-1 rounded-full">HTML</span>
-              <span class="text-xs text-slate-500 bg-white/5 px-3 py-1 rounded-full">JavaScript</span>
+              <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">HTML</span>
+              <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">JavaScript</span>
             </div>
           </div>
-          <h3 class="font-display font-bold text-lg mb-1">Passio Go — Harvard Upgrade</h3>
+          <h3 class="font-display font-semibold text-lg mb-1">Passio Go — Harvard Upgrade</h3>
           <p class="text-slate-400 text-sm leading-relaxed mb-5">Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.</p>
-          <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" class="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors">
+          <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors">
             View Project <i class="bi bi-arrow-up-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- This site -->
+        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
+              <i class="bi bi-water text-aqua"></i>
+            </div>
+            <div class="flex gap-2">
+              <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Canvas</span>
+              <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Vanilla JS</span>
+            </div>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">This Site</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">You're swimming in it. A hand-built ocean: waves that follow your cursor, bubbles that turn to marine snow as you descend, and a working depth gauge — no frameworks, just canvas.</p>
+          <a href="https://github.com/ilandrade" target="_blank" class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors">
+            View GitHub <i class="bi bi-arrow-up-right text-xs"></i>
           </a>
         </div>
 
@@ -527,59 +676,60 @@
   </section>
 
 
-  <!-- ===== LEADERSHIP ===== -->
+  <!-- ===== LEADERSHIP · midnight zone ===== -->
   <section id="leadership" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-center gap-4 mb-20" data-aos="fade-up">
-        <span class="font-display font-bold text-blue-400 text-sm tracking-widest">05</span>
-        <div class="w-px h-5 bg-blue-400/40"></div>
-        <h2 class="font-display font-bold text-4xl md:text-5xl">Leadership</h2>
-        <div class="flex-1 h-px bg-white/[0.06] ml-4 hidden md:block"></div>
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
+        <div>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−2500 M · MIDNIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Leadership</h2>
+        </div>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
       </div>
 
       <div class="grid md:grid-cols-2 gap-5">
 
-        <!-- HUCEG -->
+        <!-- Massachusetts AI Coalition -->
         <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="0">
           <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
-              <i class="bi bi-sun text-blue-400"></i>
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
+              <i class="bi bi-diagram-3 text-aqua"></i>
             </div>
-            <span class="text-xs text-slate-500 bg-white/5 px-3 py-1 rounded-full">Jul 2024 – Present</span>
+            <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Mar 2026 – Present</span>
           </div>
-          <h3 class="font-display font-bold text-lg mb-1">SCOUT Program Co-Director</h3>
-          <p class="text-blue-400 text-sm mb-4">Harvard Undergraduate Clean Energy Group</p>
+          <h3 class="font-display font-semibold text-lg mb-1">Anchor Initiative Student Lead</h3>
+          <p class="text-aqua text-sm mb-4">Massachusetts AI Coalition</p>
           <p class="text-slate-400 text-sm leading-relaxed">
-            Launched HUCEG's first VC education program — designed and led a semester-long curriculum and produced clean-energy market research briefs for VC partners.
+            Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.
           </p>
         </div>
 
-        <!-- HCS Tech for Social Good -->
+        <!-- HUCEG -->
         <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
           <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
-              <i class="bi bi-code-slash text-blue-400"></i>
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
+              <i class="bi bi-sun text-aqua"></i>
             </div>
-            <span class="text-xs text-slate-500 bg-white/5 px-3 py-1 rounded-full">Feb – Aug 2024</span>
+            <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Jul 2025 – Present</span>
           </div>
-          <h3 class="font-display font-bold text-lg mb-1">Software Engineer & Ethics Researcher</h3>
-          <p class="text-blue-400 text-sm mb-4">Harvard Computer Society Tech for Social Good</p>
+          <h3 class="font-display font-semibold text-lg mb-1">SCOUT Program Co-Director</h3>
+          <p class="text-aqua text-sm mb-4">Harvard Undergraduate Clean Energy Group</p>
           <p class="text-slate-400 text-sm leading-relaxed">
-            Built an upgraded fund simulator for Matanataki Strategy tracking 15-year financial and environmental outcomes. Researched ethical implications of AI in hospitals and drafted policy proposals for Fight for the Future.
+            Founded HUCEG's first VC education program from scratch — designed the curriculum, recruited analysts, and run research workflows across four clean-energy verticals as the cohort's primary point of contact.
           </p>
         </div>
 
         <!-- SHPE -->
         <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="160">
           <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
-              <i class="bi bi-people text-blue-400"></i>
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
+              <i class="bi bi-people text-aqua"></i>
             </div>
-            <span class="text-xs text-slate-500 bg-white/5 px-3 py-1 rounded-full">Jul 2024 – Present</span>
+            <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Jul 2024 – Present</span>
           </div>
-          <h3 class="font-display font-bold text-lg mb-1">Junior Outreach Representative</h3>
-          <p class="text-blue-400 text-sm mb-4">Society of Hispanic Professional Engineers (SHPE)</p>
+          <h3 class="font-display font-semibold text-lg mb-1">Junior Outreach Representative</h3>
+          <p class="text-aqua text-sm mb-4">Society of Hispanic Professional Engineers (SHPE)</p>
           <p class="text-slate-400 text-sm leading-relaxed">
             Planned and executed outreach and service events with campus and community partners; managed logistics to support engagement with underrepresented students in STEM.
           </p>
@@ -588,13 +738,13 @@
         <!-- Harvard AI Safety Team -->
         <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="240">
           <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
-              <i class="bi bi-shield-check text-blue-400"></i>
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
+              <i class="bi bi-shield-check text-aqua"></i>
             </div>
-            <span class="text-xs text-slate-500 bg-white/5 px-3 py-1 rounded-full">Jul – Aug 2023</span>
+            <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Jul – Aug 2023</span>
           </div>
-          <h3 class="font-display font-bold text-lg mb-1">Technical Fellowship</h3>
-          <p class="text-blue-400 text-sm mb-4">Harvard AI Safety Team</p>
+          <h3 class="font-display font-semibold text-lg mb-1">Technical Fellowship</h3>
+          <p class="text-aqua text-sm mb-4">Harvard AI Safety Team</p>
           <p class="text-slate-400 text-sm leading-relaxed">
             Synthesized research on interpretability, RLHF, goal misgeneralization, and eliciting latent knowledge; shared takeaways with a 5-member cohort over 8 weeks.
           </p>
@@ -605,54 +755,57 @@
   </section>
 
 
-  <!-- ===== EDUCATION ===== -->
+  <!-- ===== EDUCATION · abyss ===== -->
   <section id="education" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-center gap-4 mb-20" data-aos="fade-up">
-        <span class="font-display font-bold text-blue-400 text-sm tracking-widest">06</span>
-        <div class="w-px h-5 bg-blue-400/40"></div>
-        <h2 class="font-display font-bold text-4xl md:text-5xl">Education</h2>
-        <div class="flex-1 h-px bg-white/[0.06] ml-4 hidden md:block"></div>
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
+        <div>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−3800 M · ABYSS</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Education</h2>
+        </div>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-5">
-
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="0">
-          <i class="bi bi-mortarboard text-blue-400 text-2xl mb-5 block"></i>
-          <h3 class="font-display font-bold text-lg mb-1">A.B. Computer Science</h3>
-          <p class="text-blue-400 text-sm mb-3">Harvard College</p>
-          <p class="text-slate-500 text-sm">2023 – 2027 &nbsp;·&nbsp; Cambridge, MA</p>
+      <div class="card rounded-2xl p-8 md:p-10" data-aos="fade-up">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0">
+              <i class="bi bi-mortarboard text-aqua text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-display font-semibold text-2xl mb-1">A.B. Computer Science &amp; Economics</h3>
+              <p class="text-aqua text-sm">Harvard University</p>
+            </div>
+          </div>
+          <p class="font-mono text-slate-500 text-sm shrink-0 md:pt-3">Expected May 2027 · Cambridge, MA</p>
         </div>
 
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
-          <i class="bi bi-graph-up text-blue-400 text-2xl mb-5 block"></i>
-          <h3 class="font-display font-bold text-lg mb-1">A.B. Economics</h3>
-          <p class="text-blue-400 text-sm mb-3">Harvard College</p>
-          <p class="text-slate-500 text-sm">2023 – 2027 &nbsp;·&nbsp; Cambridge, MA</p>
+        <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-4 md:ml-[68px]">Relevant Coursework</p>
+        <div class="flex flex-wrap gap-2 md:ml-[68px]">
+          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Data Structures &amp; Algorithms</span>
+          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Systems Programming &amp; Machine Organization</span>
+          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Economics &amp; Computation</span>
+          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Probability with Engineering Applications</span>
+          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Linear Algebra</span>
+          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Discrete Mathematics</span>
+          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Calculus 2</span>
         </div>
-
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="160">
-          <i class="bi bi-building text-blue-400 text-2xl mb-5 block"></i>
-          <h3 class="font-display font-bold text-lg mb-1">High School Diploma</h3>
-          <p class="text-blue-400 text-sm mb-3">Quince Orchard High School</p>
-          <p class="text-slate-500 text-sm">2019 – 2023 &nbsp;·&nbsp; North Potomac, MD</p>
-        </div>
-
       </div>
     </div>
   </section>
 
 
-  <!-- ===== WRITING ===== -->
-  <section id="writing" class="py-32 px-6 md:px-16 bg-white/[0.015]">
+  <!-- ===== WRITING · abyss ===== -->
+  <section id="writing" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-center gap-4 mb-20" data-aos="fade-up">
-        <span class="font-display font-bold text-blue-400 text-sm tracking-widest">07</span>
-        <div class="w-px h-5 bg-blue-400/40"></div>
-        <h2 class="font-display font-bold text-4xl md:text-5xl">Writing</h2>
-        <div class="flex-1 h-px bg-white/[0.06] ml-4 hidden md:block"></div>
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
+        <div>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−5000 M · ABYSS</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Writing</h2>
+        </div>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
       </div>
 
       <div class="space-y-5">
@@ -661,16 +814,16 @@
         <div class="card rounded-2xl p-7" data-aos="fade-up">
           <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
             <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shrink-0 mt-0.5">
-                <i class="bi bi-file-earmark-text text-blue-400"></i>
+              <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
+                <i class="bi bi-file-earmark-text text-aqua"></i>
               </div>
               <div>
-                <h3 class="font-display font-bold text-lg mb-1">Political Voices: Deepfakes and the Future of Democracy</h3>
-                <p class="text-blue-400 text-sm">CS 1050: Privacy and Surveillance</p>
+                <h3 class="font-display font-semibold text-lg mb-1">Political Voices: Deepfakes and the Future of Democracy</h3>
+                <p class="text-aqua text-sm">CS 1050: Privacy and Surveillance</p>
               </div>
             </div>
             <a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank"
-               class="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors shrink-0">
+               class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors shrink-0">
               Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
             </a>
           </div>
@@ -683,16 +836,16 @@
         <div class="card rounded-2xl p-7" data-aos="fade-up">
           <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
             <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shrink-0 mt-0.5">
-                <i class="bi bi-file-earmark-text text-blue-400"></i>
+              <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
+                <i class="bi bi-file-earmark-text text-aqua"></i>
               </div>
               <div>
-                <h3 class="font-display font-bold text-lg mb-1">Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</h3>
-                <p class="text-blue-400 text-sm">Economics 1343: The Economics of Development and Global Health</p>
+                <h3 class="font-display font-semibold text-lg mb-1">Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</h3>
+                <p class="text-aqua text-sm">Economics 1343: The Economics of Development and Global Health</p>
               </div>
             </div>
             <a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank"
-               class="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors shrink-0">
+               class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors shrink-0">
               Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
             </a>
           </div>
@@ -705,27 +858,33 @@
     </div>
   </section>
 
+  </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="py-14 px-6 border-t border-white/[0.04] text-center">
-    <p class="font-display font-bold text-2xl mb-5">
-      Isabella Andrade<span class="text-blue-400">.</span>
+
+  <!-- ===== FOOTER · seafloor ===== -->
+  <footer class="py-16 px-6 border-t border-cyan-200/[0.05] text-center">
+    <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/60 mb-6">−6000 M · SEAFLOOR</p>
+    <p class="font-display font-semibold text-2xl mb-2">
+      Isabella Andrade<span class="text-biolume">.</span>
     </p>
-    <div class="flex justify-center gap-6 mb-6">
-      <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" class="text-slate-500 hover:text-white transition-colors text-xl">
+    <p class="font-display italic text-slate-500 text-sm mb-6">You've reached the bottom. Thanks for diving in.</p>
+    <div class="flex justify-center gap-6 mb-8">
+      <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn" class="text-slate-500 hover:text-white transition-colors text-xl">
         <i class="bi bi-linkedin"></i>
       </a>
-      <a href="https://github.com/ilandrade" target="_blank" class="text-slate-500 hover:text-white transition-colors text-xl">
+      <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub" class="text-slate-500 hover:text-white transition-colors text-xl">
         <i class="bi bi-github"></i>
       </a>
     </div>
-    <p class="text-slate-700 text-xs">Built with Tailwind CSS</p>
+    <a href="#hero" class="font-mono text-[11px] tracking-[0.2em] text-cyan-300/60 hover:text-biolume transition-colors uppercase">
+      Back to the surface ↑
+    </a>
   </footer>
 
 
-  <!-- Scroll Top -->
-  <a href="#hero" id="scroll-top"
-     class="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors z-40">
+  <!-- Surface button -->
+  <a href="#hero" id="surface-btn" aria-label="Back to the surface"
+     class="fixed bottom-6 right-6 bg-sky-500 hover:bg-sky-400 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors z-40 shadow-[0_0_20px_rgba(56,189,248,0.4)]">
     <i class="bi bi-arrow-up-short text-lg"></i>
   </a>
 
@@ -735,37 +894,257 @@
   <script src="assets/vendor/typed.js/typed.umd.js"></script>
 
   <script>
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // AOS
-    AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60 });
+    AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60, disable: reducedMotion });
 
     // Typed.js
     const typedEl = document.querySelector('.typed');
     if (typedEl) {
-      new Typed('.typed', {
-        strings: typedEl.getAttribute('data-typed-items').split(','),
-        loop: true,
-        typeSpeed: 55,
-        backSpeed: 28,
-        backDelay: 2200,
-      });
+      const items = typedEl.getAttribute('data-typed-items').split(',');
+      if (reducedMotion) {
+        typedEl.textContent = items[0].trim();
+      } else {
+        new Typed('.typed', {
+          strings: items,
+          loop: true,
+          typeSpeed: 55,
+          backSpeed: 28,
+          backDelay: 2200,
+        });
+      }
     }
-
-    // Scroll-top button
-    const scrollBtn = document.getElementById('scroll-top');
-    window.addEventListener('scroll', () => {
-      scrollBtn.classList.toggle('visible', window.scrollY > 500);
-    });
 
     // Mobile menu
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-    });
-    // Close mobile menu when a link is clicked
+    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => mobileMenu.classList.remove('open'));
     });
+
+    // ============================================================
+    // THE WATERLINE — interactive wave surface in the hero
+    // ============================================================
+    (function () {
+      const hero = document.getElementById('hero');
+      const canvas = document.getElementById('waves');
+      const ctx = canvas.getContext('2d');
+      let W = 0, H = 0;
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = hero.clientWidth;
+        H = hero.clientHeight;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', () => { resize(); if (reducedMotion) draw(); });
+
+      const waterY = () => H * 0.62;
+
+      const mouse = { x: -9999, y: -9999 };
+      hero.addEventListener('pointermove', (e) => {
+        const r = hero.getBoundingClientRect();
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+      });
+      hero.addEventListener('pointerleave', () => { mouse.x = -9999; });
+
+      // Click near the waterline -> ripple rings
+      const ripples = [];
+      hero.addEventListener('pointerdown', (e) => {
+        if (reducedMotion) return;
+        const r = hero.getBoundingClientRect();
+        const y = e.clientY - r.top;
+        if (y > waterY() - 80) ripples.push({ x: e.clientX - r.left, y: y, r: 5, a: 0.55 });
+      });
+
+      const layers = [
+        { amp: 10, len: 0.011,  speed: 0.9,  off: 0,   drop: 0,  fill: 'rgba(103, 232, 249, 0.055)' },
+        { amp: 15, len: 0.008,  speed: -0.55, off: 2.1, drop: 16, fill: 'rgba(56, 189, 248, 0.075)' },
+        { amp: 22, len: 0.0052, speed: 0.38, off: 4.4, drop: 34, fill: 'rgba(2, 132, 199, 0.10)' },
+      ];
+
+      // Cursor pushes the surface down where it hovers
+      function bump(x) {
+        if (mouse.x < -999) return 0;
+        const prox = Math.max(0, 1 - Math.abs(mouse.y - waterY()) / 180);
+        const d = x - mouse.x;
+        return Math.exp(-(d * d) / (2 * 95 * 95)) * -30 * prox;
+      }
+
+      let t = 0;
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        const wy = waterY();
+
+        layers.forEach((L, i) => {
+          const pts = [];
+          for (let x = 0; x <= W + 4; x += 4) {
+            const y = wy + L.drop
+              + Math.sin(x * L.len + t * L.speed + L.off) * L.amp
+              + Math.sin(x * L.len * 1.7 + t * L.speed * 1.35 + L.off) * L.amp * 0.45
+              + bump(x) * (1 - i * 0.3);
+            pts.push([x, y]);
+          }
+          ctx.beginPath();
+          ctx.moveTo(0, H);
+          pts.forEach(p => ctx.lineTo(p[0], p[1]));
+          ctx.lineTo(W, H);
+          ctx.closePath();
+          ctx.fillStyle = L.fill;
+          ctx.fill();
+
+          if (i === 0) {
+            ctx.beginPath();
+            pts.forEach((p, j) => j ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+            ctx.strokeStyle = 'rgba(158, 226, 255, 0.5)';
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+          }
+        });
+
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          const p = ripples[i];
+          p.r += 2.4;
+          p.a *= 0.955;
+          if (p.a < 0.02) { ripples.splice(i, 1); continue; }
+          ctx.beginPath();
+          ctx.ellipse(p.x, p.y, p.r, p.r * 0.32, 0, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(158, 226, 255, ' + p.a + ')';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+      }
+
+      if (reducedMotion) {
+        draw();
+      } else {
+        let raf;
+        (function loop() {
+          t += 0.016;
+          draw();
+          raf = requestAnimationFrame(loop);
+        })();
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) cancelAnimationFrame(raf);
+          else raf = requestAnimationFrame(function loop() { t += 0.016; draw(); raf = requestAnimationFrame(loop); });
+        });
+      }
+    })();
+
+    // ============================================================
+    // THE WATER COLUMN — bubbles rise in the shallows,
+    // marine snow drifts down in the deep
+    // ============================================================
+    (function () {
+      const canvas = document.getElementById('sea');
+      const ctx = canvas.getContext('2d');
+      let W = 0, H = 0;
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      if (reducedMotion) return;
+
+      const depthFactor = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        return max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      };
+
+      const N = window.innerWidth < 768 ? 16 : 34;
+      const parts = [];
+
+      function spawn(p, fresh) {
+        p.snow = Math.random() < depthFactor() * 0.9;
+        p.x = Math.random() * W;
+        p.r = p.snow ? (0.6 + Math.random() * 1.3) : (0.9 + Math.random() * 2.2);
+        p.v = p.snow ? (0.12 + Math.random() * 0.25) : (0.25 + Math.random() * 0.55);
+        p.phase = Math.random() * Math.PI * 2;
+        p.wob = 0.3 + Math.random() * 0.7;
+        p.a = p.snow ? (0.12 + Math.random() * 0.2) : (0.10 + Math.random() * 0.25);
+        p.y = fresh ? Math.random() * H : (p.snow ? -8 : H + 8);
+      }
+
+      for (let i = 0; i < N; i++) { const p = {}; spawn(p, true); parts.push(p); }
+
+      let t = 0, raf;
+      function loop() {
+        t += 0.016;
+        ctx.clearRect(0, 0, W, H);
+        parts.forEach(p => {
+          p.y += p.snow ? p.v : -p.v;
+          p.x += Math.sin(t * p.wob + p.phase) * 0.25;
+          if ((p.snow && p.y > H + 10) || (!p.snow && p.y < -10)) spawn(p, false);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          if (p.snow) {
+            ctx.fillStyle = 'rgba(214, 235, 255, ' + p.a + ')';
+            ctx.fill();
+          } else {
+            ctx.strokeStyle = 'rgba(147, 197, 253, ' + p.a + ')';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        });
+        raf = requestAnimationFrame(loop);
+      }
+      raf = requestAnimationFrame(loop);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) cancelAnimationFrame(raf);
+        else raf = requestAnimationFrame(loop);
+      });
+    })();
+
+    // ============================================================
+    // THE DEPTH GAUGE — your dive computer
+    // ============================================================
+    (function () {
+      const depthEl = document.getElementById('gauge-depth');
+      const zoneEl = document.getElementById('gauge-zone');
+      const marker = document.getElementById('gauge-marker');
+      const surfaceBtn = document.getElementById('surface-btn');
+      const MAX_DEPTH = 6000;
+
+      function zoneName(d) {
+        if (d < 10) return 'SURFACE';
+        if (d < 200) return 'SUNLIGHT ZONE';
+        if (d < 1000) return 'TWILIGHT ZONE';
+        if (d < 4000) return 'MIDNIGHT ZONE';
+        if (d < 5900) return 'ABYSS';
+        return 'SEAFLOOR';
+      }
+
+      function update() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+        const depth = Math.round(progress * MAX_DEPTH);
+        depthEl.textContent = '−' + String(depth).padStart(4, '0') + ' M';
+        zoneEl.textContent = zoneName(depth);
+        marker.style.top = (progress * 100) + '%';
+        surfaceBtn.classList.toggle('visible', window.scrollY > 500);
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
   </script>
 
 </body>
