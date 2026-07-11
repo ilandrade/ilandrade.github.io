@@ -20,6 +20,9 @@
   <!-- Bootstrap Icons -->
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
+  <!-- AOS -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -201,67 +204,6 @@
       to   { transform: translateX(-12px) rotate(2.5deg); }
     }
 
-
-    /* ===== Scroll choreography: mask reveals and staggered entrances ===== */
-    .rv {
-      opacity: 0;
-      transform: translateY(26px);
-      transition: opacity 0.7s ease var(--d, 0ms), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
-    }
-    .rv.in-view { opacity: 1; transform: none; }
-    .mask-reveal { display: block; overflow: hidden; }
-    .mask-reveal > span {
-      display: block;
-      transform: translateY(110%);
-      transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
-    }
-    .mask-reveal.in-view > span { transform: none; }
-    .stagger > * {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .stagger.in-view > * { opacity: 1; transform: none; }
-
-    /* Links draw their own underline */
-    .u-draw {
-      background-image: linear-gradient(#67e8f9, #67e8f9);
-      background-size: 0% 1.5px;
-      background-repeat: no-repeat;
-      background-position: 0 100%;
-      transition: background-size 0.35s ease, color 0.2s;
-      padding-bottom: 2px;
-    }
-    .u-draw:hover { background-size: 100% 1.5px; }
-
-    /* Glass buttons lift */
-    .glass-btn { transition: border-color 0.25s, background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s; }
-    .glass-btn:hover { transform: translateY(-3px); }
-
-    /* Crossing to the Mediterranean: sunlight rises from below */
-    #wipe {
-      position: fixed;
-      left: 0; right: 0; bottom: -2%;
-      height: 104%;
-      background: #fdf6e9;
-      transform: translateY(104%);
-      z-index: 100;
-      pointer-events: none;
-    }
-    #wipe::before {
-      content: '';
-      position: absolute;
-      top: -16px; left: 0; right: 0;
-      height: 18px;
-      background-image: radial-gradient(circle at 50% 100%, #fdf6e9 0 17px, transparent 18px);
-      background-size: 36px 18px;
-      background-repeat: repeat-x;
-    }
-    #wipe.active {
-      transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
-      transform: translateY(0);
-    }
-
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: #030917; }
     ::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 2px; }
@@ -395,7 +337,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       .light-rays, .timeline-entry:hover::after, .section-fish { animation: none; }
-      .rv, .mask-reveal > span, .stagger > * { transition: none; opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -436,17 +377,19 @@
 
     <div class="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center text-center">
 
-      <p class="font-display text-cyan-100/90 text-sm font-medium tracking-[0.35em] uppercase mb-8 rv">
+      <p class="font-display text-cyan-100/90 text-sm font-medium tracking-[0.35em] uppercase mb-8" data-aos="fade-up">
         Harvard College · CS &amp; Economics
       </p>
 
-      <h1 class="font-display font-semibold text-[clamp(3rem,10vw,7.5rem)] leading-[0.95] tracking-tight gradient-text mb-8 rv" style="--d:80ms"><span class="mask-reveal"><span>Isabella<br>Andrade</span></span></h1>
+      <h1 class="font-display font-semibold text-[clamp(3rem,10vw,7.5rem)] leading-[0.95] tracking-tight gradient-text mb-8" data-aos="fade-up" data-aos-delay="80">
+        Isabella<br>Andrade
+      </h1>
 
-      <p class="font-display italic text-xl md:text-2xl text-cyan-50 mb-4 rv" style="--d:160ms">
+      <p class="font-display italic text-xl md:text-2xl text-cyan-50 mb-4" data-aos="fade-up" data-aos-delay="160">
         Student Founder · AI Product Builder · Venture Fellow
       </p>
 
-      <div class="flex flex-wrap items-center justify-center gap-4 rv" style="--d:300ms">
+      <div class="flex flex-wrap items-center justify-center gap-4" data-aos="fade-up" data-aos-delay="300">
         <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub"
            class="glass-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-slate-100 hover:text-white">
           <i class="bi bi-github"></i>
@@ -458,7 +401,7 @@
       </div>
     </div>
 
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cyan-200/50 text-xs z-10 rv" style="--d:500ms">
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cyan-200/50 text-xs z-10" data-aos="fade-up" data-aos-delay="500">
       <span class="font-mono tracking-[0.3em] uppercase text-[10px]">Dive</span>
       <i class="bi bi-chevron-down animate-bounce text-sm"></i>
     </div>
@@ -469,28 +412,28 @@
   <section id="about" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-end gap-5 mb-20">
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
         <div>
-          <p class="rv font-mono text-[11px] tracking-[0.25em] text-sky-300/70 mb-3">−0010 M · SUNLIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl"><span class="mask-reveal"><span>About Me</span></span></h2>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-sky-300/70 mb-3">−0010 M · SUNLIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">About Me</h2>
         </div>
-        <div class="rv flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block" style="--d:200ms"></div>
-        <svg class="section-fish rv hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" style="--d:350ms" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="grid md:grid-cols-2 gap-16 items-center">
 
-        <div class="flex justify-center md:justify-start rv">
+        <div class="flex justify-center md:justify-start" data-aos="fade-right">
           <div class="profile-wrapper">
             <img
               src="assets/img/profile-img2.jpg"
               alt="Isabella Andrade"
-              class="w-full max-w-md rounded-2xl grayscale hover:grayscale-0 hover:scale-[1.02] transition-all duration-500 object-cover"
+              class="w-full max-w-md rounded-2xl grayscale hover:grayscale-0 transition-all duration-500 object-cover"
             >
           </div>
         </div>
 
-        <div class="rv">
+        <div data-aos="fade-left">
           <p class="text-slate-200 text-lg leading-relaxed mb-5">
             I'm a Harvard student pursuing a double A.B. in Computer Science and Economics. I build AI tools, research their failure modes, and study the markets they're reshaping.
           </p>
@@ -506,20 +449,20 @@
   <!-- ===== SKILLS · sunlight zone ===== -->
   <section id="skills" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
-      <div class="flex items-end gap-5 mb-20">
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
         <div>
-          <p class="rv font-mono text-[11px] tracking-[0.25em] text-sky-300/70 mb-3">−0150 M · SUNLIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl"><span class="mask-reveal"><span>Skills</span></span></h2>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-sky-300/70 mb-3">−0150 M · SUNLIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Skills</h2>
         </div>
-        <div class="rv flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block" style="--d:200ms"></div>
-        <svg class="section-fish rv hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" style="--d:350ms" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="grid md:grid-cols-3 gap-10">
 
-        <div class="rv" style="--d:0ms">
+        <div data-aos="fade-up" data-aos-delay="0">
           <h3 class="font-mono text-[10px] text-sky-300/80 uppercase tracking-[0.2em] mb-5">Languages &amp; Data</h3>
-          <div class="flex flex-wrap gap-2 stagger">
+          <div class="flex flex-wrap gap-2">
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Python</span>
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">C#</span>
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">C++</span>
@@ -530,9 +473,9 @@
           </div>
         </div>
 
-        <div class="rv" style="--d:100ms">
+        <div data-aos="fade-up" data-aos-delay="100">
           <h3 class="font-mono text-[10px] text-sky-300/80 uppercase tracking-[0.2em] mb-5">Web &amp; Tools</h3>
-          <div class="flex flex-wrap gap-2 stagger">
+          <div class="flex flex-wrap gap-2">
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">React</span>
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Next.js</span>
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Blazor</span>
@@ -542,9 +485,9 @@
           </div>
         </div>
 
-        <div class="rv" style="--d:200ms">
+        <div data-aos="fade-up" data-aos-delay="200">
           <h3 class="font-mono text-[10px] text-sky-300/80 uppercase tracking-[0.2em] mb-5">AI Tools</h3>
-          <div class="flex flex-wrap gap-2 stagger">
+          <div class="flex flex-wrap gap-2">
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Claude Code</span>
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Codex</span>
             <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Windsurf</span>
@@ -561,25 +504,25 @@
   <section id="experience" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-end gap-5 mb-20">
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
         <div>
-          <p class="rv font-mono text-[11px] tracking-[0.25em] text-aqua/80 mb-3">−0400 M · TWILIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl"><span class="mask-reveal"><span>Experience</span></span></h2>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-aqua/80 mb-3">−0400 M · TWILIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Experience</h2>
         </div>
-        <div class="rv flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block" style="--d:200ms"></div>
-        <svg class="section-fish rv hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" style="--d:350ms" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="space-y-14">
 
         <!-- Lovable -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10 rv">
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
             <p class="font-mono text-aqua text-sm">Aug 2026</p>
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Incoming Product Experience Specialist</h3>
-            <a href="https://lovable.dev/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors u-draw">Lovable <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <a href="https://lovable.dev/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Lovable <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -590,13 +533,13 @@
         </div>
 
         <!-- TekTrek -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10 rv">
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
             <p class="font-mono text-aqua text-sm">Jun 2026 – Present</p>
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Student Founder</h3>
-            <a href="https://tektrek.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors u-draw">TekTrek <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <a href="https://tektrek.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">TekTrek <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -607,13 +550,13 @@
         </div>
 
         <!-- Glade Brook -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10 rv">
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
             <p class="font-mono text-aqua text-sm">Mar – May 2026</p>
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Spring Fellow</h3>
-            <a href="https://www.gladebrookcapital.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors u-draw">Glade Brook Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <a href="https://www.gladebrookcapital.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Glade Brook Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -628,13 +571,13 @@
         </div>
 
         <!-- Y Lab -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10 rv">
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
             <p class="font-mono text-aqua text-sm">Jan – Jun 2026</p>
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Research Assistant</h3>
-            <a href="https://ylab.top/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors u-draw">Y Lab, Harvard Medical School <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <a href="https://ylab.top/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Y Lab, Harvard Medical School <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -649,13 +592,13 @@
         </div>
 
         <!-- Verapath -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10 rv">
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
             <p class="font-mono text-aqua text-sm">Jun 2024 – Jan 2026</p>
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Software Engineer Intern</h3>
-            <a href="https://verapath.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors u-draw">Verapath <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <a href="https://verapath.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Verapath <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -674,13 +617,13 @@
         </div>
 
         <!-- Milemark -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10 rv">
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
             <p class="font-mono text-aqua text-sm">May – Aug 2025</p>
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Venture Fellow</h3>
-            <a href="https://www.milemark.capital/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors u-draw">Milemark Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <a href="https://www.milemark.capital/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Milemark Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -691,7 +634,7 @@
         </div>
 
         <!-- Goldman Sachs -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10 rv">
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
           <div class="pt-1">
             <p class="font-mono text-aqua text-sm">Sep 2024 – Jan 2025</p>
           </div>
@@ -720,19 +663,19 @@
   <section id="projects" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-end gap-5 mb-20">
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
         <div>
-          <p class="rv font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−1200 M · MIDNIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl"><span class="mask-reveal"><span>Projects</span></span></h2>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−1200 M · MIDNIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Projects</h2>
         </div>
-        <div class="rv flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block" style="--d:200ms"></div>
-        <svg class="section-fish rv hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" style="--d:350ms" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="grid md:grid-cols-2 gap-5">
 
         <!-- Passio Go -->
-        <div class="card rounded-3xl p-7 rv" style="--d:0ms">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="0">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-phone text-aqua"></i>
@@ -744,13 +687,13 @@
           </div>
           <h3 class="font-display font-semibold text-lg mb-1">Passio Go — Harvard Upgrade</h3>
           <p class="text-slate-400 text-sm leading-relaxed mb-5">Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.</p>
-          <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors u-draw">
+          <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors">
             View Project <i class="bi bi-arrow-up-right text-xs"></i>
           </a>
         </div>
 
         <!-- This site -->
-        <div class="card rounded-3xl p-7 rv" style="--d:80ms">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="80">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-water text-aqua"></i>
@@ -762,7 +705,7 @@
           </div>
           <h3 class="font-display font-semibold text-lg mb-1">This Site</h3>
           <p class="text-slate-400 text-sm leading-relaxed mb-5">You're swimming in it. A hand-built ocean: an aerial surf line rendered in a WebGL shader that churns around your cursor, bubbles that turn to marine snow as you descend, and a working depth gauge — no frameworks.</p>
-          <a href="https://github.com/ilandrade" target="_blank" class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors u-draw">
+          <a href="https://github.com/ilandrade" target="_blank" class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors">
             View GitHub <i class="bi bi-arrow-up-right text-xs"></i>
           </a>
         </div>
@@ -776,19 +719,19 @@
   <section id="leadership" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-end gap-5 mb-20">
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
         <div>
-          <p class="rv font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−2500 M · MIDNIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl"><span class="mask-reveal"><span>Leadership</span></span></h2>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−2500 M · MIDNIGHT ZONE</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Leadership</h2>
         </div>
-        <div class="rv flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block" style="--d:200ms"></div>
-        <svg class="section-fish rv hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" style="--d:350ms" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="grid md:grid-cols-2 gap-5">
 
         <!-- Massachusetts AI Coalition -->
-        <div class="card rounded-3xl p-7 rv" style="--d:0ms">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="0">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-diagram-3 text-aqua"></i>
@@ -803,7 +746,7 @@
         </div>
 
         <!-- HUCEG -->
-        <div class="card rounded-3xl p-7 rv" style="--d:80ms">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="80">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-sun text-aqua"></i>
@@ -818,7 +761,7 @@
         </div>
 
         <!-- SHPE -->
-        <div class="card rounded-3xl p-7 rv" style="--d:160ms">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="160">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-people text-aqua"></i>
@@ -833,7 +776,7 @@
         </div>
 
         <!-- Harvard AI Safety Team -->
-        <div class="card rounded-3xl p-7 rv" style="--d:240ms">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="240">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-shield-check text-aqua"></i>
@@ -856,16 +799,16 @@
   <section id="education" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-end gap-5 mb-20">
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
         <div>
-          <p class="rv font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−3800 M · ABYSS</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl"><span class="mask-reveal"><span>Education</span></span></h2>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−3800 M · ABYSS</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Education</h2>
         </div>
-        <div class="rv flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block" style="--d:200ms"></div>
-        <svg class="section-fish rv hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" style="--d:350ms" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
-      <div class="card rounded-3xl p-8 md:p-10 rv">
+      <div class="card rounded-3xl p-8 md:p-10" data-aos="fade-up">
         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
           <div class="flex items-start gap-5">
             <div class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0">
@@ -898,19 +841,19 @@
   <section id="writing" class="py-32 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-end gap-5 mb-20">
+      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
         <div>
-          <p class="rv font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−5000 M · ABYSS</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl"><span class="mask-reveal"><span>Writing</span></span></h2>
+          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−5000 M · ABYSS</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl">Writing</h2>
         </div>
-        <div class="rv flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block" style="--d:200ms"></div>
-        <svg class="section-fish rv hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" style="--d:350ms" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
+        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="space-y-5">
 
         <!-- Deepfakes paper -->
-        <div class="card rounded-3xl p-7 rv">
+        <div class="card rounded-3xl p-7" data-aos="fade-up">
           <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
             <div class="flex items-start gap-4">
               <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
@@ -922,7 +865,7 @@
               </div>
             </div>
             <a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank"
-               class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors shrink-0 u-draw">
+               class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors shrink-0">
               Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
             </a>
           </div>
@@ -932,7 +875,7 @@
         </div>
 
         <!-- Algorithmic Bias paper -->
-        <div class="card rounded-3xl p-7 rv">
+        <div class="card rounded-3xl p-7" data-aos="fade-up">
           <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
             <div class="flex items-start gap-4">
               <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
@@ -944,7 +887,7 @@
               </div>
             </div>
             <a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank"
-               class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors shrink-0 u-draw">
+               class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors shrink-0">
               Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
             </a>
           </div>
@@ -962,7 +905,7 @@
 
   <!-- ===== FOOTER · seafloor ===== -->
   <footer id="seafloor" class="py-16 px-6 border-t border-cyan-200/[0.05] text-center">
-    <p class="rv font-mono text-[11px] tracking-[0.25em] text-biolume/60 mb-6">−6000 M · SEAFLOOR</p>
+    <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/60 mb-6">−6000 M · SEAFLOOR</p>
     <p class="font-display font-semibold text-2xl mb-2">
       Isabella Andrade<span class="text-biolume">.</span>
     </p>
@@ -979,15 +922,11 @@
       Back to the surface ↑
     </a>
     <p class="mt-4">
-      <a href="mediterranean.html" data-wipe class="font-mono text-[11px] tracking-[0.2em] text-cyan-300/60 hover:text-biolume transition-colors uppercase">
+      <a href="mediterranean.html" class="font-mono text-[11px] tracking-[0.2em] text-cyan-300/60 hover:text-biolume transition-colors uppercase">
         🍋 Surface to the Mediterranean
       </a>
     </p>
   </footer>
-
-
-  <!-- Edition-crossing wipe -->
-  <div id="wipe" aria-hidden="true"></div>
 
 
   <!-- Surface button -->
@@ -998,36 +937,15 @@
 
 
   <!-- ===== SCRIPTS ===== -->
+  <script src="assets/vendor/aos/aos.js"></script>
 
   <script>
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // AOS
+    AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60, disable: reducedMotion });
 
 
-
-
-    // Scroll choreography
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.rv, .mask-reveal, .stagger').forEach((el) => io.observe(el));
-    document.querySelectorAll('.stagger').forEach((c) => {
-      [...c.children].forEach((ch, i) => { ch.style.transitionDelay = (i * 55) + 'ms'; });
-    });
-
-    // Edition-crossing wipe
-    const wipe = document.getElementById('wipe');
-    document.querySelectorAll('a[data-wipe]').forEach((a) => {
-      a.addEventListener('click', (e) => {
-        if (reducedMotion) return;
-        e.preventDefault();
-        wipe.classList.add('active');
-        setTimeout(() => { location.href = a.getAttribute('href'); }, 620);
-      });
-    });
-    window.addEventListener('pageshow', () => wipe.classList.remove('active'));
 
     // ============================================================
     // THE SURFACE FROM ABOVE — aerial ocean shader in the hero.
