@@ -197,6 +197,13 @@
       to   { transform: scale(1.6); opacity: 0; }
     }
 
+    /* Section fish: idles in place with a slow swim */
+    .section-fish { animation: fishSway 7s ease-in-out infinite alternate; }
+    @keyframes fishSway {
+      from { transform: translateX(0) rotate(-2deg); }
+      to   { transform: translateX(-12px) rotate(2.5deg); }
+    }
+
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: #030917; }
     ::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 2px; }
@@ -329,13 +336,24 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .light-rays, .timeline-entry:hover::after { animation: none; }
+      .light-rays, .timeline-entry:hover::after, .section-fish { animation: none; }
       html { scroll-behavior: auto; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- Shared fish outline, reused beside every section heading -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="fish-outline" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+        <path d="M3 16 C7 9.5 14 8.5 19 12.5 C20.5 14 20.5 18 19 19.5 C14 23.5 7 22.5 3 16 Z"/>
+        <path d="M19 16 L28.5 9.5 C26.5 13.5 26.5 18.5 28.5 22.5 Z"/>
+        <circle cx="7.7" cy="14.7" r="1.1" fill="currentColor" stroke="none"/>
+      </g>
+    </defs>
+  </svg>
 
   <!-- Ambient particles: bubbles in the shallows, marine snow in the deep -->
   <canvas id="sea" aria-hidden="true"></canvas>
@@ -400,6 +418,7 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl">About Me</h2>
         </div>
         <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="grid md:grid-cols-2 gap-16 items-center">
@@ -436,6 +455,7 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl">Skills</h2>
         </div>
         <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="grid md:grid-cols-3 gap-10">
@@ -490,6 +510,7 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl">Experience</h2>
         </div>
         <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="space-y-14">
@@ -648,6 +669,7 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl">Projects</h2>
         </div>
         <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="grid md:grid-cols-2 gap-5">
@@ -703,6 +725,7 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl">Leadership</h2>
         </div>
         <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="grid md:grid-cols-2 gap-5">
@@ -782,6 +805,7 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl">Education</h2>
         </div>
         <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="card rounded-3xl p-8 md:p-10" data-aos="fade-up">
@@ -823,6 +847,7 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl">Writing</h2>
         </div>
         <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
+        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
       </div>
 
       <div class="space-y-5">
