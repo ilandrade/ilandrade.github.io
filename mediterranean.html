@@ -71,7 +71,7 @@
       to { background-position: 80px 0; }
     }
 
-    main, footer { position: relative; z-index: 1; }
+    main, footer, #contact { position: relative; z-index: 1; }
 
     /* ===== Hand-painted vertical stripes, sliding gently sideways ===== */
     .stripes {
@@ -236,27 +236,6 @@
       pointer-events: none;
     }
 
-    /* Chapter marker rolls as you cross sections */
-    #chapter {
-      position: fixed;
-      left: 1.5rem;
-      bottom: 1.25rem;
-      z-index: 40;
-      align-items: center;
-      gap: 0.6rem;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    #chapter.show { opacity: 1; }
-    .ch-mask { display: block; overflow: hidden; }
-    .ch-label { display: block; }
-    .ch-label.roll { animation: chRoll 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-    @keyframes chRoll {
-      from { transform: translateY(115%); }
-      to   { transform: none; }
-    }
-
     /* Experience rows nudge under the cursor, like the main site */
     .med-timeline { transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
     @media (hover: hover) {
@@ -268,8 +247,7 @@
       font-size: 6.5rem;
       line-height: 1;
       margin-top: 2rem;
-      color: transparent;
-      -webkit-text-stroke: 1.5px rgba(29, 89, 168, 0.18);
+      color: rgba(29, 89, 168, 0.22);
     }
 
     ::-webkit-scrollbar { width: 3px; }
@@ -291,8 +269,7 @@
       .settle, .squiggle.draw { transition: none; opacity: 1; transform: none; }
       .ltr, .hero-fade { transition: none; opacity: 1; transform: none; }
       .h-line, .eb { transition: none; opacity: 1; transform: none; }
-      #progress, #chapter { display: none; }
-      .ch-label.roll { animation: none; }
+      #progress { display: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -356,7 +333,7 @@
     <!-- Editorial contents index (the hotbar) -->
     <nav aria-label="Contents" class="hero-fade max-w-6xl w-full mx-auto px-6 pb-9" style="--d:1650ms">
       <div class="flex items-baseline justify-between font-display text-[11px] tracking-[0.3em] uppercase text-cobalt/70 mb-4">
-        <span>Indice — Contents</span>
+        <span>Contents</span>
       </div>
       <div class="squiggle mb-6"></div>
       <ol class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-x-6 gap-y-4">
@@ -382,7 +359,6 @@
       <!-- Contents bar: stays pinned until the next chapter arrives -->
       <div class="md:sticky md:top-24 mb-12 md:mb-0">
         <p class="font-display text-rosso font-bold text-sm tracking-[0.3em] mb-3">01</p>
-        <p class="eb font-display text-cobalt/80 text-[13px] tracking-[0.3em] uppercase mb-3">Il Profilo</p>
         <h2 class="font-display font-semibold text-3xl md:text-4xl text-cobalt"><span class="h-mask"><span class="h-line">Profile</span></span></h2>
         <div class="squiggle w-24 mt-5"></div>
         <p class="ghost-num font-display font-semibold hidden md:block" aria-hidden="true">01</p>
@@ -625,16 +601,6 @@
       </div>
     </div>
   </section>
-
-
-  <!-- Mid-page marquee -->
-  <div class="marquee bg-cobalt border-y-2 border-navy" aria-hidden="true">
-    <div class="marquee-track font-display font-medium text-cream text-sm tracking-[0.25em] uppercase py-3">
-      <span class="px-4">Isabella Andrade · La Dolce Vita · Cambridge → San Francisco → Il Mare · Isabella Andrade · La Dolce Vita · Cambridge → San Francisco → Il Mare ·&nbsp;</span>
-      <span class="px-4">Isabella Andrade · La Dolce Vita · Cambridge → San Francisco → Il Mare · Isabella Andrade · La Dolce Vita · Cambridge → San Francisco → Il Mare ·&nbsp;</span>
-    </div>
-  </div>
-
 
   <!-- ===== PROJECTS ===== -->
   <section id="projects" class="py-28 px-6 md:px-16">
@@ -884,7 +850,7 @@
   <section id="contact" class="bg-navy text-cream py-28 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
       <p class="font-display text-rosso font-bold text-sm tracking-[0.3em] mb-3">07</p>
-      <p class="eb font-display text-cream/60 text-[13px] tracking-[0.3em] uppercase mb-8">Scrivimi</p>
+      <p class="eb font-display text-cream/60 text-[13px] tracking-[0.3em] uppercase mb-8">Get in touch</p>
       <h2 class="font-display font-semibold text-[clamp(2.4rem,7vw,5.5rem)] leading-[0.95] mb-10 text-cream"><span class="h-mask"><span class="h-line">Let&rsquo;s build something.</span></span></h2>
       <a href="mailto:isabellaandrade@college.harvard.edu"
          class="font-display italic text-xl md:text-3xl underline decoration-rosso decoration-2 underline-offset-8 hover:text-rosso transition-colors break-all">
@@ -903,8 +869,8 @@
   <footer>
     <div class="marquee bg-[#fffdf6] border-y-2 border-navy" aria-hidden="true">
       <div class="marquee-track font-display font-medium text-navy text-sm tracking-[0.25em] uppercase py-3">
-        <span class="px-4">Grazie Mille · Dolce Far Niente · A Presto · Grazie Mille · Dolce Far Niente · A Presto ·&nbsp;</span>
-        <span class="px-4">Grazie Mille · Dolce Far Niente · A Presto · Grazie Mille · Dolce Far Niente · A Presto ·&nbsp;</span>
+        <span class="px-4">Thank You · See You Soon · Thank You · See You Soon ·&nbsp;</span>
+        <span class="px-4">Thank You · See You Soon · Thank You · See You Soon ·&nbsp;</span>
       </div>
     </div>
 
@@ -924,11 +890,6 @@
   <!-- Scroll progress hairline -->
   <div id="progress" aria-hidden="true"></div>
 
-  <!-- Chapter marker: tracks the section under the reading line -->
-  <div id="chapter" class="hidden lg:flex font-display text-[12px] tracking-[0.25em] uppercase text-navy" aria-hidden="true">
-    <span id="chapter-num" class="text-rosso font-bold"></span>
-    <span class="ch-mask"><span id="chapter-label" class="ch-label"></span></span>
-  </div>
 
 
   <!-- Up button -->
@@ -1009,41 +970,11 @@
       else { bar.style.width = (barTarget * 100) + '%'; barRaf = null; }
     }
 
-    // Chapter marker
-    const CHAPTERS = [
-      ['profile', '01', 'Profile'], ['experience', '02', 'Experience'], ['projects', '03', 'Projects'],
-      ['leadership', '04', 'Leadership'], ['education', '05', 'Education'],
-      ['writing', '06', 'Writing'], ['contact', '07', 'Contact'],
-    ];
-    const chapter = document.getElementById('chapter');
-    const chNum = document.getElementById('chapter-num');
-    const chLabel = document.getElementById('chapter-label');
-    let chCurrent = '';
-
     function onScroll() {
       if (reducedMotion) return;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       barTarget = max > 0 ? Math.min(1, window.scrollY / max) : 0;
       if (!barRaf) barRaf = requestAnimationFrame(barTick);
-
-      const line = window.scrollY + window.innerHeight * 0.5;
-      let active = null;
-      CHAPTERS.forEach(([id, num, label]) => {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= line) active = [id, num, label];
-      });
-      if (!active) {
-        chapter.classList.remove('show');
-        chCurrent = '';
-      } else if (active[0] !== chCurrent) {
-        chCurrent = active[0];
-        chNum.textContent = active[1];
-        chLabel.textContent = active[2];
-        chLabel.classList.remove('roll');
-        void chLabel.offsetWidth;
-        chLabel.classList.add('roll');
-        chapter.classList.add('show');
-      }
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
