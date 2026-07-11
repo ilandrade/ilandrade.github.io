@@ -8,8 +8,8 @@
   <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student. Mediterranean edition.">
   <meta name="theme-color" content="#fdf6e9">
 
-  <!-- Favicon: a star -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%AD%90%3C/text%3E%3C/svg%3E">
+  <!-- Favicon: a beach umbrella -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9B%B1%3C/text%3E%3C/svg%3E">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -99,17 +99,14 @@
       background-repeat: repeat-x;
     }
 
-    /* ===== Inked sardines drifting across the hero ===== */
-    .sardine-swim {
-      position: absolute;
-      left: 100%;
-      color: #24457e;
-      opacity: 0.45;
-      animation: swim linear infinite;
+    .awning-edge-flip {
+      height: 18px;
+      background-image: radial-gradient(circle at 50% 100%, #d2402f 0 17px, transparent 18px);
+      background-size: 36px 18px;
+      background-repeat: repeat-x;
     }
-    @keyframes swim {
-      to { transform: translateX(calc(-100vw - 200px)); }
-    }
+    .stripes-reverse { animation-direction: reverse; }
+
 
     /* ===== Animated squiggle divider (a drawn sea wave) ===== */
     .squiggle {
@@ -135,14 +132,6 @@
     }
     @keyframes marquee {
       to { transform: translateX(-50%); }
-    }
-
-    /* ===== Floating ornaments ===== */
-    .bob { animation: bob 6s ease-in-out infinite alternate; }
-    .bob-2 { animation: bob 7.5s ease-in-out infinite alternate-reverse; }
-    @keyframes bob {
-      from { transform: translateY(0) rotate(-6deg); }
-      to   { transform: translateY(-16px) rotate(7deg); }
     }
 
     /* ===== Riviera cards: crisp white, cobalt border, red drop-shadow ===== */
@@ -202,13 +191,6 @@
     /* Marquees pause while you read them */
     .marquee:hover .marquee-track { animation-play-state: paused; }
 
-    /* Divider sardines wiggle when petted */
-    .wiggle-hover:hover { animation: wiggle 0.5s ease; }
-    @keyframes wiggle {
-      25% { transform: rotate(5deg); }
-      75% { transform: rotate(-4deg); }
-    }
-
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: #fdf6e9; }
     ::-webkit-scrollbar-thumb { background: #1d59a8; border-radius: 2px; }
@@ -224,8 +206,7 @@
     #up-btn.visible { opacity: 1; pointer-events: auto; }
 
     @media (prefers-reduced-motion: reduce) {
-      #bg-squiggles, .stripes, .stripes-rosso, .squiggle, .marquee-track,
-      .bob, .bob-2, .sardine-swim, .wiggle-hover { animation: none; }
+      #bg-squiggles, .stripes, .stripes-rosso, .squiggle, .marquee-track { animation: none; }
       .settle, .squiggle.draw { transition: none; opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
     }
@@ -236,23 +217,9 @@
 
   <div id="bg-squiggles" aria-hidden="true"></div>
 
-  <!-- Shared motifs: sardine and star -->
+  <!-- Shared defs -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
-      <g id="sardine">
-        <path d="M2 10 C8 4 20 2 34 3 C44 4 50 6 54 10 C50 14 44 16 34 17 C20 18 8 16 2 10 Z" fill="#24457e"/>
-        <path d="M54 10 L63 3 C61 7 61 13 63 17 Z" fill="#24457e"/>
-        <circle cx="7" cy="9" r="1.2" fill="#fdf6e9"/>
-        <path d="M12 5.5 C14.5 8 14.5 12 12 14.5" fill="none" stroke="#fdf6e9" stroke-width="1"/>
-        <path d="M17 13.8 C27 15.6 38 15.2 48 12.6" fill="none" stroke="#fdf6e9" stroke-width="0.9"/>
-        <circle cx="22" cy="7.2" r="0.7" fill="#fdf6e9"/>
-        <circle cx="28" cy="6.6" r="0.7" fill="#fdf6e9"/>
-        <circle cx="34" cy="6.8" r="0.7" fill="#fdf6e9"/>
-        <circle cx="40" cy="7.4" r="0.7" fill="#fdf6e9"/>
-      </g>
-      <g id="star">
-        <path d="M12 2 L14.7 8.6 L21.8 9 L16.3 13.6 L18 20.5 L12 16.7 L6 20.5 L7.7 13.6 L2.2 9 L9.3 8.6 Z" fill="#24457e"/>
-      </g>
     </defs>
   </svg>
 
@@ -266,23 +233,10 @@
     <div class="stripes-rosso h-10"></div>
     <div class="awning-edge"></div>
 
-    <!-- A school of sardines drifts across, behind the title -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      <svg class="sardine-swim w-24" style="top:16%; animation-duration:42s;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
-      <svg class="sardine-swim w-14" style="top:24%; animation-duration:58s; animation-delay:-25s;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
-      <svg class="sardine-swim w-20" style="top:66%; animation-duration:48s; animation-delay:-10s;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
-      <svg class="sardine-swim w-12" style="top:78%; animation-duration:64s; animation-delay:-40s;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
-    </div>
 
     <div class="flex-1 flex flex-col justify-center px-6 py-16">
       <div class="max-w-4xl mx-auto w-full relative flex flex-col items-center text-center">
 
-        <!-- Floating stars -->
-        <svg class="bob absolute -top-10 left-2 md:left-10 w-9 h-9 rotate-12" viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>
-        <svg class="bob-2 absolute top-24 right-0 md:right-6 w-6 h-6 -rotate-6 opacity-80" viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>
-        <svg class="bob absolute bottom-2 left-8 md:left-24 w-6 h-6 rotate-45 opacity-70 hidden md:block" viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>
-        <svg class="bob-2 absolute -top-4 right-10 md:right-32 w-7 h-7 rotate-12 opacity-80" viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>
-        <svg class="bob absolute bottom-16 right-4 md:right-16 w-5 h-5 -rotate-12 opacity-70 hidden md:block" viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>
 
         <p class="font-display text-cobalt text-sm font-medium tracking-[0.35em] uppercase mb-8" data-aos="fade-up">
           Harvard College · CS &amp; Economics
@@ -318,13 +272,9 @@
       <i class="bi bi-chevron-down animate-bounce text-sm"></i>
     </div>
 
-    <!-- Marquee: moving text with sardines -->
-    <div class="marquee bg-[#fffdf6] border-y-2 border-navy py-0" aria-hidden="true">
-      <div class="marquee-track font-display font-medium text-navy text-sm tracking-[0.25em] uppercase py-3">
-        <span class="px-4">Student Founder <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> AI Product Builder <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Venture Fellow <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Harvard CS &amp; Economics <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Dolce Far Niente <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg>&nbsp;</span>
-        <span class="px-4">Student Founder <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> AI Product Builder <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Venture Fellow <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Harvard CS &amp; Economics <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Dolce Far Niente <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg>&nbsp;</span>
-      </div>
-    </div>
+    <!-- Inverse of the top awning: scallops point up, stripes slide the other way -->
+    <div class="awning-edge-flip"></div>
+    <div class="stripes-rosso stripes-reverse h-10"></div>
   </section>
 
 
@@ -338,7 +288,6 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">About Me</h2>
         </div>
         <div class="squiggle flex-1 mb-3 hidden md:block"></div>
-        <svg class="wiggle-hover hidden md:block shrink-0 mb-2 w-12 h-4" viewBox="0 0 64 20" aria-hidden="true"><use href="#sardine"/></svg>
       </div>
 
       <div class="grid md:grid-cols-2 gap-16 items-center">
@@ -376,7 +325,6 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Skills</h2>
         </div>
         <div class="squiggle flex-1 mb-3 hidden md:block"></div>
-        <svg class="wiggle-hover hidden md:block shrink-0 mb-2 w-12 h-4" viewBox="0 0 64 20" aria-hidden="true"><use href="#sardine"/></svg>
       </div>
 
       <div class="grid md:grid-cols-3 gap-10">
@@ -422,11 +370,7 @@
 
 
   <!-- ===== EXPERIENCE ===== -->
-  <section id="experience" class="relative py-28 px-6 md:px-16">
-    <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      <svg class="sardine-swim w-16" style="top:10%; animation-duration:75s; opacity:.22;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
-      <svg class="sardine-swim w-10" style="top:58%; animation-duration:95s; animation-delay:-35s; opacity:.18;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
-    </div>
+  <section id="experience" class="py-28 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
       <div class="flex items-end gap-5 mb-16" data-aos="fade-up">
@@ -435,7 +379,6 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Experience</h2>
         </div>
         <div class="squiggle flex-1 mb-3 hidden md:block"></div>
-        <svg class="wiggle-hover hidden md:block shrink-0 mb-2 w-12 h-4" viewBox="0 0 64 20" aria-hidden="true"><use href="#sardine"/></svg>
       </div>
 
       <div class="space-y-14">
@@ -587,8 +530,8 @@
   <!-- Mid-page marquee -->
   <div class="marquee bg-cobalt border-y-2 border-navy" aria-hidden="true">
     <div class="marquee-track font-display font-medium text-cream text-sm tracking-[0.25em] uppercase py-3">
-      <span class="px-4">Isabella Andrade <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> La Dolce Vita <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Cambridge → San Francisco → Il Mare <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Isabella Andrade <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> La Dolce Vita <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Cambridge → San Francisco → Il Mare <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg>&nbsp;</span>
-      <span class="px-4">Isabella Andrade <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> La Dolce Vita <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Cambridge → San Francisco → Il Mare <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Isabella Andrade <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> La Dolce Vita <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Cambridge → San Francisco → Il Mare <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg>&nbsp;</span>
+      <span class="px-4">Isabella Andrade · La Dolce Vita · Cambridge → San Francisco → Il Mare · Isabella Andrade · La Dolce Vita · Cambridge → San Francisco → Il Mare ·&nbsp;</span>
+      <span class="px-4">Isabella Andrade · La Dolce Vita · Cambridge → San Francisco → Il Mare · Isabella Andrade · La Dolce Vita · Cambridge → San Francisco → Il Mare ·&nbsp;</span>
     </div>
   </div>
 
@@ -603,7 +546,6 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Projects</h2>
         </div>
         <div class="squiggle flex-1 mb-3 hidden md:block"></div>
-        <svg class="wiggle-hover hidden md:block shrink-0 mb-2 w-12 h-4" viewBox="0 0 64 20" aria-hidden="true"><use href="#sardine"/></svg>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
@@ -636,7 +578,7 @@
             </div>
           </div>
           <h3 class="font-display font-semibold text-lg mb-1">This Site — Three Editions</h3>
-          <p class="text-navy/80 text-sm leading-relaxed mb-5">One portfolio, three editions: an editorial cascade, a gallery exhibition, and this sunny Mediterranean summer with animated stripes, sardines, and squiggles — all hand-built with vanilla JS, no frameworks.</p>
+          <p class="text-navy/80 text-sm leading-relaxed mb-5">One portfolio, three editions: an editorial cascade, a gallery exhibition, and this sunny Mediterranean summer with animated stripes and squiggles — all hand-built with vanilla JS, no frameworks.</p>
           <a href="index.html" class="inline-flex items-center gap-1.5 text-cobalt hover:text-navy text-sm font-semibold transition-colors underline decoration-rosso decoration-2 underline-offset-4">
             Visit the Main Site <i class="bi bi-arrow-up-right text-xs"></i>
           </a>
@@ -657,7 +599,6 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Leadership</h2>
         </div>
         <div class="squiggle flex-1 mb-3 hidden md:block"></div>
-        <svg class="wiggle-hover hidden md:block shrink-0 mb-2 w-12 h-4" viewBox="0 0 64 20" aria-hidden="true"><use href="#sardine"/></svg>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
@@ -733,7 +674,6 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Education</h2>
         </div>
         <div class="squiggle flex-1 mb-3 hidden md:block"></div>
-        <svg class="wiggle-hover hidden md:block shrink-0 mb-2 w-12 h-4" viewBox="0 0 64 20" aria-hidden="true"><use href="#sardine"/></svg>
       </div>
 
       <div class="med-card rounded-2xl p-8 md:p-10" data-aos="fade-up">
@@ -766,10 +706,7 @@
 
 
   <!-- ===== WRITING ===== -->
-  <section id="writing" class="relative py-28 px-6 md:px-16">
-    <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      <svg class="sardine-swim w-12" style="top:22%; animation-duration:85s; animation-delay:-15s; opacity:.2;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
-    </div>
+  <section id="writing" class="py-28 px-6 md:px-16">
     <div class="max-w-6xl mx-auto">
 
       <div class="flex items-end gap-5 mb-16" data-aos="fade-up">
@@ -778,7 +715,6 @@
           <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Writing</h2>
         </div>
         <div class="squiggle flex-1 mb-3 hidden md:block"></div>
-        <svg class="wiggle-hover hidden md:block shrink-0 mb-2 w-12 h-4" viewBox="0 0 64 20" aria-hidden="true"><use href="#sardine"/></svg>
       </div>
 
       <div class="space-y-8">
@@ -836,13 +772,12 @@
   <footer>
     <div class="marquee bg-[#fffdf6] border-y-2 border-navy" aria-hidden="true">
       <div class="marquee-track font-display font-medium text-navy text-sm tracking-[0.25em] uppercase py-3">
-        <span class="px-4">Grazie Mille <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Dolce Far Niente <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> A Presto <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Grazie Mille <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Dolce Far Niente <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> A Presto <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg>&nbsp;</span>
-        <span class="px-4">Grazie Mille <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Dolce Far Niente <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> A Presto <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Grazie Mille <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Dolce Far Niente <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> A Presto <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg>&nbsp;</span>
+        <span class="px-4">Grazie Mille · Dolce Far Niente · A Presto · Grazie Mille · Dolce Far Niente · A Presto ·&nbsp;</span>
+        <span class="px-4">Grazie Mille · Dolce Far Niente · A Presto · Grazie Mille · Dolce Far Niente · A Presto ·&nbsp;</span>
       </div>
     </div>
 
     <div class="py-16 px-6 text-center">
-      <svg class="w-16 h-5 mx-auto mb-4 bob" viewBox="0 0 64 20" aria-hidden="true"><use href="#sardine"/></svg>
       <p class="font-display font-semibold text-2xl mb-2 text-cobalt">
         Isabella Andrade<span class="text-rosso">.</span>
       </p>
