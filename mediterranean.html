@@ -62,35 +62,53 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.06;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='60' viewBox='0 0 90 60'%3E%3Cpath d='M0 30 Q22.5 18 45 30 T90 30' fill='none' stroke='%231d59a8' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-size: 90px 60px;
-      animation: squiggleDrift 9s linear infinite;
+      opacity: 0.5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='48' viewBox='0 0 80 48'%3E%3Cg fill='none' stroke='%23c8dcee' stroke-width='1.6'%3E%3Cpath d='M0 24 A20 20 0 0 1 40 24'/%3E%3Cpath d='M8 24 A12 12 0 0 1 32 24'/%3E%3Cpath d='M14 24 A6 6 0 0 1 26 24'/%3E%3Cpath d='M40 24 A20 20 0 0 1 80 24'/%3E%3Cpath d='M48 24 A12 12 0 0 1 72 24'/%3E%3Cpath d='M54 24 A6 6 0 0 1 66 24'/%3E%3Cpath d='M-20 48 A20 20 0 0 1 20 48'/%3E%3Cpath d='M-12 48 A12 12 0 0 1 12 48'/%3E%3Cpath d='M-6 48 A6 6 0 0 1 6 48'/%3E%3Cpath d='M20 48 A20 20 0 0 1 60 48'/%3E%3Cpath d='M28 48 A12 12 0 0 1 52 48'/%3E%3Cpath d='M34 48 A6 6 0 0 1 46 48'/%3E%3Cpath d='M60 48 A20 20 0 0 1 100 48'/%3E%3Cpath d='M68 48 A12 12 0 0 1 92 48'/%3E%3Cpath d='M74 48 A6 6 0 0 1 86 48'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 48px;
+      animation: squiggleDrift 16s linear infinite;
     }
     @keyframes squiggleDrift {
-      to { background-position: 90px 0; }
+      to { background-position: 80px 0; }
     }
 
     main, footer { position: relative; z-index: 1; }
 
-    /* ===== Awning stripes (animated barber-pole slide) ===== */
+    /* ===== Hand-painted vertical stripes, sliding gently sideways ===== */
     .stripes {
-      background: repeating-linear-gradient(45deg, #1d59a8 0 18px, #fffdf6 18px 36px);
-      animation: stripeSlide 30s linear infinite;
+      background-color: #fffdf6;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='64' viewBox='0 0 40 64'%3E%3Cpath d='M8 0 C6 12 11 24 8 36 C6 48 10 56 8 64 L26 64 C24 52 28 40 26 28 C24 16 28 8 26 0 Z' fill='%232b4d86'/%3E%3C/svg%3E");
+      background-size: 40px 64px;
+      background-repeat: repeat;
+      animation: stripeSlide 22s linear infinite;
     }
     .stripes-lemon {
-      background: repeating-linear-gradient(45deg, #f2c94c 0 18px, #fffdf6 18px 36px);
-      animation: stripeSlide 30s linear infinite;
+      background-color: #fffdf6;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='64' viewBox='0 0 40 64'%3E%3Cpath d='M8 0 C6 12 11 24 8 36 C6 48 10 56 8 64 L26 64 C24 52 28 40 26 28 C24 16 28 8 26 0 Z' fill='%23f2c94c'/%3E%3C/svg%3E");
+      background-size: 40px 64px;
+      background-repeat: repeat;
+      animation: stripeSlide 22s linear infinite;
     }
     @keyframes stripeSlide {
-      to { background-position: 509px 0; }
+      to { background-position: 40px 0; }
     }
     /* Scalloped awning edge */
     .awning-edge {
       height: 18px;
-      background-image: radial-gradient(circle at 50% 0, #1d59a8 0 17px, transparent 18px);
+      background-image: radial-gradient(circle at 50% 0, #2b4d86 0 17px, transparent 18px);
       background-size: 36px 18px;
       background-repeat: repeat-x;
+    }
+
+    /* ===== Inked sardines drifting across the hero ===== */
+    .sardine-swim {
+      position: absolute;
+      left: 100%;
+      color: #24457e;
+      opacity: 0.45;
+      animation: swim linear infinite;
+    }
+    @keyframes swim {
+      to { transform: translateX(calc(-100vw - 200px)); }
     }
 
     /* ===== Animated squiggle divider (a drawn sea wave) ===== */
@@ -184,7 +202,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       #bg-squiggles, .stripes, .stripes-lemon, .squiggle, .marquee-track,
-      .lemon-float, .lemon-float-2 { animation: none; }
+      .lemon-float, .lemon-float-2, .sardine-swim { animation: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -204,6 +222,20 @@
         <path d="M8 12 C10 9.5 13 8.5 15 8.8" fill="none" stroke="#fffdf6" stroke-width="1.8" stroke-linecap="round"/>
         <path d="M15 6.5 C13 2.5 17 0.5 20.5 2 C20 5 18 6.5 15.5 6.6 Z" fill="#5c8d43" stroke="#16365c" stroke-width="1.3" stroke-linejoin="round"/>
       </g>
+      <g id="sardine">
+        <path d="M2 10 C8 4 20 2 34 3 C44 4 50 6 54 10 C50 14 44 16 34 17 C20 18 8 16 2 10 Z" fill="#24457e"/>
+        <path d="M54 10 L63 3 C61 7 61 13 63 17 Z" fill="#24457e"/>
+        <circle cx="7" cy="9" r="1.2" fill="#fdf6e9"/>
+        <path d="M12 5.5 C14.5 8 14.5 12 12 14.5" fill="none" stroke="#fdf6e9" stroke-width="1"/>
+        <path d="M17 13.8 C27 15.6 38 15.2 48 12.6" fill="none" stroke="#fdf6e9" stroke-width="0.9"/>
+        <circle cx="22" cy="7.2" r="0.7" fill="#fdf6e9"/>
+        <circle cx="28" cy="6.6" r="0.7" fill="#fdf6e9"/>
+        <circle cx="34" cy="6.8" r="0.7" fill="#fdf6e9"/>
+        <circle cx="40" cy="7.4" r="0.7" fill="#fdf6e9"/>
+      </g>
+      <g id="star">
+        <path d="M12 2 L14.7 8.6 L21.8 9 L16.3 13.6 L18 20.5 L12 16.7 L6 20.5 L7.7 13.6 L2.2 9 L9.3 8.6 Z" fill="#24457e"/>
+      </g>
     </defs>
   </svg>
 
@@ -217,6 +249,14 @@
     <div class="stripes h-10"></div>
     <div class="awning-edge"></div>
 
+    <!-- A school of sardines drifts across, behind the title -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <svg class="sardine-swim w-24" style="top:16%; animation-duration:42s;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
+      <svg class="sardine-swim w-14" style="top:24%; animation-duration:58s; animation-delay:-25s;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
+      <svg class="sardine-swim w-20" style="top:66%; animation-duration:48s; animation-delay:-10s;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
+      <svg class="sardine-swim w-12" style="top:78%; animation-duration:64s; animation-delay:-40s;" viewBox="0 0 64 20"><use href="#sardine"/></svg>
+    </div>
+
     <div class="flex-1 flex flex-col justify-center px-6 py-16">
       <div class="max-w-4xl mx-auto w-full relative flex flex-col items-center text-center">
 
@@ -224,6 +264,8 @@
         <svg class="lemon-float absolute -top-10 left-2 md:left-10 w-14 h-14 rotate-12" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
         <svg class="lemon-float-2 absolute top-24 right-0 md:right-6 w-10 h-10 -rotate-6" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
         <svg class="lemon-float absolute bottom-2 left-8 md:left-24 w-9 h-9 rotate-45 hidden md:block" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+        <svg class="lemon-float-2 absolute -top-4 right-10 md:right-32 w-7 h-7 rotate-12 opacity-80" viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>
+        <svg class="lemon-float absolute bottom-16 right-4 md:right-16 w-5 h-5 -rotate-12 opacity-70 hidden md:block" viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg>
 
         <p class="font-display text-cobalt text-sm font-medium tracking-[0.35em] uppercase mb-8" data-aos="fade-up">
           Harvard College · CS &amp; Economics
@@ -259,10 +301,11 @@
       <i class="bi bi-chevron-down animate-bounce text-sm"></i>
     </div>
 
-    <!-- Marquee: moving text -->
-    <div class="marquee stripes-lemon border-y-2 border-navy py-0" aria-hidden="true">
+    <!-- Marquee: moving text with sardines -->
+    <div class="marquee bg-[#fffdf6] border-y-2 border-navy py-0" aria-hidden="true">
       <div class="marquee-track font-display font-medium text-navy text-sm tracking-[0.25em] uppercase py-3">
-        <span class="px-4">Student Founder 🍋 AI Product Builder 🍋 Venture Fellow 🍋 Harvard CS &amp; Economics 🍋 Dolce Far Niente 🍋&nbsp;</span>
+        <span class="px-4">Student Founder <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> AI Product Builder <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Venture Fellow <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Harvard CS &amp; Economics <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Dolce Far Niente <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg>&nbsp;</span>
+        <span class="px-4">Student Founder <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> AI Product Builder <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Venture Fellow <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Harvard CS &amp; Economics <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg> Dolce Far Niente <svg class="inline-block w-9 h-3 mx-3 align-middle" viewBox="0 0 64 20"><use href="#sardine"/></svg>&nbsp;</span>
       </div>
     </div>
   </section>
