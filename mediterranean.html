@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Isabella Andrade · Mediterranean</title>
+  <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student. Mediterranean edition.">
+  <meta name="theme-color" content="#fdf6e9">
+
+  <!-- Favicon: a lemon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8D%8B%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- AOS -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Fraunces', 'serif'],
+          },
+          colors: {
+            cobalt: '#1d59a8',
+            navy: '#16365c',
+            lemon: '#f2c94c',
+            cream: '#fdf6e9',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      background: #fdf6e9;
+      color: #16365c;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .font-display { font-family: 'Fraunces', serif; }
+
+    /* ===== Ambient background: drifting sea squiggles across the whole page ===== */
+    #bg-squiggles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='60' viewBox='0 0 90 60'%3E%3Cpath d='M0 30 Q22.5 18 45 30 T90 30' fill='none' stroke='%231d59a8' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-size: 90px 60px;
+      animation: squiggleDrift 9s linear infinite;
+    }
+    @keyframes squiggleDrift {
+      to { background-position: 90px 0; }
+    }
+
+    main, footer { position: relative; z-index: 1; }
+
+    /* ===== Awning stripes (animated barber-pole slide) ===== */
+    .stripes {
+      background: repeating-linear-gradient(45deg, #1d59a8 0 18px, #fffdf6 18px 36px);
+      animation: stripeSlide 30s linear infinite;
+    }
+    .stripes-lemon {
+      background: repeating-linear-gradient(45deg, #f2c94c 0 18px, #fffdf6 18px 36px);
+      animation: stripeSlide 30s linear infinite;
+    }
+    @keyframes stripeSlide {
+      to { background-position: 509px 0; }
+    }
+    /* Scalloped awning edge */
+    .awning-edge {
+      height: 18px;
+      background-image: radial-gradient(circle at 50% 0, #1d59a8 0 17px, transparent 18px);
+      background-size: 36px 18px;
+      background-repeat: repeat-x;
+    }
+
+    /* ===== Animated squiggle divider (a drawn sea wave) ===== */
+    .squiggle {
+      height: 14px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'%3E%3Cpath d='M0 7 Q15 0 30 7 T60 7' fill='none' stroke='%231d59a8' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-size: 60px 14px;
+      background-repeat: repeat-x;
+      animation: squiggleDrift2 5s linear infinite;
+    }
+    .squiggle-lemon {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'%3E%3Cpath d='M0 7 Q15 0 30 7 T60 7' fill='none' stroke='%23f2c94c' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+    @keyframes squiggleDrift2 {
+      to { background-position: 60px 0; }
+    }
+
+    /* ===== Marquee: moving text bands ===== */
+    .marquee { overflow: hidden; white-space: nowrap; }
+    .marquee-track {
+      display: inline-flex;
+      width: max-content;
+      animation: marquee 26s linear infinite;
+    }
+    @keyframes marquee {
+      to { transform: translateX(-50%); }
+    }
+
+    /* ===== Floating lemons ===== */
+    .lemon-float { animation: lemonBob 6s ease-in-out infinite alternate; }
+    .lemon-float-2 { animation: lemonBob 7.5s ease-in-out infinite alternate-reverse; }
+    @keyframes lemonBob {
+      from { transform: translateY(0) rotate(-6deg); }
+      to   { transform: translateY(-16px) rotate(7deg); }
+    }
+
+    /* ===== Riviera cards: crisp white, cobalt border, lemon drop-shadow ===== */
+    .med-card {
+      background: #fffdf6;
+      border: 2px solid #1d59a8;
+      box-shadow: 7px 7px 0 #f2c94c;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .med-card:hover {
+      transform: translate(-2px, -4px);
+      box-shadow: 11px 11px 0 #f2c94c;
+    }
+
+    .med-pill {
+      background: #fffdf6;
+      border: 1.5px solid #1d59a8;
+      color: #16365c;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .med-pill:hover {
+      background: #f2c94c;
+      transform: translateY(-2px);
+    }
+
+    /* Experience timeline: cobalt rope with lemon buoys */
+    .med-timeline {
+      border-left: 2px solid #1d59a8;
+      padding-left: 2rem;
+      position: relative;
+    }
+    .med-timeline::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      background: #f2c94c;
+      border: 2px solid #1d59a8;
+      border-radius: 50%;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #fdf6e9; }
+    ::-webkit-scrollbar-thumb { background: #1d59a8; border-radius: 2px; }
+    ::selection { background: rgba(242, 201, 76, 0.6); }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #1d59a8;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    #up-btn { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    #up-btn.visible { opacity: 1; pointer-events: auto; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #bg-squiggles, .stripes, .stripes-lemon, .squiggle, .marquee-track,
+      .lemon-float, .lemon-float-2 { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="bg-squiggles" aria-hidden="true"></div>
+
+  <!-- Shared lemon, reused everywhere -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="lemon">
+        <path d="M4 17 C3 11 8 6 16 6 C24 6 29 10 30 16 C31 22 25 27 17 27 C9 27 5 23 4 17 Z"
+              fill="#f2c94c" stroke="#16365c" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M29 14 C30.5 14.5 31.5 16 30.8 17.5 C29.6 17.3 28.8 16 29 14 Z" fill="#f2c94c" stroke="#16365c" stroke-width="1.3"/>
+        <path d="M8 12 C10 9.5 13 8.5 15 8.8" fill="none" stroke="#fffdf6" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M15 6.5 C13 2.5 17 0.5 20.5 2 C20 5 18 6.5 15.5 6.6 Z" fill="#5c8d43" stroke="#16365c" stroke-width="1.3" stroke-linejoin="round"/>
+      </g>
+    </defs>
+  </svg>
+
+
+  <main>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero" class="relative min-h-screen flex flex-col overflow-hidden">
+
+    <!-- Awning -->
+    <div class="stripes h-10"></div>
+    <div class="awning-edge"></div>
+
+    <div class="flex-1 flex flex-col justify-center px-6 py-16">
+      <div class="max-w-4xl mx-auto w-full relative flex flex-col items-center text-center">
+
+        <!-- Floating lemons -->
+        <svg class="lemon-float absolute -top-10 left-2 md:left-10 w-14 h-14 rotate-12" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+        <svg class="lemon-float-2 absolute top-24 right-0 md:right-6 w-10 h-10 -rotate-6" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+        <svg class="lemon-float absolute bottom-2 left-8 md:left-24 w-9 h-9 rotate-45 hidden md:block" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+
+        <p class="font-display text-cobalt text-sm font-medium tracking-[0.35em] uppercase mb-8" data-aos="fade-up">
+          Harvard College · CS &amp; Economics
+        </p>
+
+        <h1 class="font-display font-semibold text-[clamp(3rem,10vw,7.5rem)] leading-[0.95] tracking-tight text-cobalt mb-6" data-aos="fade-up" data-aos-delay="80">
+          Isabella<br>Andrade
+        </h1>
+
+        <div class="squiggle w-48 mb-8" data-aos="fade-up" data-aos-delay="120"></div>
+
+        <p class="font-display italic text-xl md:text-2xl text-navy mb-4" data-aos="fade-up" data-aos-delay="160">
+          Student Founder · AI Product Builder · Venture Fellow
+        </p>
+
+        <p class="font-display italic text-lg text-navy/70 mb-12 max-w-lg" data-aos="fade-up" data-aos-delay="220">
+          Life is not fair but I fight to make it fair.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4" data-aos="fade-up" data-aos-delay="300">
+          <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub"
+             class="med-card w-11 h-11 rounded-full flex items-center justify-center text-lg text-navy">
+            <i class="bi bi-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn"
+             class="med-card w-11 h-11 rounded-full flex items-center justify-center text-lg text-navy">
+            <i class="bi bi-linkedin"></i>
+          </a>
+          <a href="index.html"
+             class="med-card rounded-full px-5 py-2.5 text-sm font-semibold text-navy inline-flex items-center gap-2">
+            🌊 Dive to the deep-sea version
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pb-8 flex flex-col items-center gap-2 text-cobalt/70 text-xs" data-aos="fade-up" data-aos-delay="500">
+      <span class="font-display tracking-[0.3em] uppercase text-[11px]">Andiamo</span>
+      <i class="bi bi-chevron-down animate-bounce text-sm"></i>
+    </div>
+
+    <!-- Marquee: moving text -->
+    <div class="marquee stripes-lemon border-y-2 border-navy py-0" aria-hidden="true">
+      <div class="marquee-track font-display font-medium text-navy text-sm tracking-[0.25em] uppercase py-3">
+        <span class="px-4">Student Founder 🍋 AI Product Builder 🍋 Venture Fellow 🍋 Harvard CS &amp; Economics 🍋 Dolce Far Niente 🍋&nbsp;</span>
+        <span class="px-4">Student Founder 🍋 AI Product Builder 🍋 Venture Fellow 🍋 Harvard CS &amp; Economics 🍋 Dolce Far Niente 🍋&nbsp;</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="flex items-end gap-5 mb-16" data-aos="fade-up">
+        <div>
+          <p class="font-display text-cobalt/80 text-[13px] tracking-[0.3em] uppercase mb-3">Chi Sono</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">About Me</h2>
+        </div>
+        <div class="squiggle flex-1 mb-3 hidden md:block"></div>
+        <svg class="hidden md:block shrink-0 mb-1 w-9 h-9" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+
+        <div class="flex justify-center md:justify-start" data-aos="fade-right">
+          <div class="med-card rounded-2xl p-3 rotate-[-1.5deg]">
+            <img
+              src="assets/img/profile-img2.jpg"
+              alt="Isabella Andrade"
+              class="w-full max-w-md rounded-xl object-cover"
+            >
+          </div>
+        </div>
+
+        <div data-aos="fade-left">
+          <p class="text-navy text-lg leading-relaxed mb-5">
+            I'm a Harvard student pursuing a double A.B. in Computer Science and Economics. I build AI tools, research their failure modes, and study the markets they're reshaping.
+          </p>
+          <p class="text-navy/80 leading-relaxed mb-5">
+            Currently a student founder with TekTrek in San Francisco and an incoming Product Experience Specialist at Lovable — with past lives in software engineering at Verapath, healthcare LLM research at Harvard Medical School, and venture fellowships at Glade Brook and Milemark.
+          </p>
+          <p class="font-display italic text-cobalt text-lg leading-relaxed mb-10">
+            Happiest by the sea — preferably somewhere with lemon trees.
+          </p>
+
+          <div class="med-card rounded-2xl p-7">
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <p class="text-[10px] text-cobalt/70 uppercase tracking-widest mb-1 font-semibold">Location</p>
+                <p class="text-navy text-sm font-medium">Cambridge, MA</p>
+              </div>
+              <div>
+                <p class="text-[10px] text-cobalt/70 uppercase tracking-widest mb-1 font-semibold">University</p>
+                <p class="text-navy text-sm font-medium">Harvard College</p>
+              </div>
+              <div>
+                <p class="text-[10px] text-cobalt/70 uppercase tracking-widest mb-1 font-semibold">Email</p>
+                <p class="text-navy text-sm font-medium break-all">isabellaandrade@college.harvard.edu</p>
+              </div>
+              <div>
+                <p class="text-[10px] text-cobalt/70 uppercase tracking-widest mb-1 font-semibold">Focus</p>
+                <p class="text-navy text-sm font-medium">AI Tooling · Venture · Product</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="flex items-end gap-5 mb-16" data-aos="fade-up">
+        <div>
+          <p class="font-display text-cobalt/80 text-[13px] tracking-[0.3em] uppercase mb-3">Le Competenze</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Skills</h2>
+        </div>
+        <div class="squiggle flex-1 mb-3 hidden md:block"></div>
+        <svg class="hidden md:block shrink-0 mb-1 w-9 h-9 -rotate-12" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10">
+
+        <div data-aos="fade-up" data-aos-delay="0">
+          <h3 class="text-[11px] text-cobalt uppercase tracking-[0.2em] font-bold mb-5">Languages &amp; Data</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Python</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">C#</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">C++</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">R</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">HTML/CSS</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">SQL</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Excel</span>
+          </div>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="100">
+          <h3 class="text-[11px] text-cobalt uppercase tracking-[0.2em] font-bold mb-5">Web &amp; Tools</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">React</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Next.js</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Blazor</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Razor Pages</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Git &amp; GitHub</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Azure DevOps</span>
+          </div>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="200">
+          <h3 class="text-[11px] text-cobalt uppercase tracking-[0.2em] font-bold mb-5">AI Tools</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Claude Code</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Codex</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Windsurf</span>
+            <span class="med-pill text-sm px-4 py-1.5 rounded-full">Lovable</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="flex items-end gap-5 mb-16" data-aos="fade-up">
+        <div>
+          <p class="font-display text-cobalt/80 text-[13px] tracking-[0.3em] uppercase mb-3">L'Esperienza</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Experience</h2>
+        </div>
+        <div class="squiggle flex-1 mb-3 hidden md:block"></div>
+        <svg class="hidden md:block shrink-0 mb-1 w-9 h-9 rotate-6" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+      </div>
+
+      <div class="space-y-14">
+
+        <!-- Lovable -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Aug 2026</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Incoming Product Experience Specialist</h3>
+            <a href="https://lovable.dev/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-lemon decoration-2 underline-offset-4">Lovable <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Joining Lovable to work at the edge of AI-assisted software creation.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TekTrek -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Jun 2026 – Present</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Student Founder</h3>
+            <a href="https://tektrek.com/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-lemon decoration-2 underline-offset-4">TekTrek <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Selected as one of forty young builders from MIT, Harvard, and Princeton — out of 400+ applicants — to spend the summer building in San Francisco.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Glade Brook -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Mar – May 2026</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Spring Fellow</h3>
+            <a href="https://www.gladebrookcapital.com/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-lemon decoration-2 underline-offset-4">Glade Brook Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Built an internal knowledge-management tool to centralize firm-wide research — owned it from problem identification through deployment.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Produced a research brief on AI in the sciences for investment partners, including a deep dive on orbital data center technology for a portfolio company.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Y Lab -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Jan – Jun 2026</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Research Assistant</h3>
+            <a href="https://ylab.top/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-lemon decoration-2 underline-offset-4">Y Lab, Harvard Medical School <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Ran a PRISMA-guided systematic review on demographic bias in healthcare LLMs — screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Translated technical ML findings for a clinical audience; co-authoring a manuscript for publication this fall.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Verapath -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Jun 2024 – Jan 2026</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Software Engineer Intern</h3>
+            <a href="https://verapath.com/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-lemon decoration-2 underline-offset-4">Verapath <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Prototyped prompt-based agents with OpenAI Codex as a pair-programming tool, validating outputs against structured evaluation criteria and stakeholder feedback.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Improved front-end responsiveness by auditing stylesheet load order, refactoring media queries, and resolving UI issues across the full stack.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Translated product requirements into scoped work items in Azure DevOps, managing execution and surfacing blockers early.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Milemark -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">May – Aug 2025</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Venture Fellow</h3>
+            <a href="https://www.milemark.capital/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-lemon decoration-2 underline-offset-4">Milemark Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Tracked agentic AI adoption across healthcare, fintech, and agtech; synthesized patterns into concise written briefs for investors.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Goldman Sachs -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Sep 2024 – Jan 2025</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Engineering Leader</h3>
+            <p class="text-cobalt text-sm font-semibold mb-5">Goldman Sachs Emerging Leaders Program</p>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Developed a mutual fund calculator with Spring Boot, MongoDB, and Next.js — modeled projected returns using CAPM and compound interest.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Presented the project at the Goldman Sachs Dallas summit.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Mid-page marquee -->
+  <div class="marquee bg-cobalt border-y-2 border-navy" aria-hidden="true">
+    <div class="marquee-track font-display font-medium text-cream text-sm tracking-[0.25em] uppercase py-3">
+      <span class="px-4">Isabella Andrade 🍋 La Dolce Vita 🍋 Cambridge → San Francisco → Il Mare 🍋 Isabella Andrade 🍋 La Dolce Vita 🍋 Cambridge → San Francisco → Il Mare 🍋&nbsp;</span>
+      <span class="px-4">Isabella Andrade 🍋 La Dolce Vita 🍋 Cambridge → San Francisco → Il Mare 🍋 Isabella Andrade 🍋 La Dolce Vita 🍋 Cambridge → San Francisco → Il Mare 🍋&nbsp;</span>
+    </div>
+  </div>
+
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="flex items-end gap-5 mb-16" data-aos="fade-up">
+        <div>
+          <p class="font-display text-cobalt/80 text-[13px] tracking-[0.3em] uppercase mb-3">I Progetti</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Projects</h2>
+        </div>
+        <div class="squiggle flex-1 mb-3 hidden md:block"></div>
+        <svg class="hidden md:block shrink-0 mb-1 w-9 h-9 -rotate-6" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <div class="med-card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="0">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-lemon/40 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-phone text-cobalt"></i>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-xs font-semibold text-cobalt bg-lemon/40 px-3 py-1 rounded-full">HTML</span>
+              <span class="text-xs font-semibold text-cobalt bg-lemon/40 px-3 py-1 rounded-full">JavaScript</span>
+            </div>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">Passio Go — Harvard Upgrade</h3>
+          <p class="text-navy/80 text-sm leading-relaxed mb-5">Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.</p>
+          <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" class="inline-flex items-center gap-1.5 text-cobalt hover:text-navy text-sm font-semibold transition-colors underline decoration-lemon decoration-2 underline-offset-4">
+            View Project <i class="bi bi-arrow-up-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="med-card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-lemon/40 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-water text-cobalt"></i>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-xs font-semibold text-cobalt bg-lemon/40 px-3 py-1 rounded-full">WebGL</span>
+              <span class="text-xs font-semibold text-cobalt bg-lemon/40 px-3 py-1 rounded-full">Vanilla JS</span>
+            </div>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">This Site — Two Seas</h3>
+          <p class="text-navy/80 text-sm leading-relaxed mb-5">One portfolio, two waters: a deep-sea dive with a WebGL surf line, working depth gauge, and marine snow — and this sunny Mediterranean edition with animated stripes, squiggles, and lemons. No frameworks.</p>
+          <a href="index.html" class="inline-flex items-center gap-1.5 text-cobalt hover:text-navy text-sm font-semibold transition-colors underline decoration-lemon decoration-2 underline-offset-4">
+            Visit the Deep Sea <i class="bi bi-arrow-up-right text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== LEADERSHIP ===== -->
+  <section id="leadership" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="flex items-end gap-5 mb-16" data-aos="fade-up">
+        <div>
+          <p class="font-display text-cobalt/80 text-[13px] tracking-[0.3em] uppercase mb-3">La Guida</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Leadership</h2>
+        </div>
+        <div class="squiggle flex-1 mb-3 hidden md:block"></div>
+        <svg class="hidden md:block shrink-0 mb-1 w-9 h-9 rotate-12" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <div class="med-card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="0">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-lemon/40 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-diagram-3 text-cobalt"></i>
+            </div>
+            <span class="text-xs font-semibold text-cobalt bg-lemon/40 px-3 py-1 rounded-full">Mar 2026 – Present</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">Anchor Initiative Student Lead</h3>
+          <a href="https://massaicoalition.com/students" target="_blank" class="text-cobalt text-sm font-semibold mb-4 inline-block hover:text-navy transition-colors underline decoration-lemon decoration-2 underline-offset-4">Massachusetts AI Coalition <i class="bi bi-arrow-up-right text-xs"></i></a>
+          <p class="text-navy/80 text-sm leading-relaxed">
+            Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.
+          </p>
+        </div>
+
+        <div class="med-card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-lemon/40 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-sun text-cobalt"></i>
+            </div>
+            <span class="text-xs font-semibold text-cobalt bg-lemon/40 px-3 py-1 rounded-full">Jul 2025 – Present</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">SCOUT Program Co-Director</h3>
+          <p class="text-cobalt text-sm font-semibold mb-4">Harvard Undergraduate Clean Energy Group</p>
+          <p class="text-navy/80 text-sm leading-relaxed">
+            Founded HUCEG's first VC education program from scratch — designed the curriculum, recruited analysts, and run research workflows across four clean-energy verticals as the cohort's primary point of contact.
+          </p>
+        </div>
+
+        <div class="med-card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="160">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-lemon/40 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-people text-cobalt"></i>
+            </div>
+            <span class="text-xs font-semibold text-cobalt bg-lemon/40 px-3 py-1 rounded-full">Jul 2024 – Present</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">Junior Outreach Representative</h3>
+          <p class="text-cobalt text-sm font-semibold mb-4">Society of Hispanic Professional Engineers (SHPE)</p>
+          <p class="text-navy/80 text-sm leading-relaxed">
+            Planned and executed outreach and service events with campus and community partners; managed logistics to support engagement with underrepresented students in STEM.
+          </p>
+        </div>
+
+        <div class="med-card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="240">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-lemon/40 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-shield-check text-cobalt"></i>
+            </div>
+            <span class="text-xs font-semibold text-cobalt bg-lemon/40 px-3 py-1 rounded-full">Jul – Aug 2023</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">Technical Fellowship</h3>
+          <p class="text-cobalt text-sm font-semibold mb-4">Harvard AI Safety Team</p>
+          <p class="text-navy/80 text-sm leading-relaxed">
+            Synthesized research on interpretability, RLHF, goal misgeneralization, and eliciting latent knowledge; shared takeaways with a 5-member cohort over 8 weeks.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== EDUCATION ===== -->
+  <section id="education" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="flex items-end gap-5 mb-16" data-aos="fade-up">
+        <div>
+          <p class="font-display text-cobalt/80 text-[13px] tracking-[0.3em] uppercase mb-3">La Formazione</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Education</h2>
+        </div>
+        <div class="squiggle flex-1 mb-3 hidden md:block"></div>
+        <svg class="hidden md:block shrink-0 mb-1 w-9 h-9 -rotate-3" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+      </div>
+
+      <div class="med-card rounded-2xl p-8 md:p-10" data-aos="fade-up">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded-xl bg-lemon/40 border-2 border-cobalt flex items-center justify-center shrink-0">
+              <i class="bi bi-mortarboard text-cobalt text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-display font-semibold text-2xl mb-1">A.B. Computer Science &amp; Economics</h3>
+              <p class="text-cobalt text-sm font-semibold">Harvard University</p>
+            </div>
+          </div>
+          <p class="text-navy/60 text-sm font-medium shrink-0 md:pt-3">Expected May 2027 · Cambridge, MA</p>
+        </div>
+
+        <p class="text-[11px] text-cobalt uppercase tracking-widest font-bold mb-4 md:ml-[68px]">Relevant Coursework</p>
+        <div class="flex flex-wrap gap-2 md:ml-[68px]">
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Data Structures &amp; Algorithms</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Systems Programming &amp; Machine Organization</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Economics &amp; Computation</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Probability with Engineering Applications</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Linear Algebra</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Discrete Mathematics</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Calculus 2</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== WRITING ===== -->
+  <section id="writing" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="flex items-end gap-5 mb-16" data-aos="fade-up">
+        <div>
+          <p class="font-display text-cobalt/80 text-[13px] tracking-[0.3em] uppercase mb-3">Gli Scritti</p>
+          <h2 class="font-display font-semibold text-4xl md:text-5xl text-cobalt">Writing</h2>
+        </div>
+        <div class="squiggle flex-1 mb-3 hidden md:block"></div>
+        <svg class="hidden md:block shrink-0 mb-1 w-9 h-9 rotate-45" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+      </div>
+
+      <div class="space-y-8">
+
+        <div class="med-card rounded-2xl p-7" data-aos="fade-up">
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-lemon/40 border-2 border-cobalt flex items-center justify-center shrink-0 mt-0.5">
+                <i class="bi bi-file-earmark-text text-cobalt"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg mb-1">Political Voices: Deepfakes and the Future of Democracy</h3>
+                <p class="text-cobalt text-sm font-semibold">CS 1050: Privacy and Surveillance</p>
+              </div>
+            </div>
+            <a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank"
+               class="inline-flex items-center gap-1.5 text-cobalt hover:text-navy text-sm font-semibold transition-colors shrink-0 underline decoration-lemon decoration-2 underline-offset-4">
+              Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
+            </a>
+          </div>
+          <p class="text-navy/80 text-sm leading-relaxed ml-14">
+            Argues that voice-cloning deepfakes pose a fundamental threat to democratic communication that existing legal frameworks and reactive policy measures cannot adequately address. Examines the growing tension between AI and privacy — moving beyond individual personhood to focus on AI's broader impact on democratic systems.
+          </p>
+        </div>
+
+        <div class="med-card rounded-2xl p-7" data-aos="fade-up">
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-lemon/40 border-2 border-cobalt flex items-center justify-center shrink-0 mt-0.5">
+                <i class="bi bi-file-earmark-text text-cobalt"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg mb-1">Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</h3>
+                <p class="text-cobalt text-sm font-semibold">Economics 1343: The Economics of Development and Global Health</p>
+              </div>
+            </div>
+            <a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank"
+               class="inline-flex items-center gap-1.5 text-cobalt hover:text-navy text-sm font-semibold transition-colors shrink-0 underline decoration-lemon decoration-2 underline-offset-4">
+              Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
+            </a>
+          </div>
+          <p class="text-navy/80 text-sm leading-relaxed ml-14">
+            Examines how AI diagnostic tools validated in high-income settings fail catastrophically when deployed in low-income countries. Through two cases — CAD4TB (TB detection in sub-Saharan Africa) and First-Derm (dermatology AI in Uganda, with a 52.9 percentage point accuracy collapse) — the paper argues that absent rigorous local validation, algorithmic bias becomes a structural health equity crisis.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="marquee stripes-lemon border-y-2 border-navy" aria-hidden="true">
+      <div class="marquee-track font-display font-medium text-navy text-sm tracking-[0.25em] uppercase py-3">
+        <span class="px-4">Grazie Mille 🍋 Dolce Far Niente 🍋 A Presto 🍋 Grazie Mille 🍋 Dolce Far Niente 🍋 A Presto 🍋&nbsp;</span>
+        <span class="px-4">Grazie Mille 🍋 Dolce Far Niente 🍋 A Presto 🍋 Grazie Mille 🍋 Dolce Far Niente 🍋 A Presto 🍋&nbsp;</span>
+      </div>
+    </div>
+
+    <div class="py-16 px-6 text-center">
+      <svg class="w-10 h-10 mx-auto mb-4 lemon-float" viewBox="0 0 32 32" aria-hidden="true"><use href="#lemon"/></svg>
+      <p class="font-display font-semibold text-2xl mb-2 text-cobalt">
+        Isabella Andrade<span class="text-lemon">.</span>
+      </p>
+      <p class="font-display italic text-navy/60 text-sm mb-6">Thanks for visiting the sunny side.</p>
+      <div class="flex justify-center gap-6 mb-8">
+        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn" class="text-cobalt hover:text-navy transition-colors text-xl">
+          <i class="bi bi-linkedin"></i>
+        </a>
+        <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub" class="text-cobalt hover:text-navy transition-colors text-xl">
+          <i class="bi bi-github"></i>
+        </a>
+      </div>
+      <a href="index.html" class="font-display text-[13px] tracking-[0.2em] text-cobalt hover:text-navy transition-colors uppercase underline decoration-lemon decoration-2 underline-offset-4">
+        🌊 Dive to the deep-sea version
+      </a>
+    </div>
+
+    <div class="stripes h-10"></div>
+  </footer>
+
+
+  <!-- Up button -->
+  <a href="#hero" id="up-btn" aria-label="Back to the top"
+     class="med-card fixed bottom-6 right-6 text-navy w-11 h-11 rounded-full flex items-center justify-center z-40">
+    <i class="bi bi-arrow-up-short text-lg"></i>
+  </a>
+
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script>
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60, disable: reducedMotion });
+
+    const upBtn = document.getElementById('up-btn');
+    window.addEventListener('scroll', () => {
+      upBtn.classList.toggle('visible', window.scrollY > 500);
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
