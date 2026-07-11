@@ -7,7 +7,7 @@
   <title>Isabella Andrade</title>
   <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student.">
   <meta name="keywords" content="Isabella Andrade, Harvard, Software Developer, AI, Portfolio">
-  <meta name="theme-color" content="#07162b">
+  <meta name="theme-color" content="#2b6396">
 
   <!-- Favicon: a wave -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%8A%3C/text%3E%3C/svg%3E">
@@ -50,14 +50,14 @@
     /* The descent: one continuous gradient from sunlit water to the abyss */
     body {
       background: linear-gradient(to bottom,
-        #0b2342 0%,
-        #081c37 10%,
-        #061831 22%,
-        #051229 38%,
-        #040d20 55%,
-        #030917 72%,
-        #020610 86%,
-        #01030a 100%);
+        #2b6396 0%,
+        #1e4f7e 10%,
+        #153d66 22%,
+        #0c2a4c 38%,
+        #071c36 55%,
+        #040f24 72%,
+        #020814 86%,
+        #01040c 100%);
       color: #eaf6ff;
       font-family: 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -81,40 +81,87 @@
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(to right, rgba(3, 10, 20, 0.68) 0%, rgba(3, 10, 20, 0.35) 45%, rgba(3, 10, 20, 0.05) 75%),
-        linear-gradient(to bottom, rgba(3, 10, 20, 0.55) 0%, rgba(3, 10, 20, 0) 30%, rgba(3, 10, 20, 0) 72%, #081c37 100%);
+        radial-gradient(ellipse 64% 58% at 50% 46%, rgba(3, 10, 20, 0.58) 0%, rgba(3, 10, 20, 0.22) 55%, transparent 80%),
+        linear-gradient(to bottom, rgba(3, 10, 20, 0.40) 0%, rgba(3, 10, 20, 0) 25%, rgba(3, 10, 20, 0) 72%, #1e4f7e 100%);
     }
 
-    .typed-cursor { color: #67e8f9; font-weight: 300; }
-
-    /* Skill pill */
+    /* Skill pill: small liquid-glass capsule */
     .skill-pill {
-      border: 1px solid rgba(125, 211, 252, 0.18);
-      background: rgba(56, 189, 248, 0.05);
-      color: #b8d9ef;
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.13), rgba(25, 60, 100, 0.08));
+      -webkit-backdrop-filter: blur(10px) saturate(160%);
+      backdrop-filter: blur(10px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      color: #cfe6f5;
       transition: border-color 0.25s, background 0.25s, color 0.25s, box-shadow 0.25s;
     }
     .skill-pill:hover {
       border-color: rgba(103, 232, 249, 0.55);
-      background: rgba(103, 232, 249, 0.10);
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.22), rgba(40, 90, 130, 0.14));
       color: #fff;
-      box-shadow: 0 0 18px rgba(103, 232, 249, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 18px rgba(103, 232, 249, 0.14);
     }
 
-    /* Cards: dark glass with bioluminescent hover */
+    /* Cards: liquid glass floating in the water column.
+       Frosted fill, hairline border, and a specular sheen along the
+       top-left edge where the light hits */
     .card {
-      border: 1px solid rgba(125, 211, 252, 0.10);
-      background: rgba(8, 20, 38, 0.45);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(150deg, rgba(125, 211, 252, 0.10) 0%, rgba(56, 130, 190, 0.05) 45%, rgba(10, 30, 55, 0.20) 100%);
+      -webkit-backdrop-filter: blur(18px) saturate(170%);
+      backdrop-filter: blur(18px) saturate(170%);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+        0 14px 44px rgba(1, 8, 18, 0.40);
       transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
     }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(115deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.04) 20%, transparent 45%);
+      pointer-events: none;
+    }
     .card:hover {
-      border-color: rgba(103, 232, 249, 0.40);
-      box-shadow: 0 8px 40px rgba(2, 8, 20, 0.5), 0 0 28px rgba(103, 232, 249, 0.10);
+      border-color: rgba(103, 232, 249, 0.45);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        0 18px 56px rgba(1, 8, 18, 0.50),
+        0 0 32px rgba(103, 232, 249, 0.12);
       transform: translateY(-4px);
     }
 
-    .nav-link { color: #8fb3cc; transition: color 0.2s; }
-    .nav-link:hover { color: #fff; }
+    /* Glass buttons */
+    .glass-btn {
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.14), rgba(20, 50, 85, 0.10));
+      -webkit-backdrop-filter: blur(14px) saturate(170%);
+      backdrop-filter: blur(14px) saturate(170%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.20), 0 8px 24px rgba(1, 8, 18, 0.30);
+      transition: border-color 0.25s, background 0.25s, color 0.25s, box-shadow 0.25s;
+    }
+    .glass-btn:hover {
+      border-color: rgba(103, 232, 249, 0.60);
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.24), rgba(40, 90, 130, 0.16));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 8px 28px rgba(103, 232, 249, 0.18);
+    }
+    .glass-btn-primary {
+      background: linear-gradient(140deg, rgba(56, 189, 248, 0.80), rgba(10, 110, 180, 0.70));
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      backdrop-filter: blur(14px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.50), 0 8px 28px rgba(56, 189, 248, 0.35);
+      transition: box-shadow 0.25s, filter 0.25s;
+    }
+    .glass-btn-primary:hover {
+      filter: brightness(1.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 10px 34px rgba(56, 189, 248, 0.50);
+    }
+
 
     /* Dive line: experience timeline as a descent rope with sonar pings */
     .timeline-entry {
@@ -161,14 +208,7 @@
     }
     #surface-btn.visible { opacity: 1; pointer-events: auto; }
 
-    #navbar {
-      background: rgba(6, 16, 32, 0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
 
-    #mobile-menu { display: none; }
-    #mobile-menu.open { display: flex; }
 
     .profile-wrapper { position: relative; display: inline-block; }
     .profile-wrapper::after {
@@ -181,24 +221,79 @@
       z-index: -1;
     }
 
-    /* Depth gauge (right rail, desktop only) */
+    /* Depth gauge (right rail, desktop only): a glass dive computer */
     #gauge {
       position: fixed;
-      right: 1.5rem;
+      right: 1.25rem;
       top: 50%;
       transform: translateY(-50%);
       z-index: 40;
       flex-direction: column;
       align-items: center;
       gap: 0.75rem;
-      pointer-events: none;
+      padding: 0.8rem 0.45rem;
+      border-radius: 999px;
+      background: linear-gradient(160deg, rgba(125, 211, 252, 0.05), rgba(10, 30, 55, 0.22));
+      -webkit-backdrop-filter: blur(8px) saturate(150%);
+      backdrop-filter: blur(8px) saturate(150%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 6px 18px rgba(1, 8, 18, 0.30);
     }
     #gauge-track {
       position: relative;
       width: 1px;
-      height: 130px;
+      height: 200px;
       background: rgba(125, 211, 252, 0.18);
     }
+
+    /* Clickable section stops along the dive line */
+    .gauge-stop {
+      position: absolute;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gauge-stop::after {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(207, 230, 245, 0.45);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .gauge-stop:hover::after,
+    .gauge-stop:focus-visible::after {
+      background: #9be9f7;
+      transform: scale(1.6);
+      box-shadow: 0 0 10px rgba(103, 232, 249, 0.9);
+    }
+    .gauge-tip {
+      position: absolute;
+      right: calc(100% + 14px);
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #d8eefb;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.16), rgba(10, 30, 55, 0.55));
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      backdrop-filter: blur(12px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 6px 18px rgba(1, 8, 18, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .gauge-stop:hover .gauge-tip,
+    .gauge-stop:focus-visible .gauge-tip { opacity: 1; }
     #gauge-marker {
       position: absolute;
       left: 50%;
@@ -209,6 +304,7 @@
       background: #67e8f9;
       border-radius: 50%;
       box-shadow: 0 0 8px rgba(103, 232, 249, 0.8);
+      pointer-events: none;
     }
     .gauge-label {
       writing-mode: vertical-rl;
@@ -223,7 +319,7 @@
       pointer-events: none;
     }
     #waves { position: absolute; inset: 0; }
-    main, footer, header { position: relative; z-index: 1; }
+    main, footer { position: relative; z-index: 1; }
 
     a:focus-visible, button:focus-visible {
       outline: 2px solid #67e8f9;
@@ -243,94 +339,52 @@
   <!-- Ambient particles: bubbles in the shallows, marine snow in the deep -->
   <canvas id="sea" aria-hidden="true"></canvas>
 
-  <!-- ===== NAVBAR ===== -->
-  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 border-b border-cyan-200/[0.06]">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
-      <a href="#hero" class="font-display font-semibold text-xl tracking-tight">
-        IA<span class="text-biolume">.</span>
-      </a>
-
-      <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#experience" class="nav-link">Experience</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#leadership" class="nav-link">Leadership</a>
-        <a href="#education" class="nav-link">Education</a>
-        <a href="#writing" class="nav-link">Writing</a>
-      </nav>
-
-      <div class="flex items-center gap-5">
-        <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub" class="nav-link text-lg"><i class="bi bi-github"></i></a>
-        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn" class="nav-link text-lg"><i class="bi bi-linkedin"></i></a>
-        <button id="menu-toggle" class="md:hidden nav-link text-xl" aria-label="Toggle menu">
-          <i class="bi bi-list"></i>
-        </button>
-      </div>
-    </div>
-
-    <div id="mobile-menu" class="flex-col md:hidden px-6 pb-5 gap-4 text-sm font-medium border-t border-cyan-200/[0.06]">
-      <a href="#about" class="nav-link pt-4">About</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#experience" class="nav-link">Experience</a>
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#leadership" class="nav-link">Leadership</a>
-      <a href="#education" class="nav-link">Education</a>
-      <a href="#writing" class="nav-link">Writing</a>
-    </div>
-  </header>
-
-
-  <!-- Depth gauge -->
-  <div id="gauge" class="hidden lg:flex" aria-hidden="true">
-    <span id="gauge-depth" class="font-mono text-[11px] text-cyan-200/80 tracking-widest">0000 M</span>
+  <!-- Depth gauge: live readout + clickable section stops -->
+  <nav id="gauge" class="hidden lg:flex" aria-label="Depth navigation">
+    <span id="gauge-depth" class="font-mono text-[11px] text-cyan-200/80 tracking-widest" aria-hidden="true">0000 M</span>
     <div id="gauge-track"><div id="gauge-marker"></div></div>
-    <span id="gauge-zone" class="gauge-label font-mono text-[10px] text-cyan-300/50">SURFACE</span>
-  </div>
+    <span id="gauge-zone" class="gauge-label font-mono text-[10px] text-cyan-300/50" aria-hidden="true">SURFACE</span>
+  </nav>
 
 
   <main>
 
   <!-- ===== HERO: the waterline ===== -->
-  <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-16 pt-20 overflow-hidden">
+  <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-16 overflow-hidden">
 
     <canvas id="waves" aria-hidden="true"></canvas>
     <div class="hero-scrim"></div>
 
-    <div class="max-w-6xl mx-auto w-full relative z-10">
+    <div class="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center text-center">
 
-      <p class="font-mono text-cyan-300/80 text-xs tracking-[0.3em] uppercase mb-8" data-aos="fade-up">
-        Harvard University · CS &amp; Economics
+      <p class="font-display text-cyan-100/90 text-sm font-medium tracking-[0.35em] uppercase mb-8" data-aos="fade-up">
+        Harvard College · CS &amp; Economics
       </p>
 
       <h1 class="font-display font-semibold text-[clamp(3rem,10vw,7.5rem)] leading-[0.95] tracking-tight gradient-text mb-8" data-aos="fade-up" data-aos-delay="80">
         Isabella<br>Andrade
       </h1>
 
-      <div class="text-xl md:text-2xl text-slate-300 mb-4 h-8" data-aos="fade-up" data-aos-delay="160">
-        <span class="typed text-white font-medium" data-typed-items="Student Founder, AI Product Builder, Venture Fellow, Ocean Person  "></span>
-      </div>
+      <p class="font-display italic text-xl md:text-2xl text-cyan-50 mb-4" data-aos="fade-up" data-aos-delay="160">
+        Student Founder · AI Product Builder · Venture Fellow
+      </p>
 
-      <p class="text-slate-400/80 text-base mb-12 max-w-lg" data-aos="fade-up" data-aos-delay="220">
+      <p class="font-display italic text-lg text-slate-300/90 mb-12 max-w-lg" data-aos="fade-up" data-aos-delay="220">
         Life is not fair but I fight to make it fair.
       </p>
 
-      <div class="flex flex-wrap items-center gap-4" data-aos="fade-up" data-aos-delay="300">
-        <a href="#about"
-           class="bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold px-7 py-3 rounded-full transition-colors shadow-[0_0_24px_rgba(56,189,248,0.35)]">
-          Dive In
+      <div class="flex flex-wrap items-center justify-center gap-4" data-aos="fade-up" data-aos-delay="300">
+        <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub"
+           class="glass-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-slate-100 hover:text-white">
+          <i class="bi bi-github"></i>
         </a>
-        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank"
-           class="border border-cyan-100/15 hover:border-biolume/60 text-slate-300 hover:text-white text-sm font-semibold px-7 py-3 rounded-full transition-colors">
-          Connect
+        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn"
+           class="glass-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-slate-100 hover:text-white">
+          <i class="bi bi-linkedin"></i>
         </a>
       </div>
     </div>
-
-    <p class="hidden md:block absolute right-10 bottom-10 font-mono text-[10px] tracking-[0.2em] text-cyan-100/50 z-10" data-aos="fade" data-aos-delay="700">
-      (stir the water with your cursor)
-    </p>
 
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cyan-200/50 text-xs z-10" data-aos="fade-up" data-aos-delay="500">
       <span class="font-mono tracking-[0.3em] uppercase text-[10px]">Dive</span>
@@ -374,22 +428,24 @@
             Happiest near the ocean — which is why you're currently ten meters underwater.
           </p>
 
-          <div class="grid grid-cols-2 gap-6">
-            <div>
-              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Location</p>
-              <p class="text-white text-sm font-medium">Cambridge, MA</p>
-            </div>
-            <div>
-              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">University</p>
-              <p class="text-white text-sm font-medium">Harvard College</p>
-            </div>
-            <div>
-              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Email</p>
-              <p class="text-white text-sm font-medium break-all">isabellaandrade@college.harvard.edu</p>
-            </div>
-            <div>
-              <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Focus</p>
-              <p class="text-white text-sm font-medium">AI Tooling · Venture · Product</p>
+          <div class="card rounded-3xl p-7">
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Location</p>
+                <p class="text-white text-sm font-medium">Cambridge, MA</p>
+              </div>
+              <div>
+                <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">University</p>
+                <p class="text-white text-sm font-medium">Harvard College</p>
+              </div>
+              <div>
+                <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Email</p>
+                <p class="text-white text-sm font-medium break-all">isabellaandrade@college.harvard.edu</p>
+              </div>
+              <div>
+                <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">Focus</p>
+                <p class="text-white text-sm font-medium">AI Tooling · Venture · Product</p>
+              </div>
             </div>
           </div>
         </div>
@@ -490,7 +546,7 @@
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Student Founder</h3>
-            <p class="text-aqua text-sm font-medium mb-5">TekTrek</p>
+            <a href="https://tektrek.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">TekTrek <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -507,7 +563,7 @@
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Spring Fellow</h3>
-            <p class="text-aqua text-sm font-medium mb-5">Glade Brook Capital</p>
+            <a href="https://www.gladebrookcapital.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Glade Brook Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -549,7 +605,7 @@
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Software Engineer Intern</h3>
-            <p class="text-aqua text-sm font-medium mb-5">Verapath</p>
+            <a href="https://verapath.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Verapath <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -574,7 +630,7 @@
           </div>
           <div class="timeline-entry">
             <h3 class="font-display font-semibold text-xl mb-1">Venture Fellow</h3>
-            <p class="text-aqua text-sm font-medium mb-5">Milemark Capital</p>
+            <a href="https://www.milemark.capital/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Milemark Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
             <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
               <li class="flex gap-3">
                 <span class="text-biolume shrink-0 mt-0.5">▸</span>
@@ -625,7 +681,7 @@
       <div class="grid md:grid-cols-2 gap-5">
 
         <!-- Passio Go -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="0">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="0">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-phone text-aqua"></i>
@@ -643,7 +699,7 @@
         </div>
 
         <!-- This site -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="80">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-water text-aqua"></i>
@@ -680,7 +736,7 @@
       <div class="grid md:grid-cols-2 gap-5">
 
         <!-- Massachusetts AI Coalition -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="0">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="0">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-diagram-3 text-aqua"></i>
@@ -688,14 +744,14 @@
             <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Mar 2026 – Present</span>
           </div>
           <h3 class="font-display font-semibold text-lg mb-1">Anchor Initiative Student Lead</h3>
-          <p class="text-aqua text-sm mb-4">Massachusetts AI Coalition</p>
+          <a href="https://massaicoalition.com/students" target="_blank" class="text-aqua text-sm mb-4 inline-block hover:text-biolume transition-colors">Massachusetts AI Coalition <i class="bi bi-arrow-up-right text-xs"></i></a>
           <p class="text-slate-400 text-sm leading-relaxed">
             Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.
           </p>
         </div>
 
         <!-- HUCEG -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="80">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="80">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-sun text-aqua"></i>
@@ -710,7 +766,7 @@
         </div>
 
         <!-- SHPE -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="160">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="160">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-people text-aqua"></i>
@@ -725,7 +781,7 @@
         </div>
 
         <!-- Harvard AI Safety Team -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up" data-aos-delay="240">
+        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="240">
           <div class="flex items-start justify-between mb-5">
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
               <i class="bi bi-shield-check text-aqua"></i>
@@ -756,7 +812,7 @@
         <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
       </div>
 
-      <div class="card rounded-2xl p-8 md:p-10" data-aos="fade-up">
+      <div class="card rounded-3xl p-8 md:p-10" data-aos="fade-up">
         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
           <div class="flex items-start gap-5">
             <div class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0">
@@ -764,7 +820,7 @@
             </div>
             <div>
               <h3 class="font-display font-semibold text-2xl mb-1">A.B. Computer Science &amp; Economics</h3>
-              <p class="text-aqua text-sm">Harvard University</p>
+              <p class="text-aqua text-sm">Harvard College</p>
             </div>
           </div>
           <p class="font-mono text-slate-500 text-sm shrink-0 md:pt-3">Expected May 2027 · Cambridge, MA</p>
@@ -800,7 +856,7 @@
       <div class="space-y-5">
 
         <!-- Deepfakes paper -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up">
+        <div class="card rounded-3xl p-7" data-aos="fade-up">
           <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
             <div class="flex items-start gap-4">
               <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
@@ -822,7 +878,7 @@
         </div>
 
         <!-- Algorithmic Bias paper -->
-        <div class="card rounded-2xl p-7" data-aos="fade-up">
+        <div class="card rounded-3xl p-7" data-aos="fade-up">
           <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
             <div class="flex items-start gap-4">
               <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
@@ -851,7 +907,7 @@
 
 
   <!-- ===== FOOTER · seafloor ===== -->
-  <footer class="py-16 px-6 border-t border-cyan-200/[0.05] text-center">
+  <footer id="seafloor" class="py-16 px-6 border-t border-cyan-200/[0.05] text-center">
     <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/60 mb-6">−6000 M · SEAFLOOR</p>
     <p class="font-display font-semibold text-2xl mb-2">
       Isabella Andrade<span class="text-biolume">.</span>
@@ -873,14 +929,13 @@
 
   <!-- Surface button -->
   <a href="#hero" id="surface-btn" aria-label="Back to the surface"
-     class="fixed bottom-6 right-6 bg-sky-500 hover:bg-sky-400 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors z-40 shadow-[0_0_20px_rgba(56,189,248,0.4)]">
+     class="glass-btn-primary fixed bottom-6 right-6 text-white w-11 h-11 rounded-full flex items-center justify-center z-40">
     <i class="bi bi-arrow-up-short text-lg"></i>
   </a>
 
 
   <!-- ===== SCRIPTS ===== -->
   <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
 
   <script>
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -888,30 +943,7 @@
     // AOS
     AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60, disable: reducedMotion });
 
-    // Typed.js
-    const typedEl = document.querySelector('.typed');
-    if (typedEl) {
-      const items = typedEl.getAttribute('data-typed-items').split(',');
-      if (reducedMotion) {
-        typedEl.textContent = items[0].trim();
-      } else {
-        new Typed('.typed', {
-          strings: items,
-          loop: true,
-          typeSpeed: 55,
-          backSpeed: 28,
-          backDelay: 2200,
-        });
-      }
-    }
 
-    // Mobile menu
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
 
     // ============================================================
     // THE SURFACE FROM ABOVE — aerial ocean shader in the hero.
@@ -1201,6 +1233,47 @@
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update);
       update();
+
+      // Clickable section stops along the dive line
+      const STOPS = [
+        { id: 'hero',       label: 'SURFACE',    depth: '0 M' },
+        { id: 'about',      label: 'ABOUT',      depth: '−0010 M' },
+        { id: 'skills',     label: 'SKILLS',     depth: '−0150 M' },
+        { id: 'experience', label: 'EXPERIENCE', depth: '−0400 M' },
+        { id: 'projects',   label: 'PROJECTS',   depth: '−1200 M' },
+        { id: 'leadership', label: 'LEADERSHIP', depth: '−2500 M' },
+        { id: 'education',  label: 'EDUCATION',  depth: '−3800 M' },
+        { id: 'writing',    label: 'WRITING',    depth: '−5000 M' },
+        { id: 'seafloor',   label: 'SEAFLOOR',   depth: '−6000 M' },
+      ];
+
+      const track = document.getElementById('gauge-track');
+      STOPS.forEach((s) => {
+        const a = document.createElement('a');
+        a.href = '#' + s.id;
+        a.className = 'gauge-stop';
+        a.setAttribute('aria-label', s.label.toLowerCase() + ', ' + s.depth);
+        const tip = document.createElement('span');
+        tip.className = 'gauge-tip';
+        tip.textContent = s.label + ' · ' + s.depth;
+        a.appendChild(tip);
+        track.appendChild(a);
+        s.el = a;
+      });
+
+      function placeStops() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (max <= 0) return;
+        STOPS.forEach((s) => {
+          const target = document.getElementById(s.id);
+          if (!target) return;
+          const pct = Math.min(1, Math.max(0, target.offsetTop / max));
+          s.el.style.top = (pct * 100) + '%';
+        });
+      }
+      placeStops();
+      window.addEventListener('load', placeStops);
+      window.addEventListener('resize', placeStops);
     })();
   </script>
 
