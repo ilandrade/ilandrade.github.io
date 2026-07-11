@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Isabella Andrade — Hover</title>
+  <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student. A pointer-driven index.">
+  <meta name="theme-color" content="#F2F1F7">
+
+  <!-- Favicon: a pointing hand -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%91%86%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons (local) -->
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Archivo', 'sans-serif'],
+            serif: ['"Instrument Serif"', 'serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          colors: {
+            paper: '#F2F1F7',
+            ink: '#16121F',
+            violet: '#6D28D9',
+            grape: '#4C1D95',
+            hot: '#D6206A',
+            volt: '#E2FF54',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --paper: #F2F1F7;
+      --ink: #16121F;
+      --violet: #6D28D9;
+      --hot: #D6206A;
+      --volt: #E2FF54;
+      --hairline: rgba(22, 18, 31, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Archivo', sans-serif;
+      font-variation-settings: 'wdth' 100;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--volt); color: var(--ink); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--paper); }
+    ::-webkit-scrollbar-thumb { background: var(--violet); border-radius: 2px; }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--violet);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ============ Cursor-following highlighter glow ============ */
+    #glow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 560px; height: 560px;
+      margin: -280px 0 0 -280px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle,
+        rgba(109, 40, 217, 0.10) 0%,
+        rgba(226, 255, 84, 0.14) 38%,
+        rgba(242, 241, 247, 0) 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    main, footer, header { position: relative; z-index: 1; }
+
+    /* ============ Display name: letters widen under the pointer ============ */
+    .name-letter {
+      display: inline-block;
+      font-variation-settings: 'wdth' 78, 'wght' 800;
+      transition: font-variation-settings 0.35s ease, color 0.35s ease, transform 0.35s ease;
+    }
+    .name-letter:hover {
+      font-variation-settings: 'wdth' 125, 'wght' 900;
+      color: var(--violet);
+      transform: translateY(-0.04em);
+    }
+
+    /* ============ Word swap: hover flips a word into serif italic + highlight ============ */
+    .swap {
+      display: inline-block;
+      transition: color 0.25s;
+      box-shadow: inset 0 0 0 0 var(--volt);
+    }
+    .swap:hover {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      box-shadow: inset 0 -0.55em 0 0 var(--volt);
+      color: var(--ink);
+    }
+
+    /* ============ Highlighter marks that sweep on hover ============ */
+    .mark-sweep {
+      background-image: linear-gradient(var(--volt), var(--volt));
+      background-repeat: no-repeat;
+      background-size: 0% 55%;
+      background-position: 0 78%;
+      transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .mark-sweep:hover, p:hover > .mark-sweep { background-size: 100% 55%; }
+
+    /* ============ Underline draw ============ */
+    .u-draw {
+      background-image: linear-gradient(currentColor, currentColor);
+      background-repeat: no-repeat;
+      background-size: 0% 1.5px;
+      background-position: 0 100%;
+      transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s;
+      padding-bottom: 2px;
+    }
+    .u-draw:hover, .u-draw:focus-visible { background-size: 100% 1.5px; color: var(--hot); }
+
+    /* ============ Magnetic buttons ============ */
+    [data-magnet] {
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                  background-color 0.25s, color 0.25s, border-color 0.25s;
+      will-change: transform;
+    }
+    .pill-btn {
+      border: 1.5px solid var(--ink);
+      background: transparent;
+      color: var(--ink);
+    }
+    .pill-btn:hover {
+      background: var(--ink);
+      color: var(--volt);
+      border-color: var(--ink);
+    }
+
+    /* ============ Skill tags ============ */
+    .tag {
+      border: 1px solid var(--hairline);
+      background: rgba(255, 255, 255, 0.55);
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .tag:hover {
+      background: var(--ink);
+      color: var(--volt);
+      border-color: var(--ink);
+      transform: translateY(-2px) rotate(-1deg);
+    }
+
+    /* ============ THE INDEX: rows that expand ============ */
+    .row { border-bottom: 1px solid var(--hairline); }
+    .row-head {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 3.2rem 1fr auto 1.6rem;
+      align-items: baseline;
+      gap: 0.75rem 1rem;
+      text-align: left;
+      padding: 1.1rem 0.5rem 1.1rem 0;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      font: inherit;
+      transition: padding-left 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s;
+    }
+    @media (max-width: 640px) {
+      .row-head { grid-template-columns: 2.2rem 1fr 1.4rem; }
+      .row-head .row-date { grid-column: 2; grid-row: 2; }
+    }
+    .row-no {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: rgba(22, 18, 31, 0.4);
+      transition: color 0.3s;
+    }
+    .row-title {
+      font-weight: 700;
+      font-variation-settings: 'wdth' 92, 'wght' 700;
+      font-size: clamp(1rem, 2.2vw, 1.28rem);
+      line-height: 1.25;
+      transition: font-variation-settings 0.35s ease, color 0.3s;
+      box-shadow: inset 0 0 0 0 var(--volt);
+    }
+    .row-org {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: rgba(22, 18, 31, 0.55);
+      display: block;
+      margin-top: 0.15rem;
+    }
+    .row-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: rgba(22, 18, 31, 0.45);
+      white-space: nowrap;
+    }
+    .row-plus {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      color: var(--violet);
+      justify-self: end;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .row.open .row-plus { transform: rotate(45deg); }
+    .row.open .row-head, .row-head:hover {
+      padding-left: 1.25rem;
+      background: rgba(255, 255, 255, 0.5);
+    }
+    .row.open .row-no, .row-head:hover .row-no { color: var(--hot); }
+    .row.open .row-title, .row-head:hover .row-title {
+      font-variation-settings: 'wdth' 112, 'wght' 800;
+      box-shadow: inset 0 -0.5em 0 0 var(--volt);
+    }
+    .row-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .row.open .row-body { grid-template-rows: 1fr; }
+    .row-body-inner { overflow: hidden; min-height: 0; }
+    .row-body-pad {
+      padding: 0.25rem 0.5rem 1.75rem calc(3.2rem + 1rem + 1.25rem);
+    }
+    @media (max-width: 640px) {
+      .row-body-pad { padding-left: calc(2.2rem + 1rem); }
+    }
+    .row-bullet { position: relative; padding-left: 1.1rem; }
+    .row-bullet::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--hot);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      top: 0.15em;
+    }
+
+    /* Section labels inside the index */
+    .index-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--violet);
+    }
+
+    /* Marquee-free hint chip */
+    .hint-chip {
+      border: 1.5px dashed rgba(109, 40, 217, 0.5);
+      color: var(--violet);
+    }
+
+    /* ============ Reduced motion & touch ============ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation: none !important;
+      }
+      #glow { display: none; }
+    }
+    @media (hover: none) {
+      #glow { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="glow" aria-hidden="true"></div>
+
+  <!-- ============ HEADER / HERO ============ -->
+  <header class="px-5 md:px-12 pt-10 md:pt-14 max-w-6xl mx-auto">
+
+    <div class="flex flex-wrap items-center justify-between gap-3 pb-8 border-b border-[var(--hairline)]">
+      <p class="font-mono text-[11px] tracking-[0.3em] uppercase">Harvard College · CS &amp; Economics</p>
+      <span class="hint-chip hidden md:inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-[11px] tracking-[0.12em] uppercase">
+        <i class="bi bi-cursor-fill"></i> Everything here answers the cursor
+      </span>
+    </div>
+
+    <h1 id="name" class="text-[clamp(3.2rem,11.5vw,9rem)] leading-[0.92] tracking-tight uppercase mt-10 mb-8 select-none" aria-label="Isabella Andrade">Isabella Andrade</h1>
+
+    <p class="text-lg md:text-2xl font-medium mb-3" id="roles">
+      <span class="swap">Student</span> <span class="swap">Founder</span> <span class="font-mono text-hot">·</span>
+      <span class="swap">AI</span> <span class="swap">Product</span> <span class="swap">Builder</span> <span class="font-mono text-hot">·</span>
+      <span class="swap">Venture</span> <span class="swap">Fellow</span>
+    </p>
+
+    <p class="font-serif italic text-xl md:text-2xl text-grape mb-10" id="motto">
+      “<span class="swap">Life</span> <span class="swap">is</span> <span class="swap">not</span> <span class="swap">fair</span>
+      <span class="swap">but</span> <span class="swap">I</span> <span class="swap">fight</span> <span class="swap">to</span>
+      <span class="swap">make</span> <span class="swap">it</span> <span class="swap">fair.</span>”
+    </p>
+
+    <div class="flex flex-wrap items-center gap-3 mb-12">
+      <a href="https://github.com/ilandrade" target="_blank" rel="noopener" data-magnet
+         class="pill-btn rounded-full px-5 py-2.5 text-sm font-semibold inline-flex items-center gap-2">
+        <i class="bi bi-github"></i> GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" rel="noopener" data-magnet
+         class="pill-btn rounded-full px-5 py-2.5 text-sm font-semibold inline-flex items-center gap-2">
+        <i class="bi bi-linkedin"></i> LinkedIn
+      </a>
+      <a href="mailto:isabellaandrade@college.harvard.edu" data-magnet
+         class="pill-btn rounded-full px-5 py-2.5 text-sm font-semibold inline-flex items-center gap-2">
+        <i class="bi bi-envelope"></i> Email
+      </a>
+    </div>
+
+    <!-- Meta strip: location / focus / email / university -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-5 py-8 border-y border-[var(--hairline)] mb-14">
+      <div>
+        <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-violet mb-1.5">Location</p>
+        <p class="text-sm font-medium">Cambridge, MA</p>
+      </div>
+      <div>
+        <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-violet mb-1.5">University</p>
+        <p class="text-sm font-medium">Harvard College</p>
+      </div>
+      <div>
+        <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-violet mb-1.5">Focus</p>
+        <p class="text-sm font-medium">AI Tooling · Venture · Product</p>
+      </div>
+      <div>
+        <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-violet mb-1.5">Email</p>
+        <a href="mailto:isabellaandrade@college.harvard.edu" class="u-draw text-sm font-medium break-all">isabellaandrade@college.harvard.edu</a>
+      </div>
+    </div>
+  </header>
+
+
+  <main class="px-5 md:px-12 max-w-6xl mx-auto">
+
+    <!-- ============ ABOUT ============ -->
+    <section aria-labelledby="about-h" class="grid md:grid-cols-[220px_1fr] gap-6 md:gap-12 mb-20">
+      <h2 id="about-h" class="index-label pt-1.5">About</h2>
+      <div class="max-w-3xl">
+        <p class="text-lg md:text-xl leading-relaxed mb-5">
+          I'm a Harvard student pursuing a double A.B. in Computer Science and Economics.
+          I <span class="mark-sweep">build AI tools</span>, <span class="mark-sweep">research their failure modes</span>,
+          and <span class="mark-sweep">study the markets they're reshaping</span>.
+        </p>
+        <p class="text-base md:text-lg leading-relaxed text-ink/70">
+          Currently a student founder with TekTrek in San Francisco and an incoming Product Experience Specialist
+          at Lovable — with past lives in software engineering at Verapath, healthcare LLM research at Harvard
+          Medical School, and venture fellowships at Glade Brook and Milemark.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section aria-labelledby="skills-h" class="grid md:grid-cols-[220px_1fr] gap-6 md:gap-12 mb-24">
+      <h2 id="skills-h" class="index-label pt-1.5">Toolkit</h2>
+      <div class="space-y-7">
+        <div>
+          <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-ink/45 mb-3">Languages &amp; Data</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Python</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">C#</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">C++</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">R</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">HTML/CSS</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">SQL</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Excel</span>
+          </div>
+        </div>
+        <div>
+          <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-ink/45 mb-3">Web &amp; Tools</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag text-sm px-4 py-1.5 rounded-full">React</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Next.js</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Blazor</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Razor Pages</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Git &amp; GitHub</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Azure DevOps</span>
+          </div>
+        </div>
+        <div>
+          <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-ink/45 mb-3">AI Tools</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Claude Code</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Codex</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Windsurf</span>
+            <span class="tag text-sm px-4 py-1.5 rounded-full">Lovable</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE INDEX ============ -->
+    <section aria-labelledby="index-h" class="mb-24">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-2 border-b-2 border-ink pb-4">
+        <h2 id="index-h" class="text-[clamp(2rem,6vw,3.6rem)] font-extrabold uppercase tracking-tight leading-none"
+            style="font-variation-settings:'wdth' 115,'wght' 850">The Index</h2>
+        <p class="font-mono text-[11px] tracking-[0.15em] uppercase text-ink/50 pb-1">
+          16 entries · <span class="text-violet">hover to open</span> · tap or press Enter on touch &amp; keyboard
+        </p>
+      </div>
+
+      <!-- —— EXPERIENCE —— -->
+      <p class="index-label pt-8 pb-2">Experience — 7 entries</p>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-01">
+          <span class="row-no">01</span>
+          <span class="row-main"><span class="row-title">Incoming Product Experience Specialist</span><span class="row-org">Lovable</span></span>
+          <span class="row-date">Aug 2026</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-01" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <ul class="space-y-2.5 text-sm leading-relaxed text-ink/75 mb-4">
+              <li class="row-bullet">Joining Lovable to work at the edge of AI-assisted software creation.</li>
+            </ul>
+            <a href="https://lovable.dev/" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">lovable.dev <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-02">
+          <span class="row-no">02</span>
+          <span class="row-main"><span class="row-title">Student Founder</span><span class="row-org">TekTrek</span></span>
+          <span class="row-date">Jun 2026 – Present</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-02" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <ul class="space-y-2.5 text-sm leading-relaxed text-ink/75 mb-4">
+              <li class="row-bullet">Selected as one of forty young builders from MIT, Harvard, and Princeton — out of 400+ applicants — to spend the summer building in San Francisco.</li>
+            </ul>
+            <a href="https://tektrek.com/" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">tektrek.com <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-03">
+          <span class="row-no">03</span>
+          <span class="row-main"><span class="row-title">Spring Fellow</span><span class="row-org">Glade Brook Capital</span></span>
+          <span class="row-date">Mar – May 2026</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-03" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <ul class="space-y-2.5 text-sm leading-relaxed text-ink/75 mb-4">
+              <li class="row-bullet">Built an internal knowledge-management tool to centralize firm-wide research — owned it from problem identification through deployment.</li>
+              <li class="row-bullet">Produced a research brief on AI in the sciences for investment partners, including a deep dive on orbital data center technology for a portfolio company.</li>
+            </ul>
+            <a href="https://www.gladebrookcapital.com/" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">gladebrookcapital.com <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-04">
+          <span class="row-no">04</span>
+          <span class="row-main"><span class="row-title">Research Assistant</span><span class="row-org">Y Lab, Harvard Medical School</span></span>
+          <span class="row-date">Jan – Jun 2026</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-04" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <ul class="space-y-2.5 text-sm leading-relaxed text-ink/75 mb-4">
+              <li class="row-bullet">Ran a PRISMA-guided systematic review on demographic bias in healthcare LLMs — screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.</li>
+              <li class="row-bullet">Translated technical ML findings for a clinical audience; co-authoring a manuscript for publication this fall.</li>
+            </ul>
+            <a href="https://ylab.top/" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">ylab.top <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-05">
+          <span class="row-no">05</span>
+          <span class="row-main"><span class="row-title">Software Engineer Intern</span><span class="row-org">Verapath</span></span>
+          <span class="row-date">Jun 2024 – Jan 2026</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-05" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <ul class="space-y-2.5 text-sm leading-relaxed text-ink/75 mb-4">
+              <li class="row-bullet">Prototyped prompt-based agents with OpenAI Codex as a pair-programming tool, validating outputs against structured evaluation criteria and stakeholder feedback.</li>
+              <li class="row-bullet">Improved front-end responsiveness by auditing stylesheet load order, refactoring media queries, and resolving UI issues across the full stack.</li>
+              <li class="row-bullet">Translated product requirements into scoped work items in Azure DevOps, managing execution and surfacing blockers early.</li>
+            </ul>
+            <a href="https://verapath.com/" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">verapath.com <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-06">
+          <span class="row-no">06</span>
+          <span class="row-main"><span class="row-title">Venture Fellow</span><span class="row-org">Milemark Capital</span></span>
+          <span class="row-date">May – Aug 2025</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-06" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <ul class="space-y-2.5 text-sm leading-relaxed text-ink/75 mb-4">
+              <li class="row-bullet">Tracked agentic AI adoption across healthcare, fintech, and agtech; synthesized patterns into concise written briefs for investors.</li>
+            </ul>
+            <a href="https://www.milemark.capital/" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">milemark.capital <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-07">
+          <span class="row-no">07</span>
+          <span class="row-main"><span class="row-title">Engineering Leader</span><span class="row-org">Goldman Sachs Emerging Leaders Program</span></span>
+          <span class="row-date">Sep 2024 – Jan 2025</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-07" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <ul class="space-y-2.5 text-sm leading-relaxed text-ink/75">
+              <li class="row-bullet">Developed a mutual fund calculator with Spring Boot, MongoDB, and Next.js — modeled projected returns using CAPM and compound interest.</li>
+              <li class="row-bullet">Presented the project at the Goldman Sachs Dallas summit.</li>
+            </ul>
+          </div></div>
+        </div>
+      </article>
+
+      <!-- —— PROJECTS —— -->
+      <p class="index-label pt-12 pb-2">Projects — 2 entries</p>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-08">
+          <span class="row-no">08</span>
+          <span class="row-main"><span class="row-title">Passio Go — Harvard Upgrade</span><span class="row-org">HTML · JavaScript</span></span>
+          <span class="row-date">Project</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-08" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <p class="text-sm leading-relaxed text-ink/75 mb-4">Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.</p>
+            <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">View project <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-09">
+          <span class="row-no">09</span>
+          <span class="row-main"><span class="row-title">The Deep-Sea Site</span><span class="row-org">WebGL · Vanilla JS</span></span>
+          <span class="row-date">Project</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-09" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <p class="text-sm leading-relaxed text-ink/75 mb-4">This portfolio's home page — a hand-built ocean: an aerial surf line rendered in a WebGL shader that churns around your cursor, bubbles that turn to marine snow as you descend, and a working depth gauge — no frameworks.</p>
+            <div class="flex flex-wrap gap-5">
+              <a href="index.html" class="u-draw text-sm font-semibold text-violet">Swim in it <i class="bi bi-arrow-up-right text-xs"></i></a>
+              <a href="https://github.com/ilandrade" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">View GitHub <i class="bi bi-arrow-up-right text-xs"></i></a>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+      <!-- —— LEADERSHIP —— -->
+      <p class="index-label pt-12 pb-2">Leadership — 4 entries</p>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-10">
+          <span class="row-no">10</span>
+          <span class="row-main"><span class="row-title">Anchor Initiative Student Lead</span><span class="row-org">Massachusetts AI Coalition</span></span>
+          <span class="row-date">Mar 2026 – Present</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-10" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <p class="text-sm leading-relaxed text-ink/75 mb-4">Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.</p>
+            <a href="https://massaicoalition.com/students" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">massaicoalition.com/students <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-11">
+          <span class="row-no">11</span>
+          <span class="row-main"><span class="row-title">SCOUT Program Co-Director</span><span class="row-org">Harvard Undergraduate Clean Energy Group</span></span>
+          <span class="row-date">Jul 2025 – Present</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-11" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <p class="text-sm leading-relaxed text-ink/75">Founded HUCEG's first VC education program from scratch — designed the curriculum, recruited analysts, and run research workflows across four clean-energy verticals as the cohort's primary point of contact.</p>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-12">
+          <span class="row-no">12</span>
+          <span class="row-main"><span class="row-title">Junior Outreach Representative</span><span class="row-org">Society of Hispanic Professional Engineers (SHPE)</span></span>
+          <span class="row-date">Jul 2024 – Present</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-12" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <p class="text-sm leading-relaxed text-ink/75">Planned and executed outreach and service events with campus and community partners; managed logistics to support engagement with underrepresented students in STEM.</p>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-13">
+          <span class="row-no">13</span>
+          <span class="row-main"><span class="row-title">Technical Fellowship</span><span class="row-org">Harvard AI Safety Team</span></span>
+          <span class="row-date">Jul – Aug 2023</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-13" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <p class="text-sm leading-relaxed text-ink/75">Synthesized research on interpretability, RLHF, goal misgeneralization, and eliciting latent knowledge; shared takeaways with a 5-member cohort over 8 weeks.</p>
+          </div></div>
+        </div>
+      </article>
+
+      <!-- —— WRITING —— -->
+      <p class="index-label pt-12 pb-2">Writing — 2 entries</p>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-14">
+          <span class="row-no">14</span>
+          <span class="row-main"><span class="row-title">Political Voices: Deepfakes and the Future of Democracy</span><span class="row-org">CS 1050: Privacy and Surveillance</span></span>
+          <span class="row-date">Paper</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-14" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <p class="text-sm leading-relaxed text-ink/75 mb-4">Argues that voice-cloning deepfakes pose a fundamental threat to democratic communication that existing legal frameworks and reactive policy measures cannot adequately address. Examines the growing tension between AI and privacy — moving beyond individual personhood to focus on AI's broader impact on democratic systems.</p>
+            <a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">Read paper <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-15">
+          <span class="row-no">15</span>
+          <span class="row-main"><span class="row-title">Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</span><span class="row-org">Economics 1343: The Economics of Development and Global Health</span></span>
+          <span class="row-date">Paper</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-15" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <p class="text-sm leading-relaxed text-ink/75 mb-4">Examines how AI diagnostic tools validated in high-income settings fail catastrophically when deployed in low-income countries. Through two cases — CAD4TB (TB detection in sub-Saharan Africa) and First-Derm (dermatology AI in Uganda, with a 52.9 percentage point accuracy collapse) — the paper argues that absent rigorous local validation, algorithmic bias becomes a structural health equity crisis.</p>
+            <a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank" rel="noopener" class="u-draw text-sm font-semibold text-violet">Read paper <i class="bi bi-arrow-up-right text-xs"></i></a>
+          </div></div>
+        </div>
+      </article>
+
+      <!-- —— EDUCATION —— -->
+      <p class="index-label pt-12 pb-2">Education — 1 entry</p>
+
+      <article class="row">
+        <button class="row-head" aria-expanded="false" aria-controls="body-16">
+          <span class="row-no">16</span>
+          <span class="row-main"><span class="row-title">A.B. Computer Science &amp; Economics</span><span class="row-org">Harvard College · Cambridge, MA</span></span>
+          <span class="row-date">Expected May 2027</span>
+          <span class="row-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="row-body" id="body-16" role="region">
+          <div class="row-body-inner"><div class="row-body-pad">
+            <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-ink/45 mb-3">Relevant coursework</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag text-xs px-3.5 py-1.5 rounded-full">Data Structures &amp; Algorithms</span>
+              <span class="tag text-xs px-3.5 py-1.5 rounded-full">Systems Programming &amp; Machine Organization</span>
+              <span class="tag text-xs px-3.5 py-1.5 rounded-full">Economics &amp; Computation</span>
+              <span class="tag text-xs px-3.5 py-1.5 rounded-full">Probability with Engineering Applications</span>
+              <span class="tag text-xs px-3.5 py-1.5 rounded-full">Linear Algebra</span>
+              <span class="tag text-xs px-3.5 py-1.5 rounded-full">Discrete Mathematics</span>
+              <span class="tag text-xs px-3.5 py-1.5 rounded-full">Calculus 2</span>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="px-5 md:px-12 max-w-6xl mx-auto pb-14">
+    <div class="border-t-2 border-ink pt-10 flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div>
+        <p class="text-3xl font-extrabold uppercase tracking-tight mb-2" style="font-variation-settings:'wdth' 115,'wght' 850">
+          Isabella Andrade<span class="text-hot">.</span>
+        </p>
+        <p class="font-serif italic text-ink/60">You hovered over everything. Well explored.</p>
+      </div>
+      <div class="flex flex-col md:items-end gap-3">
+        <div class="flex gap-3">
+          <a href="https://github.com/ilandrade" target="_blank" rel="noopener" aria-label="GitHub" data-magnet
+             class="pill-btn w-10 h-10 rounded-full flex items-center justify-center"><i class="bi bi-github"></i></a>
+          <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" rel="noopener" aria-label="LinkedIn" data-magnet
+             class="pill-btn w-10 h-10 rounded-full flex items-center justify-center"><i class="bi bi-linkedin"></i></a>
+          <a href="mailto:isabellaandrade@college.harvard.edu" aria-label="Email" data-magnet
+             class="pill-btn w-10 h-10 rounded-full flex items-center justify-center"><i class="bi bi-envelope"></i></a>
+        </div>
+        <a href="index.html" class="u-draw font-mono text-[11px] tracking-[0.2em] uppercase text-violet">
+          🌊 Dive to the deep-sea version
+        </a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============ SCRIPTS ============ -->
+  <script>
+    (function () {
+      'use strict';
+
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      /* ---- Split the name into hoverable letters ---- */
+      var nameEl = document.getElementById('name');
+      if (nameEl) {
+        var words = nameEl.textContent.trim().split(/\s+/);
+        nameEl.textContent = '';
+        words.forEach(function (word, w) {
+          if (w > 0) nameEl.appendChild(document.createTextNode(' '));
+          var wordSpan = document.createElement('span');
+          wordSpan.style.whiteSpace = 'nowrap';
+          wordSpan.setAttribute('aria-hidden', 'true');
+          for (var i = 0; i < word.length; i++) {
+            var s = document.createElement('span');
+            s.className = 'name-letter';
+            s.textContent = word[i];
+            wordSpan.appendChild(s);
+          }
+          nameEl.appendChild(wordSpan);
+        });
+      }
+
+      /* ---- Cursor-following highlighter glow ---- */
+      var glow = document.getElementById('glow');
+      if (glow && finePointer && !reducedMotion) {
+        var gx = -600, gy = -600, tx = gx, ty = gy, raf = null;
+        function tick() {
+          gx += (tx - gx) * 0.12;
+          gy += (ty - gy) * 0.12;
+          glow.style.transform = 'translate3d(' + gx + 'px,' + gy + 'px,0)';
+          raf = requestAnimationFrame(tick);
+        }
+        window.addEventListener('pointermove', function (e) {
+          tx = e.clientX;
+          ty = e.clientY;
+          glow.style.opacity = '1';
+          if (!raf) tick();
+        }, { passive: true });
+        document.documentElement.addEventListener('pointerleave', function () {
+          glow.style.opacity = '0';
+        });
+      }
+
+      /* ---- Magnetic buttons ---- */
+      if (finePointer && !reducedMotion) {
+        document.querySelectorAll('[data-magnet]').forEach(function (el) {
+          el.addEventListener('pointermove', function (e) {
+            var r = el.getBoundingClientRect();
+            var dx = e.clientX - (r.left + r.width / 2);
+            var dy = e.clientY - (r.top + r.height / 2);
+            var max = 7;
+            var x = Math.max(-max, Math.min(max, dx * 0.22));
+            var y = Math.max(-max, Math.min(max, dy * 0.22));
+            el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+          });
+          el.addEventListener('pointerleave', function () {
+            el.style.transform = '';
+          });
+        });
+      }
+
+      /* ---- Index rows: hover opens, click pins, focus opens ---- */
+      document.querySelectorAll('.row').forEach(function (row) {
+        var head = row.querySelector('.row-head');
+        if (!head) return;
+
+        function setOpen(open) {
+          row.classList.toggle('open', open);
+          head.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        if (finePointer) {
+          row.addEventListener('pointerenter', function () { setOpen(true); });
+          row.addEventListener('pointerleave', function () {
+            if (!row.dataset.pinned) setOpen(false);
+          });
+        }
+
+        head.addEventListener('click', function () {
+          if (row.dataset.pinned) {
+            delete row.dataset.pinned;
+            setOpen(false);
+          } else {
+            row.dataset.pinned = '1';
+            setOpen(true);
+          }
+        });
+
+        row.addEventListener('focusin', function () { setOpen(true); });
+        row.addEventListener('focusout', function (e) {
+          if (!row.contains(e.relatedTarget) && !row.dataset.pinned) setOpen(false);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

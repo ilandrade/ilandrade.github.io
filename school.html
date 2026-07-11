@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isabella Andrade · The School</title>
+  <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student. A quiet page where a small school of watercolor fish keeps her company.">
+  <meta name="theme-color" content="#b9d8f1">
+
+  <!-- Favicon: a tropical fish -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%90%A0%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts: rounded & friendly -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons (local) -->
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Nunito', 'sans-serif'],
+            display: ['"Baloo 2"', 'sans-serif'],
+          },
+          colors: {
+            pond: '#b9d8f1',
+            ink: '#2c4a66',
+            inksoft: '#4a6a84',
+            inkmute: '#6d8ba2',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      /* the school's palette, sampled from the watercolor fish */
+      --coral:  #d94f3b;
+      --red:    #c93a41;
+      --orange: #e08a3c;
+      --olive:  #9dad38;
+      --teal:   #35a09a;
+      --green:  #37997b;
+      --ochre:  #c18f3f;
+      --brown:  #a5744f;
+      --blue:   #557fae;
+    }
+
+    body {
+      background: #b9d8f1;
+      color: #3d5d78;
+      font-family: 'Nunito', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: rgba(224, 138, 60, 0.35); }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #aecfeb; }
+    ::-webkit-scrollbar-thumb { background: #7fa9cd; border-radius: 4px; }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #2c4a66;
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    /* ---------- fish ---------- */
+    .fish { display: inline-block; overflow: visible; }
+    .fish.flip { transform: scaleX(-1); }
+
+    /* gentle idle bob for section-marker fish */
+    .bob { animation: bob 6s ease-in-out infinite alternate; transform-origin: 50% 50%; }
+    .bob.flip { animation-name: bobFlip; }
+    @keyframes bob {
+      from { transform: translate(0, 0) rotate(-2.2deg); }
+      to   { transform: translate(-7px, -4px) rotate(2.4deg); }
+    }
+    @keyframes bobFlip {
+      from { transform: scaleX(-1) translate(0, 0) rotate(-2.2deg); }
+      to   { transform: scaleX(-1) translate(-7px, -4px) rotate(2.4deg); }
+    }
+
+    /* hero school fish: JS drives drift; keep them crisp while idle */
+    .sf { position: absolute; will-change: transform; }
+
+    /* ---------- pebble chips ---------- */
+    .peb {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 0.32rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--pc);
+      background: var(--pb);
+      border: 1px solid var(--pn);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .peb:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(44, 74, 102, 0.12); }
+
+    .p-coral  { --pc: #93301f; --pb: rgba(217, 79, 59, 0.16);  --pn: rgba(217, 79, 59, 0.30); }
+    .p-red    { --pc: #8d2129; --pb: rgba(201, 58, 65, 0.15);  --pn: rgba(201, 58, 65, 0.30); }
+    .p-orange { --pc: #90551a; --pb: rgba(224, 138, 60, 0.18); --pn: rgba(224, 138, 60, 0.34); }
+    .p-olive  { --pc: #5d6a17; --pb: rgba(157, 173, 56, 0.20); --pn: rgba(157, 173, 56, 0.38); }
+    .p-teal   { --pc: #17605c; --pb: rgba(53, 160, 154, 0.17); --pn: rgba(53, 160, 154, 0.32); }
+    .p-green  { --pc: #1a5e4a; --pb: rgba(55, 153, 123, 0.17); --pn: rgba(55, 153, 123, 0.32); }
+    .p-ochre  { --pc: #7c5716; --pb: rgba(193, 143, 63, 0.19); --pn: rgba(193, 143, 63, 0.36); }
+    .p-brown  { --pc: #6b4227; --pb: rgba(165, 116, 79, 0.18); --pn: rgba(165, 116, 79, 0.34); }
+    .p-blue   { --pc: #2c4f79; --pb: rgba(85, 127, 174, 0.17); --pn: rgba(85, 127, 174, 0.32); }
+
+    /* ---------- cards ---------- */
+    .card {
+      background: rgba(255, 255, 255, 0.42);
+      border: 1px solid rgba(44, 74, 102, 0.12);
+      border-radius: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.58);
+      box-shadow: 0 12px 30px rgba(44, 74, 102, 0.10);
+    }
+
+    /* colored links, per-section */
+    .clink {
+      color: var(--lc);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s ease, opacity 0.2s ease;
+    }
+    .clink:hover { border-bottom-color: var(--lc); opacity: 0.85; }
+
+    /* ---------- scroll reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ---------- pilot fish that swims down the right edge as you scroll ---------- */
+    #pilot { position: fixed; right: 14px; top: 0; z-index: 40; pointer-events: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .bob, .bob.flip { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .card, .peb { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================================================== -->
+  <!-- Shared watercolor fish shapes                          -->
+  <!-- ===================================================== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- watercolor edge: turbulence roughens the silhouette -->
+      <filter id="wc" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.06 0.10" numOctaves="3" seed="8" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="5.5"/>
+      </filter>
+      <filter id="wc2" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.09" numOctaves="3" seed="23" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="6"/>
+      </filter>
+
+      <!-- plump fish, swims left -->
+      <symbol id="fish" viewBox="0 0 64 40">
+        <g filter="url(#wc)">
+          <path fill="currentColor"
+            d="M5.5,20.5 C7.5,13.2 16,8.1 27,7.8 C37.2,7.5 45.6,12 48.6,19.6 C46.1,27.6 37.6,32.6 27,32.3 C16.4,32 7.4,27.2 5.5,20.5 Z"/>
+          <path fill="currentColor" opacity="0.92"
+            d="M47.8,20 L62,9.8 C58.8,16.2 58.8,23.6 62.3,30.4 L47.8,20.6 Z"/>
+          <!-- pigment pooling at the edge -->
+          <path fill="none" stroke="#1d3040" stroke-opacity="0.14" stroke-width="2.2"
+            d="M5.5,20.5 C7.5,13.2 16,8.1 27,7.8 C37.2,7.5 45.6,12 48.6,19.6 C46.1,27.6 37.6,32.6 27,32.3 C16.4,32 7.4,27.2 5.5,20.5 Z"/>
+          <!-- darker wash toward the tail -->
+          <ellipse cx="37" cy="20.5" rx="12" ry="10.5" fill="#17242f" opacity="0.13"/>
+          <path fill="#20323f" opacity="0.20"
+            d="M13,24.5 C19.5,29.6 32,30.6 41,26.2 C34.5,31.3 19.5,30.5 13,24.5 Z"/>
+          <!-- light left where the wash thinned -->
+          <ellipse cx="22" cy="14.5" rx="9" ry="4.4" fill="#ffffff" opacity="0.22"/>
+          <path fill="#ffffff" opacity="0.30"
+            d="M11,14.6 C17,9.9 29.5,9.3 38.5,12.2 C29.5,8.4 16,9.6 11,14.6 Z"/>
+        </g>
+        <circle cx="15.6" cy="17.4" r="4.2" fill="#fbf7ee"/>
+        <circle cx="15" cy="17.4" r="1.85" fill="#2c2c36"/>
+      </symbol>
+
+      <!-- slim fish, swims left -->
+      <symbol id="fish-slim" viewBox="0 0 64 40">
+        <g filter="url(#wc2)">
+          <path fill="currentColor"
+            d="M4.5,20 C7.5,14.6 17,11.2 29,11.2 C40,11.2 48,14.6 50.4,20 C47.8,25.4 40,28.8 29,28.8 C17,28.8 7.3,25.4 4.5,20 Z"/>
+          <path fill="currentColor" opacity="0.92"
+            d="M49.6,19.6 L62,11.6 C59.6,17 59.6,23.2 62.2,28.6 L49.6,20.5 Z"/>
+          <path fill="none" stroke="#1d3040" stroke-opacity="0.13" stroke-width="2"
+            d="M4.5,20 C7.5,14.6 17,11.2 29,11.2 C40,11.2 48,14.6 50.4,20 C47.8,25.4 40,28.8 29,28.8 C17,28.8 7.3,25.4 4.5,20 Z"/>
+          <ellipse cx="38" cy="20" rx="11" ry="7" fill="#17242f" opacity="0.12"/>
+          <path fill="#20323f" opacity="0.18"
+            d="M12,23.4 C19,27.2 33,27.8 42,24.5 C34,29 18,28 12,23.4 Z"/>
+          <ellipse cx="22" cy="15.6" rx="9" ry="3.2" fill="#ffffff" opacity="0.20"/>
+          <path fill="#ffffff" opacity="0.28"
+            d="M11,15.8 C18,12 31,11.6 40,14 C31,10.4 16,11.8 11,15.8 Z"/>
+        </g>
+        <circle cx="13.8" cy="18.2" r="3.7" fill="#fbf7ee"/>
+        <circle cx="13.2" cy="18.2" r="1.6" fill="#2c2c36"/>
+      </symbol>
+
+      <!-- tiny minnow for bullet points -->
+      <symbol id="minnow" viewBox="0 0 22 12">
+        <path fill="currentColor"
+          d="M1.5,6 C3,3.4 6.6,2.1 10,2.3 C13.1,2.5 15.2,3.9 16,6 C15.2,8.1 13.1,9.5 10,9.7 C6.6,9.9 3,8.6 1.5,6 Z"/>
+        <path fill="currentColor" opacity="0.9" d="M15.6,6 L21,2.9 C19.8,5 19.8,7 21,9.1 Z"/>
+        <circle cx="5" cy="5.3" r="1.25" fill="#fbf7ee"/>
+        <circle cx="4.8" cy="5.3" r="0.55" fill="#2c2c36"/>
+      </symbol>
+    </defs>
+  </svg>
+
+
+  <main class="relative">
+
+  <!-- ===================================================== -->
+  <!-- HERO — enormous calm, a loose school below the name    -->
+  <!-- ===================================================== -->
+  <header id="top" class="relative min-h-[100svh] flex flex-col overflow-hidden px-6">
+
+    <div class="max-w-2xl mx-auto w-full text-center pt-[16svh] relative z-10">
+      <p class="font-display text-inksoft text-xs sm:text-sm font-semibold tracking-[0.32em] uppercase mb-6 reveal">
+        Harvard College · CS &amp; Economics
+      </p>
+
+      <h1 class="font-display font-bold text-ink text-[clamp(2.9rem,9vw,5.5rem)] leading-[1.02] mb-5 reveal">
+        Isabella Andrade
+      </h1>
+
+      <p class="text-inksoft text-base sm:text-lg font-semibold mb-3 reveal">
+        Student Founder&ensp;·&ensp;AI Product Builder&ensp;·&ensp;Venture Fellow
+      </p>
+
+      <p class="italic text-inkmute mb-9 reveal">
+        “Life is not fair but I fight to make it fair.”
+      </p>
+
+      <div class="flex items-center justify-center gap-3 reveal">
+        <a href="https://github.com/ilandrade" target="_blank" rel="noopener" aria-label="GitHub"
+           class="w-11 h-11 rounded-full flex items-center justify-center text-lg bg-white/40 border border-ink/15 text-ink hover:bg-white/70 transition-colors">
+          <i class="bi bi-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" rel="noopener" aria-label="LinkedIn"
+           class="w-11 h-11 rounded-full flex items-center justify-center text-lg bg-white/40 border border-ink/15 text-ink hover:bg-white/70 transition-colors">
+          <i class="bi bi-linkedin"></i>
+        </a>
+        <a href="mailto:isabellaandrade@college.harvard.edu" aria-label="Email"
+           class="w-11 h-11 rounded-full flex items-center justify-center text-lg bg-white/40 border border-ink/15 text-ink hover:bg-white/70 transition-colors">
+          <i class="bi bi-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- the school: drifts slowly, scatters gently around the cursor -->
+    <div id="school" class="relative flex-1 min-h-[300px] mt-6" aria-hidden="true">
+      <svg class="sf fish" data-x="7"  data-y="38" style="width:92px;height:58px;color:var(--coral)"><use href="#fish"/></svg>
+      <svg class="sf fish" data-x="21" data-y="22" style="width:46px;height:29px;color:var(--red)"><use href="#fish"/></svg>
+      <svg class="sf fish" data-x="30" data-y="33" style="width:68px;height:43px;color:var(--orange)"><use href="#fish"/></svg>
+      <svg class="sf fish" data-x="42" data-y="20" style="width:78px;height:49px;color:var(--olive)"><use href="#fish-slim"/></svg>
+      <svg class="sf fish" data-x="60" data-y="20" style="width:72px;height:45px;color:#7fbfa0"><use href="#fish-slim"/></svg>
+      <svg class="sf fish" data-x="51" data-y="34" style="width:80px;height:50px;color:var(--blue)"><use href="#fish"/></svg>
+      <svg class="sf fish" data-x="73" data-y="28" style="width:86px;height:54px;color:var(--red)"><use href="#fish"/></svg>
+      <svg class="sf fish" data-x="87" data-y="36" style="width:58px;height:36px;color:var(--brown)"><use href="#fish-slim"/></svg>
+      <svg class="sf fish" data-x="36" data-y="48" style="width:64px;height:40px;color:var(--ochre)"><use href="#fish"/></svg>
+      <svg class="sf fish" data-x="62" data-y="47" style="width:82px;height:51px;color:var(--green)"><use href="#fish-slim"/></svg>
+      <svg class="sf fish" data-x="25" data-y="63" style="width:64px;height:40px;color:var(--coral)"><use href="#fish"/></svg>
+      <svg class="sf fish" data-x="43" data-y="66" style="width:70px;height:44px;color:var(--olive)"><use href="#fish-slim"/></svg>
+      <svg class="sf fish" data-x="58" data-y="68" style="width:60px;height:38px;color:var(--ochre)"><use href="#fish"/></svg>
+      <svg class="sf fish" data-x="25" data-y="80" style="width:58px;height:36px;color:var(--orange)"><use href="#fish"/></svg>
+      <svg class="sf fish" data-x="49" data-y="86" style="width:50px;height:31px;color:var(--red)"><use href="#fish"/></svg>
+    </div>
+
+    <div class="relative z-10 pb-8 flex flex-col items-center gap-1.5 text-inkmute reveal">
+      <span class="font-display tracking-[0.3em] uppercase text-[10px]">Follow the school</span>
+      <i class="bi bi-chevron-down text-sm"></i>
+    </div>
+  </header>
+
+
+  <!-- ===================================================== -->
+  <!-- ABOUT — the coral fish                                 -->
+  <!-- ===================================================== -->
+  <section id="about" class="py-24 sm:py-32 px-6" style="--lc:#b23a26">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-center gap-4 mb-12 reveal">
+        <svg class="fish bob w-14 h-9 shrink-0" style="color:var(--coral)" aria-hidden="true"><use href="#fish"/></svg>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-ink">About</h2>
+        <span class="flex-1 border-t border-dashed border-ink/20" aria-hidden="true"></span>
+      </div>
+
+      <p class="text-ink/90 text-lg leading-relaxed mb-5 reveal">
+        I'm a Harvard student pursuing a double A.B. in Computer Science and Economics. I build AI tools, research their failure modes, and study the markets they're reshaping.
+      </p>
+      <p class="text-inksoft leading-relaxed mb-10 reveal">
+        Currently a student founder with TekTrek in San Francisco and an incoming Product Experience Specialist at Lovable — with past lives in software engineering at Verapath, healthcare LLM research at Harvard Medical School, and venture fellowships at Glade Brook and Milemark.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 reveal">
+        <div class="card px-5 py-4">
+          <p class="font-display text-[10px] font-semibold text-inkmute uppercase tracking-[0.2em] mb-0.5">Location</p>
+          <p class="text-ink font-semibold text-sm">Cambridge, MA</p>
+        </div>
+        <div class="card px-5 py-4">
+          <p class="font-display text-[10px] font-semibold text-inkmute uppercase tracking-[0.2em] mb-0.5">University</p>
+          <p class="text-ink font-semibold text-sm">Harvard College</p>
+        </div>
+        <div class="card px-5 py-4">
+          <p class="font-display text-[10px] font-semibold text-inkmute uppercase tracking-[0.2em] mb-0.5">Email</p>
+          <a href="mailto:isabellaandrade@college.harvard.edu" class="clink text-sm break-all">isabellaandrade@college.harvard.edu</a>
+        </div>
+        <div class="card px-5 py-4">
+          <p class="font-display text-[10px] font-semibold text-inkmute uppercase tracking-[0.2em] mb-0.5">Focus</p>
+          <p class="text-ink font-semibold text-sm">AI Tooling · Venture · Product</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================== -->
+  <!-- SKILLS — the olive fish; chips as fish-colored pebbles -->
+  <!-- ===================================================== -->
+  <section id="skills" class="py-24 sm:py-32 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-center gap-4 mb-12 reveal">
+        <svg class="fish bob flip w-14 h-9 shrink-0" style="color:var(--olive)" aria-hidden="true"><use href="#fish-slim"/></svg>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-ink">Skills</h2>
+        <span class="flex-1 border-t border-dashed border-ink/20" aria-hidden="true"></span>
+      </div>
+
+      <div class="space-y-9">
+        <div class="reveal">
+          <h3 class="font-display text-xs font-semibold text-inkmute uppercase tracking-[0.22em] mb-4">Languages &amp; Data</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="peb p-coral">Python</span>
+            <span class="peb p-orange">C#</span>
+            <span class="peb p-teal">C++</span>
+            <span class="peb p-olive">R</span>
+            <span class="peb p-blue">HTML/CSS</span>
+            <span class="peb p-ochre">SQL</span>
+            <span class="peb p-brown">Excel</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h3 class="font-display text-xs font-semibold text-inkmute uppercase tracking-[0.22em] mb-4">Web &amp; Tools</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="peb p-teal">React</span>
+            <span class="peb p-red">Next.js</span>
+            <span class="peb p-ochre">Blazor</span>
+            <span class="peb p-green">Razor Pages</span>
+            <span class="peb p-orange">Git &amp; GitHub</span>
+            <span class="peb p-blue">Azure DevOps</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h3 class="font-display text-xs font-semibold text-inkmute uppercase tracking-[0.22em] mb-4">AI Tools</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="peb p-orange">Claude Code</span>
+            <span class="peb p-green">Codex</span>
+            <span class="peb p-blue">Windsurf</span>
+            <span class="peb p-coral">Lovable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================== -->
+  <!-- EXPERIENCE — the teal fish; bullets are minnows        -->
+  <!-- ===================================================== -->
+  <section id="experience" class="py-24 sm:py-32 px-6" style="--lc:#177570">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-center gap-4 mb-14 reveal">
+        <svg class="fish bob w-14 h-9 shrink-0" style="color:var(--teal)" aria-hidden="true"><use href="#fish"/></svg>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-ink">Experience</h2>
+        <span class="flex-1 border-t border-dashed border-ink/20" aria-hidden="true"></span>
+      </div>
+
+      <div class="space-y-12">
+
+        <!-- Lovable -->
+        <article class="reveal">
+          <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] mb-1" style="color:var(--coral)">Aug 2026</p>
+          <h3 class="font-display font-bold text-xl text-ink">Incoming Product Experience Specialist</h3>
+          <a href="https://lovable.dev/" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#b23a26">Lovable <i class="bi bi-arrow-up-right text-xs"></i></a>
+          <ul class="mt-3 space-y-2 text-inksoft text-sm leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--coral)" aria-hidden="true"><use href="#minnow"/></svg>
+              Joining Lovable to work at the edge of AI-assisted software creation.</li>
+          </ul>
+        </article>
+
+        <!-- TekTrek -->
+        <article class="reveal">
+          <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] mb-1" style="color:var(--orange)">Jun 2026 – Present</p>
+          <h3 class="font-display font-bold text-xl text-ink">Student Founder</h3>
+          <a href="https://tektrek.com/" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#a4611c">TekTrek <i class="bi bi-arrow-up-right text-xs"></i></a>
+          <ul class="mt-3 space-y-2 text-inksoft text-sm leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--orange)" aria-hidden="true"><use href="#minnow"/></svg>
+              Selected as one of forty young builders from MIT, Harvard, and Princeton — out of 400+ applicants — to spend the summer building in San Francisco.</li>
+          </ul>
+        </article>
+
+        <!-- Glade Brook -->
+        <article class="reveal">
+          <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] mb-1" style="color:var(--teal)">Mar – May 2026</p>
+          <h3 class="font-display font-bold text-xl text-ink">Spring Fellow</h3>
+          <a href="https://www.gladebrookcapital.com/" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#177570">Glade Brook Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
+          <ul class="mt-3 space-y-2 text-inksoft text-sm leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--teal)" aria-hidden="true"><use href="#minnow"/></svg>
+              Built an internal knowledge-management tool to centralize firm-wide research — owned it from problem identification through deployment.</li>
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--teal)" aria-hidden="true"><use href="#minnow"/></svg>
+              Produced a research brief on AI in the sciences for investment partners, including a deep dive on orbital data center technology for a portfolio company.</li>
+          </ul>
+        </article>
+
+        <!-- Y Lab -->
+        <article class="reveal">
+          <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] mb-1" style="color:var(--olive)">Jan – Jun 2026</p>
+          <h3 class="font-display font-bold text-xl text-ink">Research Assistant</h3>
+          <a href="https://ylab.top/" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#6b7a1c">Y Lab, Harvard Medical School <i class="bi bi-arrow-up-right text-xs"></i></a>
+          <ul class="mt-3 space-y-2 text-inksoft text-sm leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--olive)" aria-hidden="true"><use href="#minnow"/></svg>
+              Ran a PRISMA-guided systematic review on demographic bias in healthcare LLMs — screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.</li>
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--olive)" aria-hidden="true"><use href="#minnow"/></svg>
+              Translated technical ML findings for a clinical audience; co-authoring a manuscript for publication this fall.</li>
+          </ul>
+        </article>
+
+        <!-- Verapath -->
+        <article class="reveal">
+          <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] mb-1" style="color:var(--blue)">Jun 2024 – Jan 2026</p>
+          <h3 class="font-display font-bold text-xl text-ink">Software Engineer Intern</h3>
+          <a href="https://verapath.com/" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#39628f">Verapath <i class="bi bi-arrow-up-right text-xs"></i></a>
+          <ul class="mt-3 space-y-2 text-inksoft text-sm leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--blue)" aria-hidden="true"><use href="#minnow"/></svg>
+              Prototyped prompt-based agents with OpenAI Codex as a pair-programming tool, validating outputs against structured evaluation criteria and stakeholder feedback.</li>
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--blue)" aria-hidden="true"><use href="#minnow"/></svg>
+              Improved front-end responsiveness by auditing stylesheet load order, refactoring media queries, and resolving UI issues across the full stack.</li>
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--blue)" aria-hidden="true"><use href="#minnow"/></svg>
+              Translated product requirements into scoped work items in Azure DevOps, managing execution and surfacing blockers early.</li>
+          </ul>
+        </article>
+
+        <!-- Milemark -->
+        <article class="reveal">
+          <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] mb-1" style="color:var(--ochre)">May – Aug 2025</p>
+          <h3 class="font-display font-bold text-xl text-ink">Venture Fellow</h3>
+          <a href="https://www.milemark.capital/" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#8d6418">Milemark Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
+          <ul class="mt-3 space-y-2 text-inksoft text-sm leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--ochre)" aria-hidden="true"><use href="#minnow"/></svg>
+              Tracked agentic AI adoption across healthcare, fintech, and agtech; synthesized patterns into concise written briefs for investors.</li>
+          </ul>
+        </article>
+
+        <!-- Goldman Sachs -->
+        <article class="reveal">
+          <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] mb-1" style="color:var(--red)">Sep 2024 – Jan 2025</p>
+          <h3 class="font-display font-bold text-xl text-ink">Engineering Leader</h3>
+          <p class="text-sm font-bold" style="color:#9c2830">Goldman Sachs Emerging Leaders Program</p>
+          <ul class="mt-3 space-y-2 text-inksoft text-sm leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--red)" aria-hidden="true"><use href="#minnow"/></svg>
+              Developed a mutual fund calculator with Spring Boot, MongoDB, and Next.js — modeled projected returns using CAPM and compound interest.</li>
+            <li class="flex gap-2.5"><svg class="w-5 h-3 shrink-0 mt-1" style="color:var(--red)" aria-hidden="true"><use href="#minnow"/></svg>
+              Presented the project at the Goldman Sachs Dallas summit.</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================== -->
+  <!-- PROJECTS — the orange fish                             -->
+  <!-- ===================================================== -->
+  <section id="projects" class="py-24 sm:py-32 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex items-center gap-4 mb-12 reveal">
+        <svg class="fish bob flip w-14 h-9 shrink-0" style="color:var(--orange)" aria-hidden="true"><use href="#fish"/></svg>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-ink">Projects</h2>
+        <span class="flex-1 border-t border-dashed border-ink/20" aria-hidden="true"></span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+
+        <!-- Passio Go -->
+        <article class="card p-7 reveal">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <svg class="fish w-10 h-6 mt-1 shrink-0" style="color:var(--orange)" aria-hidden="true"><use href="#fish"/></svg>
+            <div class="flex flex-wrap justify-end gap-2">
+              <span class="peb p-orange !text-[11px] !px-3 !py-1">HTML</span>
+              <span class="peb p-ochre !text-[11px] !px-3 !py-1">JavaScript</span>
+            </div>
+          </div>
+          <h3 class="font-display font-bold text-lg text-ink mb-1.5">Passio Go — Harvard Upgrade</h3>
+          <p class="text-inksoft text-sm leading-relaxed mb-4">Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.</p>
+          <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#a4611c">View Project <i class="bi bi-arrow-up-right text-xs"></i></a>
+        </article>
+
+        <!-- The deep-sea site -->
+        <article class="card p-7 reveal">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <svg class="fish w-10 h-6 mt-1 shrink-0" style="color:var(--blue)" aria-hidden="true"><use href="#fish-slim"/></svg>
+            <div class="flex flex-wrap justify-end gap-2">
+              <span class="peb p-blue !text-[11px] !px-3 !py-1">WebGL</span>
+              <span class="peb p-teal !text-[11px] !px-3 !py-1">Vanilla JS</span>
+            </div>
+          </div>
+          <h3 class="font-display font-bold text-lg text-ink mb-1.5">This Site <span class="text-inkmute font-semibold text-sm">(the deep-sea main page)</span></h3>
+          <p class="text-inksoft text-sm leading-relaxed mb-4">You're swimming in it. A hand-built ocean: an aerial surf line rendered in a WebGL shader that churns around your cursor, bubbles that turn to marine snow as you descend, and a working depth gauge — no frameworks.</p>
+          <a href="https://github.com/ilandrade" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#39628f">View GitHub <i class="bi bi-arrow-up-right text-xs"></i></a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================== -->
+  <!-- LEADERSHIP — the deep-blue fish                        -->
+  <!-- ===================================================== -->
+  <section id="leadership" class="py-24 sm:py-32 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex items-center gap-4 mb-12 reveal">
+        <svg class="fish bob w-14 h-9 shrink-0" style="color:var(--blue)" aria-hidden="true"><use href="#fish"/></svg>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-ink">Leadership</h2>
+        <span class="flex-1 border-t border-dashed border-ink/20" aria-hidden="true"></span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+
+        <!-- Massachusetts AI Coalition -->
+        <article class="card p-7 reveal">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <svg class="fish w-10 h-6 mt-1 shrink-0" style="color:var(--teal)" aria-hidden="true"><use href="#fish"/></svg>
+            <span class="peb p-teal !text-[11px] !px-3 !py-1">Mar 2026 – Present</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-ink mb-1">Anchor Initiative Student Lead</h3>
+          <a href="https://massaicoalition.com/students" target="_blank" rel="noopener" class="clink text-sm mb-3 inline-block" style="--lc:#177570">Massachusetts AI Coalition <i class="bi bi-arrow-up-right text-xs"></i></a>
+          <p class="text-inksoft text-sm leading-relaxed">
+            Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.
+          </p>
+        </article>
+
+        <!-- HUCEG -->
+        <article class="card p-7 reveal">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <svg class="fish w-10 h-6 mt-1 shrink-0" style="color:var(--olive)" aria-hidden="true"><use href="#fish-slim"/></svg>
+            <span class="peb p-olive !text-[11px] !px-3 !py-1">Jul 2025 – Present</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-ink mb-1">SCOUT Program Co-Director</h3>
+          <p class="text-sm font-bold mb-3" style="color:#6b7a1c">Harvard Undergraduate Clean Energy Group</p>
+          <p class="text-inksoft text-sm leading-relaxed">
+            Founded HUCEG's first VC education program from scratch — designed the curriculum, recruited analysts, and run research workflows across four clean-energy verticals as the cohort's primary point of contact.
+          </p>
+        </article>
+
+        <!-- SHPE -->
+        <article class="card p-7 reveal">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <svg class="fish w-10 h-6 mt-1 shrink-0" style="color:var(--coral)" aria-hidden="true"><use href="#fish"/></svg>
+            <span class="peb p-coral !text-[11px] !px-3 !py-1">Jul 2024 – Present</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-ink mb-1">Junior Outreach Representative</h3>
+          <p class="text-sm font-bold mb-3" style="color:#b23a26">Society of Hispanic Professional Engineers (SHPE)</p>
+          <p class="text-inksoft text-sm leading-relaxed">
+            Planned and executed outreach and service events with campus and community partners; managed logistics to support engagement with underrepresented students in STEM.
+          </p>
+        </article>
+
+        <!-- Harvard AI Safety Team -->
+        <article class="card p-7 reveal">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <svg class="fish w-10 h-6 mt-1 shrink-0" style="color:var(--brown)" aria-hidden="true"><use href="#fish-slim"/></svg>
+            <span class="peb p-brown !text-[11px] !px-3 !py-1">Jul – Aug 2023</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-ink mb-1">Technical Fellowship</h3>
+          <p class="text-sm font-bold mb-3" style="color:#77492b">Harvard AI Safety Team</p>
+          <p class="text-inksoft text-sm leading-relaxed">
+            Synthesized research on interpretability, RLHF, goal misgeneralization, and eliciting latent knowledge; shared takeaways with a 5-member cohort over 8 weeks.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================== -->
+  <!-- EDUCATION — the ochre fish                             -->
+  <!-- ===================================================== -->
+  <section id="education" class="py-24 sm:py-32 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-center gap-4 mb-12 reveal">
+        <svg class="fish bob flip w-14 h-9 shrink-0" style="color:var(--ochre)" aria-hidden="true"><use href="#fish"/></svg>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-ink">Education</h2>
+        <span class="flex-1 border-t border-dashed border-ink/20" aria-hidden="true"></span>
+      </div>
+
+      <div class="card p-7 sm:p-9 reveal">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-6">
+          <div>
+            <h3 class="font-display font-bold text-xl sm:text-2xl text-ink mb-0.5">A.B. Computer Science &amp; Economics</h3>
+            <p class="text-sm font-bold" style="color:#8d6418">Harvard College</p>
+          </div>
+          <p class="font-display text-xs font-semibold text-inkmute uppercase tracking-[0.15em] shrink-0 sm:pt-2">Expected May 2027 · Cambridge, MA</p>
+        </div>
+
+        <p class="font-display text-[10px] font-semibold text-inkmute uppercase tracking-[0.22em] mb-3">Relevant Coursework</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="peb p-ochre">Data Structures &amp; Algorithms</span>
+          <span class="peb p-teal">Systems Programming &amp; Machine Organization</span>
+          <span class="peb p-coral">Economics &amp; Computation</span>
+          <span class="peb p-blue">Probability with Engineering Applications</span>
+          <span class="peb p-olive">Linear Algebra</span>
+          <span class="peb p-orange">Discrete Mathematics</span>
+          <span class="peb p-green">Calculus 2</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================== -->
+  <!-- WRITING — the red fish                                 -->
+  <!-- ===================================================== -->
+  <section id="writing" class="py-24 sm:py-32 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-center gap-4 mb-12 reveal">
+        <svg class="fish bob w-14 h-9 shrink-0" style="color:var(--red)" aria-hidden="true"><use href="#fish"/></svg>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-ink">Writing</h2>
+        <span class="flex-1 border-t border-dashed border-ink/20" aria-hidden="true"></span>
+      </div>
+
+      <div class="space-y-5">
+
+        <!-- Deepfakes paper -->
+        <article class="card p-7 reveal">
+          <div class="flex items-start gap-3 mb-2">
+            <svg class="fish w-9 h-6 mt-1 shrink-0" style="color:var(--red)" aria-hidden="true"><use href="#fish"/></svg>
+            <div>
+              <h3 class="font-display font-bold text-lg text-ink leading-snug mb-0.5">Political Voices: Deepfakes and the Future of Democracy</h3>
+              <p class="text-sm font-bold" style="color:#9c2830">CS 1050: Privacy and Surveillance</p>
+            </div>
+          </div>
+          <p class="text-inksoft text-sm leading-relaxed mb-4">
+            Argues that voice-cloning deepfakes pose a fundamental threat to democratic communication that existing legal frameworks and reactive policy measures cannot adequately address. Examines the growing tension between AI and privacy — moving beyond individual personhood to focus on AI's broader impact on democratic systems.
+          </p>
+          <a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#9c2830">Read Paper <i class="bi bi-arrow-up-right text-xs"></i></a>
+        </article>
+
+        <!-- Algorithmic Bias paper -->
+        <article class="card p-7 reveal">
+          <div class="flex items-start gap-3 mb-2">
+            <svg class="fish w-9 h-6 mt-1 shrink-0" style="color:var(--green)" aria-hidden="true"><use href="#fish-slim"/></svg>
+            <div>
+              <h3 class="font-display font-bold text-lg text-ink leading-snug mb-0.5">Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</h3>
+              <p class="text-sm font-bold" style="color:#1a6b53">Economics 1343: The Economics of Development and Global Health</p>
+            </div>
+          </div>
+          <p class="text-inksoft text-sm leading-relaxed mb-4">
+            Examines how AI diagnostic tools validated in high-income settings fail catastrophically when deployed in low-income countries. Through two cases — CAD4TB (TB detection in sub-Saharan Africa) and First-Derm (dermatology AI in Uganda, with a 52.9 percentage point accuracy collapse) — the paper argues that absent rigorous local validation, algorithmic bias becomes a structural health equity crisis.
+          </p>
+          <a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank" rel="noopener" class="clink text-sm" style="--lc:#1a6b53">Read Paper <i class="bi bi-arrow-up-right text-xs"></i></a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+
+  <!-- ===================================================== -->
+  <!-- FOOTER                                                 -->
+  <!-- ===================================================== -->
+  <footer class="pt-20 pb-14 px-6 text-center border-t border-ink/10">
+    <!-- a last tiny school swimming off -->
+    <div class="flex items-center justify-center gap-3 mb-8" aria-hidden="true">
+      <svg class="fish bob w-8 h-5" style="color:var(--coral)"><use href="#fish"/></svg>
+      <svg class="fish bob w-6 h-4" style="color:var(--olive);animation-delay:-2s"><use href="#fish-slim"/></svg>
+      <svg class="fish bob w-7 h-4" style="color:var(--teal);animation-delay:-4s"><use href="#fish"/></svg>
+      <svg class="fish bob w-5 h-3" style="color:var(--ochre);animation-delay:-1s"><use href="#minnow"/></svg>
+    </div>
+
+    <p class="font-display font-bold text-2xl text-ink mb-1">Isabella Andrade</p>
+    <p class="italic text-inkmute text-sm mb-6">Life is not fair but I fight to make it fair.</p>
+
+    <div class="flex justify-center gap-5 mb-8 text-xl">
+      <a href="https://github.com/ilandrade" target="_blank" rel="noopener" aria-label="GitHub" class="text-inksoft hover:text-ink transition-colors"><i class="bi bi-github"></i></a>
+      <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-inksoft hover:text-ink transition-colors"><i class="bi bi-linkedin"></i></a>
+      <a href="mailto:isabellaandrade@college.harvard.edu" aria-label="Email" class="text-inksoft hover:text-ink transition-colors"><i class="bi bi-envelope"></i></a>
+    </div>
+
+    <a href="index.html" class="clink font-display text-xs uppercase tracking-[0.25em]" style="--lc:#2c4f79">
+      🌊 Swim back to the deep-sea site
+    </a>
+  </footer>
+
+
+  <!-- pilot fish: swims down the right edge with your scroll (desktop) -->
+  <div id="pilot" class="hidden lg:block" aria-hidden="true">
+    <svg class="fish w-9 h-6" style="color:var(--coral); transform: rotate(90deg) scaleX(-1);"><use href="#fish"/></svg>
+  </div>
+
+
+  <script>
+    (function () {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---------- scroll reveal ---------- */
+      const revealEls = document.querySelectorAll('.reveal');
+      if (reduced || !('IntersectionObserver' in window)) {
+        revealEls.forEach(el => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => io.observe(el));
+      }
+
+      /* ---------- the hero school: slow drift + gentle cursor scatter ---------- */
+      const pondEl = document.getElementById('school');
+      const fish = Array.from(pondEl.querySelectorAll('.sf')).map((el, i) => ({
+        el,
+        px: parseFloat(el.dataset.x),   // anchor, percent of pond
+        py: parseFloat(el.dataset.y),
+        ax: 0, ay: 0,                    // anchor in px
+        ox: 0, oy: 0,                    // current scatter offset (eased)
+        ampX: 8 + Math.random() * 12,
+        ampY: 4 + Math.random() * 7,
+        spd: 0.25 + Math.random() * 0.3,
+        ph: Math.random() * Math.PI * 2,
+      }));
+
+      let pw = 0, ph2 = 0;
+      function layout() {
+        const r = pondEl.getBoundingClientRect();
+        pw = r.width; ph2 = r.height;
+        fish.forEach(f => {
+          const w = f.el.getBoundingClientRect().width || 60;
+          f.ax = Math.min((f.px / 100) * pw, Math.max(0, pw - w - 24));
+          f.ay = (f.py / 100) * ph2;
+          f.el.style.left = '0px';
+          f.el.style.top = '0px';
+        });
+      }
+      layout();
+      window.addEventListener('resize', layout);
+
+      const ptr = { x: -9999, y: -9999 };
+      pondEl.parentElement.addEventListener('pointermove', (e) => {
+        const r = pondEl.getBoundingClientRect();
+        ptr.x = e.clientX - r.left;
+        ptr.y = e.clientY - r.top;
+      });
+      pondEl.parentElement.addEventListener('pointerleave', () => { ptr.x = -9999; ptr.y = -9999; });
+
+      function place(f, t) {
+        const dx = Math.sin(t * f.spd + f.ph) * f.ampX;
+        const dy = Math.cos(t * f.spd * 0.8 + f.ph * 1.7) * f.ampY;
+        const rot = Math.sin(t * f.spd + f.ph) * 3;
+        f.el.style.transform =
+          'translate(' + (f.ax + dx + f.ox) + 'px,' + (f.ay + dy + f.oy) + 'px) rotate(' + rot + 'deg)';
+      }
+
+      if (reduced) {
+        fish.forEach(f => place(f, 0));
+        window.addEventListener('resize', () => fish.forEach(f => place(f, 0)));
+      } else {
+        let t = 0, raf;
+        const R = 140; // scatter radius
+        function loop() {
+          t += 0.016;
+          fish.forEach(f => {
+            // gentle repulsion from the cursor
+            const cx = f.ax + f.ox, cy = f.ay + f.oy;
+            const vx = cx - ptr.x, vy = cy - ptr.y;
+            const d = Math.hypot(vx, vy);
+            let tx = 0, ty = 0;
+            if (d < R && d > 0.01) {
+              const push = ((R - d) / R) * 55;
+              tx = (vx / d) * push;
+              ty = (vy / d) * push;
+            }
+            f.ox += (tx - f.ox) * 0.045;
+            f.oy += (ty - f.oy) * 0.045;
+            place(f, t);
+          });
+          raf = requestAnimationFrame(loop);
+        }
+        raf = requestAnimationFrame(loop);
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) cancelAnimationFrame(raf);
+          else raf = requestAnimationFrame(loop);
+        });
+      }
+
+      /* ---------- pilot fish along the right edge ---------- */
+      const pilot = document.getElementById('pilot');
+      function movePilot() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+        pilot.style.transform = 'translateY(' + (34 + p * (window.innerHeight - 100)) + 'px)';
+      }
+      window.addEventListener('scroll', movePilot, { passive: true });
+      window.addEventListener('resize', movePilot);
+      movePilot();
+    })();
+  </script>
+
+</body>
+</html>
