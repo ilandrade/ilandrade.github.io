@@ -85,8 +85,6 @@
         linear-gradient(to bottom, rgba(3, 10, 20, 0.40) 0%, rgba(3, 10, 20, 0) 25%, rgba(3, 10, 20, 0) 72%, #1e4f7e 100%);
     }
 
-    .typed-cursor { color: #67e8f9; font-weight: 300; }
-
     /* Skill pill: small liquid-glass capsule */
     .skill-pill {
       background: linear-gradient(140deg, rgba(125, 211, 252, 0.13), rgba(25, 60, 100, 0.08));
@@ -233,7 +231,6 @@
       flex-direction: column;
       align-items: center;
       gap: 0.75rem;
-      pointer-events: none;
       padding: 0.8rem 0.45rem;
       border-radius: 999px;
       background: linear-gradient(160deg, rgba(125, 211, 252, 0.05), rgba(10, 30, 55, 0.22));
@@ -245,9 +242,58 @@
     #gauge-track {
       position: relative;
       width: 1px;
-      height: 130px;
+      height: 200px;
       background: rgba(125, 211, 252, 0.18);
     }
+
+    /* Clickable section stops along the dive line */
+    .gauge-stop {
+      position: absolute;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gauge-stop::after {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(207, 230, 245, 0.45);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .gauge-stop:hover::after,
+    .gauge-stop:focus-visible::after {
+      background: #9be9f7;
+      transform: scale(1.6);
+      box-shadow: 0 0 10px rgba(103, 232, 249, 0.9);
+    }
+    .gauge-tip {
+      position: absolute;
+      right: calc(100% + 14px);
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #d8eefb;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: linear-gradient(140deg, rgba(125, 211, 252, 0.16), rgba(10, 30, 55, 0.55));
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      backdrop-filter: blur(12px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 6px 18px rgba(1, 8, 18, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .gauge-stop:hover .gauge-tip,
+    .gauge-stop:focus-visible .gauge-tip { opacity: 1; }
     #gauge-marker {
       position: absolute;
       left: 50%;
@@ -258,6 +304,7 @@
       background: #67e8f9;
       border-radius: 50%;
       box-shadow: 0 0 8px rgba(103, 232, 249, 0.8);
+      pointer-events: none;
     }
     .gauge-label {
       writing-mode: vertical-rl;
@@ -293,12 +340,12 @@
   <canvas id="sea" aria-hidden="true"></canvas>
 
 
-  <!-- Depth gauge -->
-  <div id="gauge" class="hidden lg:flex" aria-hidden="true">
-    <span id="gauge-depth" class="font-mono text-[11px] text-cyan-200/80 tracking-widest">0000 M</span>
+  <!-- Depth gauge: live readout + clickable section stops -->
+  <nav id="gauge" class="hidden lg:flex" aria-label="Depth navigation">
+    <span id="gauge-depth" class="font-mono text-[11px] text-cyan-200/80 tracking-widest" aria-hidden="true">0000 M</span>
     <div id="gauge-track"><div id="gauge-marker"></div></div>
-    <span id="gauge-zone" class="gauge-label font-mono text-[10px] text-cyan-300/50">SURFACE</span>
-  </div>
+    <span id="gauge-zone" class="gauge-label font-mono text-[10px] text-cyan-300/50" aria-hidden="true">SURFACE</span>
+  </nav>
 
 
   <main>
@@ -319,9 +366,9 @@
         Isabella<br>Andrade
       </h1>
 
-      <div class="text-xl md:text-2xl text-slate-300 mb-4 h-8" data-aos="fade-up" data-aos-delay="160">
-        <span class="typed text-white font-medium" data-typed-items="Student Founder, AI Product Builder, Venture Fellow, Ocean Person  "></span>
-      </div>
+      <p class="text-lg md:text-xl text-white font-medium mb-4" data-aos="fade-up" data-aos-delay="160">
+        Student Founder · AI Product Builder · Venture Fellow
+      </p>
 
       <p class="text-slate-300/80 text-base mb-12 max-w-lg" data-aos="fade-up" data-aos-delay="220">
         Life is not fair but I fight to make it fair.
@@ -868,7 +915,7 @@
 
 
   <!-- ===== FOOTER · seafloor ===== -->
-  <footer class="py-16 px-6 border-t border-cyan-200/[0.05] text-center">
+  <footer id="seafloor" class="py-16 px-6 border-t border-cyan-200/[0.05] text-center">
     <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/60 mb-6">−6000 M · SEAFLOOR</p>
     <p class="font-display font-semibold text-2xl mb-2">
       Isabella Andrade<span class="text-biolume">.</span>
@@ -897,7 +944,6 @@
 
   <!-- ===== SCRIPTS ===== -->
   <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
 
   <script>
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -905,22 +951,6 @@
     // AOS
     AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60, disable: reducedMotion });
 
-    // Typed.js
-    const typedEl = document.querySelector('.typed');
-    if (typedEl) {
-      const items = typedEl.getAttribute('data-typed-items').split(',');
-      if (reducedMotion) {
-        typedEl.textContent = items[0].trim();
-      } else {
-        new Typed('.typed', {
-          strings: items,
-          loop: true,
-          typeSpeed: 55,
-          backSpeed: 28,
-          backDelay: 2200,
-        });
-      }
-    }
 
 
     // ============================================================
@@ -1211,6 +1241,47 @@
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update);
       update();
+
+      // Clickable section stops along the dive line
+      const STOPS = [
+        { id: 'hero',       label: 'SURFACE',    depth: '0 M' },
+        { id: 'about',      label: 'ABOUT',      depth: '−0010 M' },
+        { id: 'skills',     label: 'SKILLS',     depth: '−0150 M' },
+        { id: 'experience', label: 'EXPERIENCE', depth: '−0400 M' },
+        { id: 'projects',   label: 'PROJECTS',   depth: '−1200 M' },
+        { id: 'leadership', label: 'LEADERSHIP', depth: '−2500 M' },
+        { id: 'education',  label: 'EDUCATION',  depth: '−3800 M' },
+        { id: 'writing',    label: 'WRITING',    depth: '−5000 M' },
+        { id: 'seafloor',   label: 'SEAFLOOR',   depth: '−6000 M' },
+      ];
+
+      const track = document.getElementById('gauge-track');
+      STOPS.forEach((s) => {
+        const a = document.createElement('a');
+        a.href = '#' + s.id;
+        a.className = 'gauge-stop';
+        a.setAttribute('aria-label', s.label.toLowerCase() + ', ' + s.depth);
+        const tip = document.createElement('span');
+        tip.className = 'gauge-tip';
+        tip.textContent = s.label + ' · ' + s.depth;
+        a.appendChild(tip);
+        track.appendChild(a);
+        s.el = a;
+      });
+
+      function placeStops() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (max <= 0) return;
+        STOPS.forEach((s) => {
+          const target = document.getElementById(s.id);
+          if (!target) return;
+          const pct = Math.min(1, Math.max(0, target.offsetTop / max));
+          s.el.style.top = (pct * 100) + '%';
+        });
+      }
+      placeStops();
+      window.addEventListener('load', placeStops);
+      window.addEventListener('resize', placeStops);
     })();
   </script>
 
