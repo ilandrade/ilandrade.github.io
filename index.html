@@ -1,43 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Isabella Andrade</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isabella Andrade — Cascade</title>
   <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student.">
-  <meta name="keywords" content="Isabella Andrade, Harvard, Software Developer, AI, Portfolio">
-  <meta name="theme-color" content="#2b6396">
+  <meta name="theme-color" content="#F5F4EF">
 
-  <!-- Favicon: a wave -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%8A%3C/text%3E%3C/svg%3E">
+  <!-- Favicon: a leaf -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap Icons -->
+  <!-- Bootstrap Icons (local vendor) -->
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- AOS -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-
-  <!-- Tailwind CSS -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Fraunces', 'serif'],
-            mono: ['"IBM Plex Mono"', 'monospace'],
+            sans: ['"Instrument Sans"', 'sans-serif'],
+            display: ['"Instrument Serif"', 'serif'],
+            mono: ['"Spline Sans Mono"', 'monospace'],
           },
           colors: {
-            ice: '#eaf6ff',
-            aqua: '#38bdf8',
-            biolume: '#67e8f9',
+            paper: '#F5F4EF',
+            ink: '#1E241E',
+            pine: '#2E5941',
+            sage: '#68705F',
+            hair: '#DCDAD0',
+            moss: '#9DBFA6',
           },
         }
       }
@@ -45,1237 +43,748 @@
   </script>
 
   <style>
-    * { box-sizing: border-box; }
-
-
-    /* The descent: one continuous gradient from sunlit water to the abyss */
+    html { scrollbar-width: thin; scrollbar-color: #2E5941 #F5F4EF; }
     body {
-      background: linear-gradient(to bottom,
-        #2b6396 0%,
-        #1e4f7e 10%,
-        #153d66 22%,
-        #0c2a4c 38%,
-        #071c36 55%,
-        #040f24 72%,
-        #020814 86%,
-        #01040c 100%);
-      color: #eaf6ff;
-      font-family: 'Inter', sans-serif;
+      background: #F5F4EF;
+      color: #1E241E;
+      font-family: 'Instrument Sans', sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-
-    .font-display { font-family: 'Fraunces', serif; }
-
-    /* Hero name: light catching the surface */
-    .gradient-text {
-      background: linear-gradient(160deg, #ffffff 25%, #9ddcff 70%, #67e8f9 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Scrims over the aerial ocean so text stays readable,
-       and so the hero fades into the descent gradient below */
-    .hero-scrim {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 64% 58% at 50% 46%, rgba(3, 10, 20, 0.58) 0%, rgba(3, 10, 20, 0.22) 55%, transparent 80%),
-        linear-gradient(to bottom, rgba(3, 10, 20, 0.40) 0%, rgba(3, 10, 20, 0) 25%, rgba(3, 10, 20, 0) 72%, #1e4f7e 100%);
-    }
-
-    /* Skill pill: small liquid-glass capsule */
-    .skill-pill {
-      background: linear-gradient(140deg, rgba(125, 211, 252, 0.13), rgba(25, 60, 100, 0.08));
-      -webkit-backdrop-filter: blur(10px) saturate(160%);
-      backdrop-filter: blur(10px) saturate(160%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
-      color: #cfe6f5;
-      transition: border-color 0.25s, background 0.25s, color 0.25s, box-shadow 0.25s;
-    }
-    .skill-pill:hover {
-      border-color: rgba(103, 232, 249, 0.55);
-      background: linear-gradient(140deg, rgba(125, 211, 252, 0.22), rgba(40, 90, 130, 0.14));
-      color: #fff;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 18px rgba(103, 232, 249, 0.14);
-    }
-
-    /* Cards: liquid glass floating in the water column.
-       Frosted fill, hairline border, and a specular sheen along the
-       top-left edge where the light hits */
-    .card {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(150deg, rgba(125, 211, 252, 0.10) 0%, rgba(56, 130, 190, 0.05) 45%, rgba(10, 30, 55, 0.20) 100%);
-      -webkit-backdrop-filter: blur(18px) saturate(170%);
-      backdrop-filter: blur(18px) saturate(170%);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.03),
-        0 14px 44px rgba(1, 8, 18, 0.40);
-      transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
-    }
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(115deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.04) 20%, transparent 45%);
-      pointer-events: none;
-    }
-    .card:hover {
-      border-color: rgba(103, 232, 249, 0.45);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.22),
-        0 18px 56px rgba(1, 8, 18, 0.50),
-        0 0 32px rgba(103, 232, 249, 0.12);
-      transform: translateY(-4px);
-    }
-
-    /* Glass buttons */
-    .glass-btn {
-      background: linear-gradient(140deg, rgba(125, 211, 252, 0.14), rgba(20, 50, 85, 0.10));
-      -webkit-backdrop-filter: blur(14px) saturate(170%);
-      backdrop-filter: blur(14px) saturate(170%);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.20), 0 8px 24px rgba(1, 8, 18, 0.30);
-      transition: border-color 0.25s, background 0.25s, color 0.25s, box-shadow 0.25s;
-    }
-    .glass-btn:hover {
-      border-color: rgba(103, 232, 249, 0.60);
-      background: linear-gradient(140deg, rgba(125, 211, 252, 0.24), rgba(40, 90, 130, 0.16));
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 8px 28px rgba(103, 232, 249, 0.18);
-    }
-    .glass-btn-primary {
-      background: linear-gradient(140deg, rgba(56, 189, 248, 0.80), rgba(10, 110, 180, 0.70));
-      -webkit-backdrop-filter: blur(14px) saturate(180%);
-      backdrop-filter: blur(14px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.38);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.50), 0 8px 28px rgba(56, 189, 248, 0.35);
-      transition: box-shadow 0.25s, filter 0.25s;
-    }
-    .glass-btn-primary:hover {
-      filter: brightness(1.12);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 10px 34px rgba(56, 189, 248, 0.50);
-    }
-
-
-    /* Dive line: experience timeline as a descent rope with sonar pings */
-    .timeline-entry {
-      border-left: 1px solid rgba(125, 211, 252, 0.15);
-      padding-left: 2rem;
-      position: relative;
-    }
-    .timeline-entry::before {
-      content: '';
-      position: absolute;
-      left: -5px;
-      top: 5px;
-      width: 9px;
-      height: 9px;
-      background: #67e8f9;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(103, 232, 249, 0.7);
-    }
-    .timeline-entry:hover::after {
-      content: '';
-      position: absolute;
-      left: -13px;
-      top: -3px;
-      width: 25px;
-      height: 25px;
-      border: 1px solid rgba(103, 232, 249, 0.5);
-      border-radius: 50%;
-      animation: ping 1.4s ease-out infinite;
-    }
-    @keyframes ping {
-      from { transform: scale(0.35); opacity: 1; }
-      to   { transform: scale(1.6); opacity: 0; }
-    }
-
-    /* Section fish: idles in place with a slow swim */
-    .section-fish { animation: fishSway 7s ease-in-out infinite alternate; }
-    @keyframes fishSway {
-      from { transform: translateX(0) rotate(-2deg); }
-      to   { transform: translateX(-12px) rotate(2.5deg); }
-    }
-
-    ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: #030917; }
-    ::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 2px; }
-    ::selection { background: rgba(56, 189, 248, 0.35); }
-
-    #surface-btn {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    #surface-btn.visible { opacity: 1; pointer-events: auto; }
-
-
-
-    .profile-wrapper { position: relative; display: inline-block; }
-    .profile-wrapper::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border: 2px solid rgba(103, 232, 249, 0.30);
-      border-radius: 1rem;
-      transform: translate(10px, 10px);
-      z-index: -1;
-    }
-
-    /* Depth gauge (right rail, desktop only): a glass dive computer */
-    #gauge {
-      position: fixed;
-      right: 1.25rem;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 40;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.8rem 0.45rem;
-      border-radius: 999px;
-      background: linear-gradient(160deg, rgba(125, 211, 252, 0.05), rgba(10, 30, 55, 0.22));
-      -webkit-backdrop-filter: blur(8px) saturate(150%);
-      backdrop-filter: blur(8px) saturate(150%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 6px 18px rgba(1, 8, 18, 0.30);
-    }
-    #gauge-track {
-      position: relative;
-      width: 1px;
-      height: 200px;
-      background: rgba(125, 211, 252, 0.18);
-    }
-
-    /* Clickable section stops along the dive line */
-    .gauge-stop {
-      position: absolute;
-      left: 50%;
-      width: 16px;
-      height: 16px;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .gauge-stop::after {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: rgba(207, 230, 245, 0.45);
-      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-    .gauge-stop:hover::after,
-    .gauge-stop:focus-visible::after {
-      background: #9be9f7;
-      transform: scale(1.6);
-      box-shadow: 0 0 10px rgba(103, 232, 249, 0.9);
-    }
-    .gauge-tip {
-      position: absolute;
-      right: calc(100% + 14px);
-      top: 50%;
-      transform: translateY(-50%);
-      white-space: nowrap;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: #d8eefb;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: linear-gradient(140deg, rgba(125, 211, 252, 0.16), rgba(10, 30, 55, 0.55));
-      -webkit-backdrop-filter: blur(12px) saturate(160%);
-      backdrop-filter: blur(12px) saturate(160%);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 6px 18px rgba(1, 8, 18, 0.35);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-    .gauge-stop:hover .gauge-tip,
-    .gauge-stop:focus-visible .gauge-tip { opacity: 1; }
-    #gauge-marker {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      width: 7px;
-      height: 7px;
-      transform: translate(-50%, -50%);
-      background: #67e8f9;
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(103, 232, 249, 0.8);
-      pointer-events: none;
-    }
-    .gauge-label {
-      writing-mode: vertical-rl;
-      letter-spacing: 0.25em;
-    }
-
-    /* Canvases */
-    #sea {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-    #waves { position: absolute; inset: 0; }
-    main, footer { position: relative; z-index: 1; }
+    ::selection { background: rgba(46, 89, 65, 0.18); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #F5F4EF; }
+    ::-webkit-scrollbar-thumb { background: #2E5941; }
 
     a:focus-visible, button:focus-visible {
-      outline: 2px solid #67e8f9;
+      outline: 2px solid #2E5941;
       outline-offset: 3px;
-      border-radius: 4px;
     }
 
+    /* ============ Cascade motion system ============ */
+    /* Headings rise from behind a mask line */
+    .mask { display: block; overflow: hidden; }
+    .mline {
+      display: block;
+      transform: translateY(112%);
+      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--d, 0ms);
+      will-change: transform;
+    }
+    .mline.in { transform: translateY(0); }
+
+    /* Paragraphs, list items, cards slide up as they enter */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.85s ease, transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--d, 0ms);
+      will-change: opacity, transform;
+    }
+    [data-reveal].in { opacity: 1; transform: translateY(0); }
+
+    /* Hairline rules draw themselves left to right */
+    .rule {
+      height: 1px;
+      background: #DCDAD0;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.45s ease;
+      transition-delay: var(--d, 0ms), 0ms;
+    }
+    .rule.in { transform: scaleX(1); }
+
+    /* Hero name: letters arrive one beat apart behind the mask */
+    .mline-letters { transform: none; }
+    .ltr {
+      display: inline-block;
+      transform: translateY(115%);
+      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--d, 0ms) + var(--ld, 0ms));
+      will-change: transform;
+    }
+    .mline.in .ltr { transform: translateY(0); }
+
+    /* Entry rows: hover nudges the row, inks the title, tints the rule */
+    .row { transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+    article h3 { transition: color 0.35s ease; }
+    @media (hover: hover) {
+      article:hover > .row { transform: translateX(12px); }
+      article:hover h3 { color: #2E5941; }
+      article:hover > .rule { background-color: #AEC0AA; }
+    }
+
+    /* Scroll cue: a slow, patient drop */
+    .scroll-cue { display: inline-block; animation: cueDrop 2.6s ease-in-out infinite; }
+    @keyframes cueDrop { 0%, 100% { transform: translateY(0); } 55% { transform: translateY(5px); } }
+
+    /* Chapter marker: fixed bottom-left log of where you are, digits roll on change */
+    #chapter {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+    #chapter.show { opacity: 1; }
+    #chapter .tick { width: 1.75rem; height: 1px; background: #DCDAD0; transition: background-color 0.45s ease; }
+    #chapter.on-dark { color: #9DBFA6; }
+    #chapter.on-dark .tick { background: #4A554A; }
+    #chapter .roll { animation: rollUp 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+    @keyframes rollUp { from { transform: translateY(115%); } to { transform: translateY(0); } }
+
+    /* Ghost section numerals: oversized, drifting at their own speed */
+    .ghost-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(7rem, 16vw, 15rem);
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px #D6D3C8;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    [data-speed] { will-change: transform; }
+
+    /* Scroll progress hairline */
+    #progress {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: #2E5941;
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: 60;
+    }
+
+    .link-quiet { border-bottom: 1px solid #DCDAD0; transition: border-color 0.25s, color 0.25s; }
+    .link-quiet:hover { border-color: #2E5941; color: #2E5941; }
+
+    .exp-link { color: #2E5941; transition: opacity 0.25s; }
+    .exp-link:hover { opacity: 0.65; }
+
+    /* Reduced motion: everything visible, nothing moves */
     @media (prefers-reduced-motion: reduce) {
-      .light-rays, .timeline-entry:hover::after, .section-fish { animation: none; }
       html { scroll-behavior: auto; }
+      .mline, [data-reveal], .rule, .ltr, .row {
+        transform: none !important;
+        opacity: 1 !important;
+        transition: none !important;
+      }
+      [data-speed] { transform: none !important; }
+      #progress { display: none; }
+      .scroll-cue { animation: none !important; }
+      #chapter .roll { animation: none !important; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Shared fish outline, reused beside every section heading -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <g id="fish-outline" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
-        <path d="M3 16 C7 9.5 14 8.5 19 12.5 C20.5 14 20.5 18 19 19.5 C14 23.5 7 22.5 3 16 Z"/>
-        <path d="M19 16 L28.5 9.5 C26.5 13.5 26.5 18.5 28.5 22.5 Z"/>
-        <circle cx="7.7" cy="14.7" r="1.1" fill="currentColor" stroke="none"/>
-      </g>
-    </defs>
-  </svg>
+  <div id="progress" aria-hidden="true"></div>
 
-  <!-- Ambient particles: bubbles in the shallows, marine snow in the deep -->
-  <canvas id="sea" aria-hidden="true"></canvas>
+  <!-- Chapter marker: where you are in the index -->
+  <div id="chapter" class="hidden lg:flex fixed bottom-6 left-6 z-50 items-center gap-3 font-mono text-[10px] tracking-[0.25em] uppercase text-sage" aria-hidden="true">
+    <span class="mask"><span id="chapter-num" class="block">01</span></span>
+    <span class="tick"></span>
+    <span class="mask"><span id="chapter-name" class="block">Profile</span></span>
+  </div>
 
+  <!-- ============ HERO: the index ============ -->
+  <header class="min-h-screen flex flex-col justify-between px-6 md:px-14 pt-7 pb-10 relative">
 
-  <!-- Depth gauge: live readout + clickable section stops -->
-  <nav id="gauge" class="hidden lg:flex" aria-label="Depth navigation">
-    <span id="gauge-depth" class="font-mono text-[11px] text-cyan-200/80 tracking-widest" aria-hidden="true">0000 M</span>
-    <div id="gauge-track"><div id="gauge-marker"></div></div>
-    <span id="gauge-zone" class="gauge-label font-mono text-[10px] text-cyan-300/50" aria-hidden="true">SURFACE</span>
-  </nav>
+    <div class="flex items-baseline justify-between font-mono text-[11px] tracking-[0.2em] uppercase text-sage" data-cascade="120">
+      <span data-reveal>Isabella Andrade — Portfolio</span>
+      <span data-reveal class="hidden sm:inline">Cambridge, MA</span>
+    </div>
 
-
-  <main>
-
-  <!-- ===== HERO: the waterline ===== -->
-  <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 md:px-16 overflow-hidden">
-
-    <canvas id="waves" aria-hidden="true"></canvas>
-    <div class="hero-scrim"></div>
-
-    <div class="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center text-center">
-
-      <p class="font-display text-cyan-100/90 text-sm font-medium tracking-[0.35em] uppercase mb-8" data-aos="fade-up">
-        Harvard College · CS &amp; Economics
+    <div class="max-w-6xl w-full mx-auto" data-speed="-0.05">
+      <p class="font-mono text-[11px] md:text-xs tracking-[0.35em] uppercase text-pine mb-7" data-cascade="0">
+        <span class="mask"><span class="mline">Harvard College · CS &amp; Economics</span></span>
       </p>
 
-      <h1 class="font-display font-semibold text-[clamp(3rem,10vw,7.5rem)] leading-[0.95] tracking-tight gradient-text mb-8" data-aos="fade-up" data-aos-delay="80">
-        Isabella<br>Andrade
+      <h1 class="font-display text-[clamp(3.6rem,13vw,10.5rem)] leading-[0.92] tracking-tight mb-9" data-cascade="140">
+        <span class="mask"><span class="mline mline-letters">Isabella</span></span>
+        <span class="mask"><span class="mline mline-letters text-pine italic">Andrade</span></span>
       </h1>
 
-      <p class="font-display italic text-xl md:text-2xl text-cyan-50 mb-4" data-aos="fade-up" data-aos-delay="160">
-        Student Founder · AI Product Builder · Venture Fellow
-      </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-4" data-aos="fade-up" data-aos-delay="300">
-        <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub"
-           class="glass-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-slate-100 hover:text-white">
-          <i class="bi bi-github"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn"
-           class="glass-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-slate-100 hover:text-white">
-          <i class="bi bi-linkedin"></i>
-        </a>
+      <div class="max-w-xl" data-cascade="130">
+        <p class="text-ink text-base md:text-lg font-medium mb-3" data-reveal>
+          Student Founder · AI Product Builder · Venture Fellow
+        </p>
+        <p class="font-display italic text-xl md:text-2xl text-sage" data-reveal>
+          “Life is not fair but I fight to make it fair.”
+        </p>
       </div>
     </div>
 
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cyan-200/50 text-xs z-10" data-aos="fade-up" data-aos-delay="500">
-      <span class="font-mono tracking-[0.3em] uppercase text-[10px]">Dive</span>
-      <i class="bi bi-chevron-down animate-bounce text-sm"></i>
-    </div>
-  </section>
+    <!-- Editorial contents index -->
+    <nav aria-label="Contents" class="max-w-6xl w-full mx-auto">
+      <div class="flex items-baseline justify-between font-mono text-[10px] tracking-[0.3em] uppercase text-sage mb-4" data-cascade="120">
+        <span data-reveal>Contents</span>
+        <span data-reveal>Scroll <span class="scroll-cue">↓</span></span>
+      </div>
+      <div class="rule mb-6" data-cascade="0"></div>
+      <ol class="grid grid-cols-2 md:grid-cols-6 gap-x-6 gap-y-4" data-cascade="80">
+        <li data-reveal><a href="#profile" class="group block"><span class="font-mono text-[10px] text-sage block mb-1">01</span><span class="font-display text-lg group-hover:text-pine transition-colors">Profile</span></a></li>
+        <li data-reveal><a href="#experience" class="group block"><span class="font-mono text-[10px] text-sage block mb-1">02</span><span class="font-display text-lg group-hover:text-pine transition-colors">Experience</span></a></li>
+        <li data-reveal><a href="#projects" class="group block"><span class="font-mono text-[10px] text-sage block mb-1">03</span><span class="font-display text-lg group-hover:text-pine transition-colors">Projects</span></a></li>
+        <li data-reveal><a href="#leadership" class="group block"><span class="font-mono text-[10px] text-sage block mb-1">04</span><span class="font-display text-lg group-hover:text-pine transition-colors">Leadership</span></a></li>
+        <li data-reveal><a href="#education" class="group block"><span class="font-mono text-[10px] text-sage block mb-1">05</span><span class="font-display text-lg group-hover:text-pine transition-colors">Education</span></a></li>
+        <li data-reveal><a href="#writing" class="group block"><span class="font-mono text-[10px] text-sage block mb-1">06</span><span class="font-display text-lg group-hover:text-pine transition-colors">Writing</span></a></li>
+      </ol>
+    </nav>
+  </header>
 
 
-  <!-- ===== ABOUT · sunlight zone ===== -->
-  <section id="about" class="py-32 px-6 md:px-16">
+  <main class="px-6 md:px-14">
     <div class="max-w-6xl mx-auto">
 
-      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
+      <!-- ============ 01 PROFILE ============ -->
+      <section id="profile" class="pt-28 md:pt-40 pb-16 md:pb-24 grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-20">
+        <div class="lg:sticky lg:top-24 self-start">
+          <p class="font-mono text-[11px] tracking-[0.3em] uppercase text-pine mb-2" data-reveal>01</p>
+          <h2 class="font-display text-4xl md:text-5xl mb-6"><span class="mask"><span class="mline">Profile</span></span></h2>
+          <div class="ghost-num hidden lg:block" data-speed="0.08" aria-hidden="true">01</div>
+        </div>
+
         <div>
-          <p class="font-mono text-[11px] tracking-[0.25em] text-sky-300/70 mb-3">−0010 M · SUNLIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl">About Me</h2>
-        </div>
-        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
-        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-16 items-center">
-
-        <div class="flex justify-center md:justify-start" data-aos="fade-right">
-          <div class="profile-wrapper">
-            <img
-              src="assets/img/profile-img2.jpg"
-              alt="Isabella Andrade"
-              class="w-full max-w-md rounded-2xl grayscale hover:grayscale-0 transition-all duration-500 object-cover"
-            >
+          <div data-cascade="110">
+            <p class="font-display text-2xl md:text-[2rem] leading-snug mb-7 max-w-2xl" data-reveal>
+              I'm a Harvard student pursuing a double A.B. in Computer Science and Economics. I build AI tools, research their failure modes, and study the markets they're reshaping.
+            </p>
+            <p class="text-sage text-base md:text-lg leading-relaxed mb-14 max-w-2xl" data-reveal>
+              Currently a student founder with TekTrek in San Francisco and an incoming Product Experience Specialist at Lovable — with past lives in software engineering at Verapath, healthcare LLM research at Harvard Medical School, and venture fellowships at Glade Brook and Milemark.
+            </p>
           </div>
-        </div>
 
-        <div data-aos="fade-left">
-          <p class="text-slate-200 text-lg leading-relaxed mb-5">
-            I'm a Harvard student pursuing a double A.B. in Computer Science and Economics. I build AI tools, research their failure modes, and study the markets they're reshaping.
-          </p>
-          <p class="text-slate-400 leading-relaxed mb-5">
-            Currently a student founder with TekTrek in San Francisco and an incoming Product Experience Specialist at Lovable — with past lives in software engineering at Verapath, healthcare LLM research at Harvard Medical School, and venture fellowships at Glade Brook and Milemark.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== SKILLS · sunlight zone ===== -->
-  <section id="skills" class="py-32 px-6 md:px-16">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
-        <div>
-          <p class="font-mono text-[11px] tracking-[0.25em] text-sky-300/70 mb-3">−0150 M · SUNLIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl">Skills</h2>
-        </div>
-        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
-        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-10">
-
-        <div data-aos="fade-up" data-aos-delay="0">
-          <h3 class="font-mono text-[10px] text-sky-300/80 uppercase tracking-[0.2em] mb-5">Languages &amp; Data</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Python</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">C#</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">C++</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">R</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">HTML/CSS</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">SQL</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Excel</span>
-          </div>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="100">
-          <h3 class="font-mono text-[10px] text-sky-300/80 uppercase tracking-[0.2em] mb-5">Web &amp; Tools</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">React</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Next.js</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Blazor</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Razor Pages</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Git &amp; GitHub</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Azure DevOps</span>
-          </div>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="200">
-          <h3 class="font-mono text-[10px] text-sky-300/80 uppercase tracking-[0.2em] mb-5">AI Tools</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Claude Code</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Codex</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Windsurf</span>
-            <span class="skill-pill text-sm px-4 py-1.5 rounded-full">Lovable</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== EXPERIENCE · twilight zone ===== -->
-  <section id="experience" class="py-32 px-6 md:px-16">
-    <div class="max-w-6xl mx-auto">
-
-      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
-        <div>
-          <p class="font-mono text-[11px] tracking-[0.25em] text-aqua/80 mb-3">−0400 M · TWILIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl">Experience</h2>
-        </div>
-        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
-        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
-      </div>
-
-      <div class="space-y-14">
-
-        <!-- Lovable -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
-          <div class="pt-1">
-            <p class="font-mono text-aqua text-sm">Aug 2026</p>
-          </div>
-          <div class="timeline-entry">
-            <h3 class="font-display font-semibold text-xl mb-1">Incoming Product Experience Specialist</h3>
-            <a href="https://lovable.dev/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Lovable <i class="bi bi-arrow-up-right text-xs"></i></a>
-            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Joining Lovable to work at the edge of AI-assisted software creation.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- TekTrek -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
-          <div class="pt-1">
-            <p class="font-mono text-aqua text-sm">Jun 2026 – Present</p>
-          </div>
-          <div class="timeline-entry">
-            <h3 class="font-display font-semibold text-xl mb-1">Student Founder</h3>
-            <a href="https://tektrek.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">TekTrek <i class="bi bi-arrow-up-right text-xs"></i></a>
-            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Selected as one of forty young builders from MIT, Harvard, and Princeton — out of 400+ applicants — to spend the summer building in San Francisco.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Glade Brook -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
-          <div class="pt-1">
-            <p class="font-mono text-aqua text-sm">Mar – May 2026</p>
-          </div>
-          <div class="timeline-entry">
-            <h3 class="font-display font-semibold text-xl mb-1">Spring Fellow</h3>
-            <a href="https://www.gladebrookcapital.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Glade Brook Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
-            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Built an internal knowledge-management tool to centralize firm-wide research — owned it from problem identification through deployment.
-              </li>
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Produced a research brief on AI in the sciences for investment partners, including a deep dive on orbital data center technology for a portfolio company.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Y Lab -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
-          <div class="pt-1">
-            <p class="font-mono text-aqua text-sm">Jan – Jun 2026</p>
-          </div>
-          <div class="timeline-entry">
-            <h3 class="font-display font-semibold text-xl mb-1">Research Assistant</h3>
-            <a href="https://ylab.top/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Y Lab, Harvard Medical School <i class="bi bi-arrow-up-right text-xs"></i></a>
-            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Ran a PRISMA-guided systematic review on demographic bias in healthcare LLMs — screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.
-              </li>
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Translated technical ML findings for a clinical audience; co-authoring a manuscript for publication this fall.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Verapath -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
-          <div class="pt-1">
-            <p class="font-mono text-aqua text-sm">Jun 2024 – Jan 2026</p>
-          </div>
-          <div class="timeline-entry">
-            <h3 class="font-display font-semibold text-xl mb-1">Software Engineer Intern</h3>
-            <a href="https://verapath.com/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Verapath <i class="bi bi-arrow-up-right text-xs"></i></a>
-            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Prototyped prompt-based agents with OpenAI Codex as a pair-programming tool, validating outputs against structured evaluation criteria and stakeholder feedback.
-              </li>
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Improved front-end responsiveness by auditing stylesheet load order, refactoring media queries, and resolving UI issues across the full stack.
-              </li>
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Translated product requirements into scoped work items in Azure DevOps, managing execution and surfacing blockers early.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Milemark -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
-          <div class="pt-1">
-            <p class="font-mono text-aqua text-sm">May – Aug 2025</p>
-          </div>
-          <div class="timeline-entry">
-            <h3 class="font-display font-semibold text-xl mb-1">Venture Fellow</h3>
-            <a href="https://www.milemark.capital/" target="_blank" class="text-aqua text-sm font-medium mb-5 inline-block hover:text-biolume transition-colors">Milemark Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
-            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Tracked agentic AI adoption across healthcare, fintech, and agtech; synthesized patterns into concise written briefs for investors.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Goldman Sachs -->
-        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10" data-aos="fade-up">
-          <div class="pt-1">
-            <p class="font-mono text-aqua text-sm">Sep 2024 – Jan 2025</p>
-          </div>
-          <div class="timeline-entry">
-            <h3 class="font-display font-semibold text-xl mb-1">Engineering Leader</h3>
-            <p class="text-aqua text-sm font-medium mb-5">Goldman Sachs Emerging Leaders Program</p>
-            <ul class="space-y-3 text-slate-400 text-sm leading-relaxed">
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Developed a mutual fund calculator with Spring Boot, MongoDB, and Next.js — modeled projected returns using CAPM and compound interest.
-              </li>
-              <li class="flex gap-3">
-                <span class="text-biolume shrink-0 mt-0.5">▸</span>
-                Presented the project at the Goldman Sachs Dallas summit.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== PROJECTS · midnight zone ===== -->
-  <section id="projects" class="py-32 px-6 md:px-16">
-    <div class="max-w-6xl mx-auto">
-
-      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
-        <div>
-          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−1200 M · MIDNIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl">Projects</h2>
-        </div>
-        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
-        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-5">
-
-        <!-- Passio Go -->
-        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="0">
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
-              <i class="bi bi-phone text-aqua"></i>
+          <!-- Vitals -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 mb-16" data-cascade="90">
+            <div data-reveal>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-sage mb-2">Location</p>
+              <p class="text-sm font-medium">Cambridge, MA</p>
             </div>
-            <div class="flex gap-2">
-              <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">HTML</span>
-              <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">JavaScript</span>
+            <div data-reveal>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-sage mb-2">University</p>
+              <p class="text-sm font-medium">Harvard College</p>
+            </div>
+            <div data-reveal>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-sage mb-2">Email</p>
+              <p class="text-sm font-medium break-all"><a href="mailto:isabellaandrade@college.harvard.edu" class="link-quiet">isabellaandrade@college.harvard.edu</a></p>
+            </div>
+            <div data-reveal>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-sage mb-2">Focus</p>
+              <p class="text-sm font-medium">AI Tooling · Venture · Product</p>
             </div>
           </div>
-          <h3 class="font-display font-semibold text-lg mb-1">Passio Go — Harvard Upgrade</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-5">Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.</p>
-          <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors">
-            View Project <i class="bi bi-arrow-up-right text-xs"></i>
-          </a>
-        </div>
 
-        <!-- This site -->
-        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="80">
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
-              <i class="bi bi-water text-aqua"></i>
-            </div>
-            <div class="flex gap-2">
-              <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">WebGL</span>
-              <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Vanilla JS</span>
-            </div>
-          </div>
-          <h3 class="font-display font-semibold text-lg mb-1">This Site</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-5">You're swimming in it. A hand-built ocean: an aerial surf line rendered in a WebGL shader that churns around your cursor, bubbles that turn to marine snow as you descend, and a working depth gauge — no frameworks.</p>
-          <a href="https://github.com/ilandrade" target="_blank" class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors">
-            View GitHub <i class="bi bi-arrow-up-right text-xs"></i>
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== LEADERSHIP · midnight zone ===== -->
-  <section id="leadership" class="py-32 px-6 md:px-16">
-    <div class="max-w-6xl mx-auto">
-
-      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
-        <div>
-          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−2500 M · MIDNIGHT ZONE</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl">Leadership</h2>
-        </div>
-        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
-        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-5">
-
-        <!-- Massachusetts AI Coalition -->
-        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="0">
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
-              <i class="bi bi-diagram-3 text-aqua"></i>
-            </div>
-            <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Mar 2026 – Present</span>
-          </div>
-          <h3 class="font-display font-semibold text-lg mb-1">Anchor Initiative Student Lead</h3>
-          <a href="https://massaicoalition.com/students" target="_blank" class="text-aqua text-sm mb-4 inline-block hover:text-biolume transition-colors">Massachusetts AI Coalition <i class="bi bi-arrow-up-right text-xs"></i></a>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.
-          </p>
-        </div>
-
-        <!-- HUCEG -->
-        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="80">
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
-              <i class="bi bi-sun text-aqua"></i>
-            </div>
-            <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Jul 2025 – Present</span>
-          </div>
-          <h3 class="font-display font-semibold text-lg mb-1">SCOUT Program Co-Director</h3>
-          <p class="text-aqua text-sm mb-4">Harvard Undergraduate Clean Energy Group</p>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Founded HUCEG's first VC education program from scratch — designed the curriculum, recruited analysts, and run research workflows across four clean-energy verticals as the cohort's primary point of contact.
-          </p>
-        </div>
-
-        <!-- SHPE -->
-        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="160">
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
-              <i class="bi bi-people text-aqua"></i>
-            </div>
-            <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Jul 2024 – Present</span>
-          </div>
-          <h3 class="font-display font-semibold text-lg mb-1">Junior Outreach Representative</h3>
-          <p class="text-aqua text-sm mb-4">Society of Hispanic Professional Engineers (SHPE)</p>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Planned and executed outreach and service events with campus and community partners; managed logistics to support engagement with underrepresented students in STEM.
-          </p>
-        </div>
-
-        <!-- Harvard AI Safety Team -->
-        <div class="card rounded-3xl p-7" data-aos="fade-up" data-aos-delay="240">
-          <div class="flex items-start justify-between mb-5">
-            <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
-              <i class="bi bi-shield-check text-aqua"></i>
-            </div>
-            <span class="font-mono text-xs text-slate-500 bg-cyan-100/5 px-3 py-1 rounded-full">Jul – Aug 2023</span>
-          </div>
-          <h3 class="font-display font-semibold text-lg mb-1">Technical Fellowship</h3>
-          <p class="text-aqua text-sm mb-4">Harvard AI Safety Team</p>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Synthesized research on interpretability, RLHF, goal misgeneralization, and eliciting latent knowledge; shared takeaways with a 5-member cohort over 8 weeks.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== EDUCATION · abyss ===== -->
-  <section id="education" class="py-32 px-6 md:px-16">
-    <div class="max-w-6xl mx-auto">
-
-      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
-        <div>
-          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−3800 M · ABYSS</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl">Education</h2>
-        </div>
-        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
-        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
-      </div>
-
-      <div class="card rounded-3xl p-8 md:p-10" data-aos="fade-up">
-        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-          <div class="flex items-start gap-5">
-            <div class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0">
-              <i class="bi bi-mortarboard text-aqua text-xl"></i>
+          <!-- Skills: three cascading columns -->
+          <div class="grid sm:grid-cols-3 gap-x-10 gap-y-10">
+            <div>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-pine mb-4" data-reveal>Languages &amp; Data</p>
+              <ul class="text-sm" data-cascade="60">
+                <li class="py-2 border-t border-hair" data-reveal>Python</li>
+                <li class="py-2 border-t border-hair" data-reveal>C#</li>
+                <li class="py-2 border-t border-hair" data-reveal>C++</li>
+                <li class="py-2 border-t border-hair" data-reveal>R</li>
+                <li class="py-2 border-t border-hair" data-reveal>HTML/CSS</li>
+                <li class="py-2 border-t border-hair" data-reveal>SQL</li>
+                <li class="py-2 border-t border-hair border-b" data-reveal>Excel</li>
+              </ul>
             </div>
             <div>
-              <h3 class="font-display font-semibold text-2xl mb-1">A.B. Computer Science &amp; Economics</h3>
-              <p class="text-aqua text-sm">Harvard College</p>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-pine mb-4" data-reveal>Web &amp; Tools</p>
+              <ul class="text-sm" data-cascade="60">
+                <li class="py-2 border-t border-hair" data-reveal>React</li>
+                <li class="py-2 border-t border-hair" data-reveal>Next.js</li>
+                <li class="py-2 border-t border-hair" data-reveal>Blazor</li>
+                <li class="py-2 border-t border-hair" data-reveal>Razor Pages</li>
+                <li class="py-2 border-t border-hair" data-reveal>Git &amp; GitHub</li>
+                <li class="py-2 border-t border-hair border-b" data-reveal>Azure DevOps</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-pine mb-4" data-reveal>AI Tools</p>
+              <ul class="text-sm" data-cascade="60">
+                <li class="py-2 border-t border-hair" data-reveal>Claude Code</li>
+                <li class="py-2 border-t border-hair" data-reveal>Codex</li>
+                <li class="py-2 border-t border-hair" data-reveal>Windsurf</li>
+                <li class="py-2 border-t border-hair border-b" data-reveal>Lovable</li>
+              </ul>
             </div>
           </div>
-          <p class="font-mono text-slate-500 text-sm shrink-0 md:pt-3">Expected May 2027 · Cambridge, MA</p>
+        </div>
+      </section>
+
+
+      <!-- ============ 02 EXPERIENCE ============ -->
+      <section id="experience" class="pt-28 md:pt-40 pb-16 md:pb-24 grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-20">
+        <div class="lg:sticky lg:top-24 self-start">
+          <p class="font-mono text-[11px] tracking-[0.3em] uppercase text-pine mb-2" data-reveal>02</p>
+          <h2 class="font-display text-4xl md:text-5xl mb-6"><span class="mask"><span class="mline">Experience</span></span></h2>
+          <p class="text-sage text-sm max-w-[220px]" data-reveal>Seven chapters, newest first — from founding to fellowships.</p>
+          <div class="ghost-num hidden lg:block" data-speed="-0.06" aria-hidden="true">02</div>
         </div>
 
-        <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-4 md:ml-[68px]">Relevant Coursework</p>
-        <div class="flex flex-wrap gap-2 md:ml-[68px]">
-          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Data Structures &amp; Algorithms</span>
-          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Systems Programming &amp; Machine Organization</span>
-          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Economics &amp; Computation</span>
-          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Probability with Engineering Applications</span>
-          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Linear Algebra</span>
-          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Discrete Mathematics</span>
-          <span class="skill-pill text-xs px-3.5 py-1.5 rounded-full">Calculus 2</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== WRITING · abyss ===== -->
-  <section id="writing" class="py-32 px-6 md:px-16">
-    <div class="max-w-6xl mx-auto">
-
-      <div class="flex items-end gap-5 mb-20" data-aos="fade-up">
         <div>
-          <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/80 mb-3">−5000 M · ABYSS</p>
-          <h2 class="font-display font-semibold text-4xl md:text-5xl">Writing</h2>
-        </div>
-        <div class="flex-1 h-px bg-cyan-100/[0.07] mb-3 hidden md:block"></div>
-        <svg class="section-fish hidden md:block shrink-0 mb-1 w-8 h-8 text-cyan-300/50" viewBox="0 0 32 32" aria-hidden="true"><use href="#fish-outline"/></svg>
-      </div>
 
-      <div class="space-y-5">
-
-        <!-- Deepfakes paper -->
-        <div class="card rounded-3xl p-7" data-aos="fade-up">
-          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
-                <i class="bi bi-file-earmark-text text-aqua"></i>
-              </div>
+          <!-- Lovable -->
+          <article class="py-10 first:pt-0">
+            <div class="rule mb-10"></div>
+            <div class="row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10" data-cascade="100">
+              <p class="font-mono text-xs text-sage pt-1.5" data-reveal>Aug 2026</p>
               <div>
-                <h3 class="font-display font-semibold text-lg mb-1">Political Voices: Deepfakes and the Future of Democracy</h3>
-                <p class="text-aqua text-sm">CS 1050: Privacy and Surveillance</p>
+                <h3 class="font-display text-2xl md:text-3xl mb-1" data-reveal>Incoming Product Experience Specialist</h3>
+                <p class="mb-5" data-reveal><a href="https://lovable.dev/" target="_blank" rel="noopener" class="exp-link text-sm font-medium">Lovable <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+                <ul class="space-y-2.5 text-sm text-sage leading-relaxed max-w-2xl">
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Joining Lovable to work at the edge of AI-assisted software creation.</li>
+                </ul>
               </div>
             </div>
-            <a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank"
-               class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors shrink-0">
-              Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
-            </a>
-          </div>
-          <p class="text-slate-400 text-sm leading-relaxed ml-14">
-            Argues that voice-cloning deepfakes pose a fundamental threat to democratic communication that existing legal frameworks and reactive policy measures cannot adequately address. Examines the growing tension between AI and privacy — moving beyond individual personhood to focus on AI's broader impact on democratic systems.
-          </p>
-        </div>
+          </article>
 
-        <!-- Algorithmic Bias paper -->
-        <div class="card rounded-3xl p-7" data-aos="fade-up">
-          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5">
-                <i class="bi bi-file-earmark-text text-aqua"></i>
-              </div>
+          <!-- TekTrek -->
+          <article class="py-10">
+            <div class="rule mb-10"></div>
+            <div class="row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10" data-cascade="100">
+              <p class="font-mono text-xs text-sage pt-1.5" data-reveal>Jun 2026 – Present</p>
               <div>
-                <h3 class="font-display font-semibold text-lg mb-1">Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</h3>
-                <p class="text-aqua text-sm">Economics 1343: The Economics of Development and Global Health</p>
+                <h3 class="font-display text-2xl md:text-3xl mb-1" data-reveal>Student Founder</h3>
+                <p class="mb-5" data-reveal><a href="https://tektrek.com/" target="_blank" rel="noopener" class="exp-link text-sm font-medium">TekTrek <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+                <ul class="space-y-2.5 text-sm text-sage leading-relaxed max-w-2xl">
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Selected as one of forty young builders from MIT, Harvard, and Princeton — out of 400+ applicants — to spend the summer building in San Francisco.</li>
+                </ul>
               </div>
             </div>
-            <a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank"
-               class="inline-flex items-center gap-1.5 text-aqua hover:text-biolume text-sm font-medium transition-colors shrink-0">
-              Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
-            </a>
-          </div>
-          <p class="text-slate-400 text-sm leading-relaxed ml-14">
-            Examines how AI diagnostic tools validated in high-income settings fail catastrophically when deployed in low-income countries. Through two cases — CAD4TB (TB detection in sub-Saharan Africa) and First-Derm (dermatology AI in Uganda, with a 52.9 percentage point accuracy collapse) — the paper argues that absent rigorous local validation, algorithmic bias becomes a structural health equity crisis.
-          </p>
+          </article>
+
+          <!-- Glade Brook -->
+          <article class="py-10">
+            <div class="rule mb-10"></div>
+            <div class="row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10" data-cascade="100">
+              <p class="font-mono text-xs text-sage pt-1.5" data-reveal>Mar – May 2026</p>
+              <div>
+                <h3 class="font-display text-2xl md:text-3xl mb-1" data-reveal>Spring Fellow</h3>
+                <p class="mb-5" data-reveal><a href="https://www.gladebrookcapital.com/" target="_blank" rel="noopener" class="exp-link text-sm font-medium">Glade Brook Capital <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+                <ul class="space-y-2.5 text-sm text-sage leading-relaxed max-w-2xl">
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Built an internal knowledge-management tool to centralize firm-wide research — owned it from problem identification through deployment.</li>
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Produced a research brief on AI in the sciences for investment partners, including a deep dive on orbital data center technology for a portfolio company.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Y Lab -->
+          <article class="py-10">
+            <div class="rule mb-10"></div>
+            <div class="row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10" data-cascade="100">
+              <p class="font-mono text-xs text-sage pt-1.5" data-reveal>Jan – Jun 2026</p>
+              <div>
+                <h3 class="font-display text-2xl md:text-3xl mb-1" data-reveal>Research Assistant</h3>
+                <p class="mb-5" data-reveal><a href="https://ylab.top/" target="_blank" rel="noopener" class="exp-link text-sm font-medium">Y Lab, Harvard Medical School <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+                <ul class="space-y-2.5 text-sm text-sage leading-relaxed max-w-2xl">
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Ran a PRISMA-guided systematic review on demographic bias in healthcare LLMs — screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.</li>
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Translated technical ML findings for a clinical audience; co-authoring a manuscript for publication this fall.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Verapath -->
+          <article class="py-10">
+            <div class="rule mb-10"></div>
+            <div class="row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10" data-cascade="100">
+              <p class="font-mono text-xs text-sage pt-1.5" data-reveal>Jun 2024 – Jan 2026</p>
+              <div>
+                <h3 class="font-display text-2xl md:text-3xl mb-1" data-reveal>Software Engineer Intern</h3>
+                <p class="mb-5" data-reveal><a href="https://verapath.com/" target="_blank" rel="noopener" class="exp-link text-sm font-medium">Verapath <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+                <ul class="space-y-2.5 text-sm text-sage leading-relaxed max-w-2xl">
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Prototyped prompt-based agents with OpenAI Codex as a pair-programming tool, validating outputs against structured evaluation criteria and stakeholder feedback.</li>
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Improved front-end responsiveness by auditing stylesheet load order, refactoring media queries, and resolving UI issues across the full stack.</li>
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Translated product requirements into scoped work items in Azure DevOps, managing execution and surfacing blockers early.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Milemark -->
+          <article class="py-10">
+            <div class="rule mb-10"></div>
+            <div class="row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10" data-cascade="100">
+              <p class="font-mono text-xs text-sage pt-1.5" data-reveal>May – Aug 2025</p>
+              <div>
+                <h3 class="font-display text-2xl md:text-3xl mb-1" data-reveal>Venture Fellow</h3>
+                <p class="mb-5" data-reveal><a href="https://www.milemark.capital/" target="_blank" rel="noopener" class="exp-link text-sm font-medium">Milemark Capital <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+                <ul class="space-y-2.5 text-sm text-sage leading-relaxed max-w-2xl">
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Tracked agentic AI adoption across healthcare, fintech, and agtech; synthesized patterns into concise written briefs for investors.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Goldman Sachs -->
+          <article class="py-10 pb-0">
+            <div class="rule mb-10"></div>
+            <div class="row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10" data-cascade="100">
+              <p class="font-mono text-xs text-sage pt-1.5" data-reveal>Sep 2024 – Jan 2025</p>
+              <div>
+                <h3 class="font-display text-2xl md:text-3xl mb-1" data-reveal>Engineering Leader</h3>
+                <p class="text-pine text-sm font-medium mb-5" data-reveal>Goldman Sachs Emerging Leaders Program</p>
+                <ul class="space-y-2.5 text-sm text-sage leading-relaxed max-w-2xl">
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Developed a mutual fund calculator with Spring Boot, MongoDB, and Next.js — modeled projected returns using CAPM and compound interest.</li>
+                  <li class="flex gap-3" data-reveal><span class="text-pine shrink-0">—</span>Presented the project at the Goldman Sachs Dallas summit.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+
+      <!-- ============ 03 PROJECTS ============ -->
+      <section id="projects" class="pt-28 md:pt-40 pb-16 md:pb-24 grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-20">
+        <div class="lg:sticky lg:top-24 self-start">
+          <p class="font-mono text-[11px] tracking-[0.3em] uppercase text-pine mb-2" data-reveal>03</p>
+          <h2 class="font-display text-4xl md:text-5xl mb-6"><span class="mask"><span class="mline">Projects</span></span></h2>
+          <div class="ghost-num hidden lg:block" data-speed="0.1" aria-hidden="true">03</div>
         </div>
 
-      </div>
+        <div>
+          <!-- Passio Go -->
+          <article class="pb-12">
+            <div class="rule mb-10"></div>
+            <div class="row" data-cascade="100">
+              <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-3">
+                <h3 class="font-display text-2xl md:text-3xl" data-reveal>Passio Go — Harvard Upgrade</h3>
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-sage" data-reveal>HTML · JavaScript</span>
+              </div>
+              <p class="text-sage text-sm md:text-base leading-relaxed max-w-2xl mb-4" data-reveal>
+                Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.
+              </p>
+              <p data-reveal><a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" rel="noopener" class="exp-link text-sm font-medium">View Project <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+            </div>
+          </article>
+
+          <!-- This site, in three editions -->
+          <article>
+            <div class="rule mb-10"></div>
+            <div class="row" data-cascade="100">
+              <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-3">
+                <h3 class="font-display text-2xl md:text-3xl" data-reveal>This Site <span class="font-display italic text-sage text-xl">(in three editions)</span></h3>
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-sage" data-reveal>Three editions · Vanilla JS</span>
+              </div>
+              <p class="text-sage text-sm md:text-base leading-relaxed max-w-2xl mb-4" data-reveal>
+                You're reading it. One portfolio, hand-built three ways: this editorial cascade of scroll choreography, a <a href="gallery.html" class="link-quiet text-ink">gallery exhibition</a>, and a <a href="mediterranean.html" class="link-quiet text-ink">Mediterranean summer</a> — each with its own identity and motion, all vanilla JS, no frameworks.
+              </p>
+              <p data-reveal><a href="https://github.com/ilandrade" target="_blank" rel="noopener" class="exp-link text-sm font-medium">View GitHub <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+
+      <!-- ============ 04 LEADERSHIP ============ -->
+      <section id="leadership" class="pt-28 md:pt-40 pb-16 md:pb-24 grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-20">
+        <div class="lg:sticky lg:top-24 self-start">
+          <p class="font-mono text-[11px] tracking-[0.3em] uppercase text-pine mb-2" data-reveal>04</p>
+          <h2 class="font-display text-4xl md:text-5xl mb-6"><span class="mask"><span class="mline">Leadership</span></span></h2>
+          <div class="ghost-num hidden lg:block" data-speed="-0.07" aria-hidden="true">04</div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-x-12 gap-y-14" data-cascade="110">
+
+          <article data-reveal>
+            <div class="rule mb-6" style="transform: scaleX(1);"></div>
+            <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-sage mb-3">Mar 2026 – Present</p>
+            <h3 class="font-display text-xl md:text-2xl mb-1">Anchor Initiative Student Lead</h3>
+            <p class="mb-4"><a href="https://massaicoalition.com/students" target="_blank" rel="noopener" class="exp-link text-sm font-medium">Massachusetts AI Coalition <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+            <p class="text-sage text-sm leading-relaxed">
+              Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.
+            </p>
+          </article>
+
+          <article data-reveal>
+            <div class="rule mb-6" style="transform: scaleX(1);"></div>
+            <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-sage mb-3">Jul 2025 – Present</p>
+            <h3 class="font-display text-xl md:text-2xl mb-1">SCOUT Program Co-Director</h3>
+            <p class="text-pine text-sm font-medium mb-4">Harvard Undergraduate Clean Energy Group</p>
+            <p class="text-sage text-sm leading-relaxed">
+              Founded HUCEG's first VC education program from scratch — designed the curriculum, recruited analysts, and run research workflows across four clean-energy verticals as the cohort's primary point of contact.
+            </p>
+          </article>
+
+          <article data-reveal>
+            <div class="rule mb-6" style="transform: scaleX(1);"></div>
+            <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-sage mb-3">Jul 2024 – Present</p>
+            <h3 class="font-display text-xl md:text-2xl mb-1">Junior Outreach Representative</h3>
+            <p class="text-pine text-sm font-medium mb-4">Society of Hispanic Professional Engineers (SHPE)</p>
+            <p class="text-sage text-sm leading-relaxed">
+              Planned and executed outreach and service events with campus and community partners; managed logistics to support engagement with underrepresented students in STEM.
+            </p>
+          </article>
+
+          <article data-reveal>
+            <div class="rule mb-6" style="transform: scaleX(1);"></div>
+            <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-sage mb-3">Jul – Aug 2023</p>
+            <h3 class="font-display text-xl md:text-2xl mb-1">Technical Fellowship</h3>
+            <p class="text-pine text-sm font-medium mb-4">Harvard AI Safety Team</p>
+            <p class="text-sage text-sm leading-relaxed">
+              Synthesized research on interpretability, RLHF, goal misgeneralization, and eliciting latent knowledge; shared takeaways with a 5-member cohort over 8 weeks.
+            </p>
+          </article>
+
+        </div>
+      </section>
+
+
+      <!-- ============ 05 EDUCATION ============ -->
+      <section id="education" class="pt-28 md:pt-40 pb-16 md:pb-24 grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-20">
+        <div class="lg:sticky lg:top-24 self-start">
+          <p class="font-mono text-[11px] tracking-[0.3em] uppercase text-pine mb-2" data-reveal>05</p>
+          <h2 class="font-display text-4xl md:text-5xl mb-6"><span class="mask"><span class="mline">Education</span></span></h2>
+          <div class="ghost-num hidden lg:block" data-speed="0.09" aria-hidden="true">05</div>
+        </div>
+
+        <div>
+          <div class="rule mb-10"></div>
+          <div data-cascade="110">
+            <h3 class="font-display text-2xl md:text-4xl mb-2" data-reveal>A.B. Computer Science &amp; Economics</h3>
+            <p class="text-pine text-sm font-medium mb-1" data-reveal>Harvard College</p>
+            <p class="font-mono text-xs text-sage mb-12" data-reveal>Expected May 2027 · Cambridge, MA</p>
+          </div>
+
+          <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-pine mb-4" data-reveal>Relevant Coursework</p>
+          <ul class="grid sm:grid-cols-2 gap-x-10 text-sm max-w-2xl" data-cascade="70">
+            <li class="py-2.5 border-t border-hair" data-reveal>Data Structures &amp; Algorithms</li>
+            <li class="py-2.5 border-t border-hair" data-reveal>Systems Programming &amp; Machine Organization</li>
+            <li class="py-2.5 border-t border-hair" data-reveal>Economics &amp; Computation</li>
+            <li class="py-2.5 border-t border-hair" data-reveal>Probability with Engineering Applications</li>
+            <li class="py-2.5 border-t border-hair" data-reveal>Linear Algebra</li>
+            <li class="py-2.5 border-t border-hair" data-reveal>Discrete Mathematics</li>
+            <li class="py-2.5 border-t border-b border-hair" data-reveal>Calculus 2</li>
+          </ul>
+        </div>
+      </section>
+
+
+      <!-- ============ 06 WRITING ============ -->
+      <section id="writing" class="pt-28 md:pt-40 pb-28 md:pb-40 grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-20">
+        <div class="lg:sticky lg:top-24 self-start">
+          <p class="font-mono text-[11px] tracking-[0.3em] uppercase text-pine mb-2" data-reveal>06</p>
+          <h2 class="font-display text-4xl md:text-5xl mb-6"><span class="mask"><span class="mline">Writing</span></span></h2>
+          <div class="ghost-num hidden lg:block" data-speed="-0.08" aria-hidden="true">06</div>
+        </div>
+
+        <div>
+          <article class="pb-12">
+            <div class="rule mb-10"></div>
+            <div class="row" data-cascade="100">
+              <h3 class="font-display text-2xl md:text-3xl mb-1 max-w-2xl" data-reveal>Political Voices: Deepfakes and the Future of Democracy</h3>
+              <p class="text-pine text-sm font-medium mb-4" data-reveal>CS 1050: Privacy and Surveillance</p>
+              <p class="text-sage text-sm md:text-base leading-relaxed max-w-2xl mb-4" data-reveal>
+                Argues that voice-cloning deepfakes pose a fundamental threat to democratic communication that existing legal frameworks and reactive policy measures cannot adequately address. Examines the growing tension between AI and privacy — moving beyond individual personhood to focus on AI's broader impact on democratic systems.
+              </p>
+              <p data-reveal><a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank" rel="noopener" class="exp-link text-sm font-medium">Read Paper <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+            </div>
+          </article>
+
+          <article>
+            <div class="rule mb-10"></div>
+            <div class="row" data-cascade="100">
+              <h3 class="font-display text-2xl md:text-3xl mb-1 max-w-2xl" data-reveal>Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</h3>
+              <p class="text-pine text-sm font-medium mb-4" data-reveal>Economics 1343: The Economics of Development and Global Health</p>
+              <p class="text-sage text-sm md:text-base leading-relaxed max-w-2xl mb-4" data-reveal>
+                Examines how AI diagnostic tools validated in high-income settings fail catastrophically when deployed in low-income countries. Through two cases — CAD4TB (TB detection in sub-Saharan Africa) and First-Derm (dermatology AI in Uganda, with a 52.9 percentage point accuracy collapse) — the paper argues that absent rigorous local validation, algorithmic bias becomes a structural health equity crisis.
+              </p>
+              <p data-reveal><a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank" rel="noopener" class="exp-link text-sm font-medium">Read Paper <i class="bi bi-arrow-up-right text-xs"></i></a></p>
+            </div>
+          </article>
+        </div>
+      </section>
+
     </div>
-  </section>
-
   </main>
 
 
-  <!-- ===== FOOTER · seafloor ===== -->
-  <footer id="seafloor" class="py-16 px-6 border-t border-cyan-200/[0.05] text-center">
-    <p class="font-mono text-[11px] tracking-[0.25em] text-biolume/60 mb-6">−6000 M · SEAFLOOR</p>
-    <p class="font-display font-semibold text-2xl mb-2">
-      Isabella Andrade<span class="text-biolume">.</span>
-    </p>
-    <p class="font-display italic text-slate-500 text-sm mb-6">You've reached the bottom. Thanks for diving in.</p>
-    <div class="flex justify-center gap-6 mb-8">
-      <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn" class="text-slate-500 hover:text-white transition-colors text-xl">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub" class="text-slate-500 hover:text-white transition-colors text-xl">
-        <i class="bi bi-github"></i>
-      </a>
+  <!-- ============ COLOPHON / CONTACT ============ -->
+  <footer class="bg-ink text-[#EFEEE6] px-6 md:px-14 pt-24 pb-12">
+    <div class="max-w-6xl mx-auto">
+      <p class="font-mono text-[11px] tracking-[0.3em] uppercase text-moss mb-6" data-reveal>07 — Contact</p>
+
+      <h2 class="font-display text-[clamp(2.6rem,8vw,6.5rem)] leading-[0.95] mb-12" data-cascade="140">
+        <span class="mask"><span class="mline">Say hello,</span></span>
+        <span class="mask"><span class="mline italic text-moss">or build something.</span></span>
+      </h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 mb-20" data-cascade="100">
+        <div data-reveal>
+          <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-moss/70 mb-2">Email</p>
+          <a href="mailto:isabellaandrade@college.harvard.edu" class="text-sm break-all border-b border-white/20 hover:border-moss hover:text-moss transition-colors">isabellaandrade@college.harvard.edu</a>
+        </div>
+        <div data-reveal>
+          <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-moss/70 mb-2">Location</p>
+          <p class="text-sm">Cambridge, MA</p>
+        </div>
+        <div data-reveal>
+          <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-moss/70 mb-2">GitHub</p>
+          <a href="https://github.com/ilandrade" target="_blank" rel="noopener" class="text-sm border-b border-white/20 hover:border-moss hover:text-moss transition-colors"><i class="bi bi-github mr-1"></i>github.com/ilandrade</a>
+        </div>
+        <div data-reveal>
+          <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-moss/70 mb-2">LinkedIn</p>
+          <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" rel="noopener" class="text-sm border-b border-white/20 hover:border-moss hover:text-moss transition-colors"><i class="bi bi-linkedin mr-1"></i>isabella-andrade-l</a>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <p class="font-display text-lg">Isabella Andrade<span class="text-moss">.</span></p>
+        <div class="flex flex-wrap gap-x-8 gap-y-2 font-mono text-[10px] tracking-[0.2em] uppercase text-white/50">
+          <a href="gallery.html" class="hover:text-moss transition-colors">Gallery edition</a>
+          <a href="mediterranean.html" class="hover:text-moss transition-colors">Mediterranean edition</a>
+          <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="hover:text-moss transition-colors">Back to top ↑</a>
+        </div>
+      </div>
     </div>
-    <a href="#hero" class="font-mono text-[11px] tracking-[0.2em] text-cyan-300/60 hover:text-biolume transition-colors uppercase">
-      Back to the surface ↑
-    </a>
-    <p class="mt-4">
-      <a href="mediterranean.html" class="font-mono text-[11px] tracking-[0.2em] text-cyan-300/60 hover:text-biolume transition-colors uppercase">
-        🍋 Surface to the Mediterranean
-      </a>
-    </p>
   </footer>
 
 
-  <!-- Surface button -->
-  <a href="#hero" id="surface-btn" aria-label="Back to the surface"
-     class="glass-btn-primary fixed bottom-6 right-6 text-white w-11 h-11 rounded-full flex items-center justify-center z-40">
-    <i class="bi bi-arrow-up-short text-lg"></i>
-  </a>
-
-
-  <!-- ===== SCRIPTS ===== -->
-  <script src="assets/vendor/aos/aos.js"></script>
-
   <script>
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // AOS
-    AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60, disable: reducedMotion });
-
-
-
-    // ============================================================
-    // THE SURFACE FROM ABOVE — aerial ocean shader in the hero.
-    // Deep teal water with a churning surf line, seen from a drone.
-    // The foam stirs around your cursor; clicking kicks up a burst.
-    // ============================================================
     (function () {
-      const hero = document.getElementById('hero');
-      const canvas = document.getElementById('waves');
-      const gl = canvas.getContext('webgl', { antialias: false, alpha: false });
-      if (!gl) { canvas.remove(); return; }
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const VERT = `
-        attribute vec2 a;
-        void main() { gl_Position = vec4(a, 0.0, 1.0); }
-      `;
-
-      const FRAG = `
-        precision highp float;
-        uniform vec2 u_res;
-        uniform float u_t;
-        uniform vec2 u_mouse;   // uv, aspect-corrected x
-        uniform float u_stir;   // cursor energy 0..1
-
-        float hash(vec2 p) {
-          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-        }
-        float noise(vec2 p) {
-          vec2 i = floor(p), f = fract(p);
-          vec2 u = f * f * (3.0 - 2.0 * f);
-          return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
-                     mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
-        }
-        float fbm(vec2 p) {
-          float v = 0.0, a = 0.5;
-          mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
-          for (int i = 0; i < 5; i++) { v += a * noise(p); p = m * p; a *= 0.5; }
-          return v;
-        }
-        // Ridged fbm: sharp bright filaments, reads as foam
-        float ridge(vec2 p) {
-          float v = 0.0, a = 0.5;
-          mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
-          for (int i = 0; i < 5; i++) { v += a * (1.0 - abs(2.0 * noise(p) - 1.0)); p = m * p; a *= 0.5; }
-          return v;
-        }
-
-        void main() {
-          vec2 uv = gl_FragCoord.xy / u_res;
-          vec2 p = uv;
-          p.x *= u_res.x / u_res.y;
-          float t = u_t * 0.045;
-
-          // Cursor stir: local churn
-          float md = distance(p, u_mouse);
-          float stir = u_stir * exp(-md * md * 14.0);
-
-          // Lightly warped water texture — too much warp reads as smoke
-          vec2 q = vec2(fbm(p * 2.4 + vec2(0.0, t)), fbm(p * 2.4 + vec2(5.2, 1.3) - t * 0.8));
-          vec2 warp = p * 3.4 + 0.75 * q + stir * vec2(sin(u_t * 1.4), cos(u_t * 1.1)) * 0.6;
-          float f = fbm(warp);
-
-          // Rich teal water, like deep sea shot from a drone
-          vec3 deep = vec3(0.016, 0.08, 0.13);
-          vec3 mid  = vec3(0.10, 0.32, 0.40);
-          vec3 water = mix(deep, mid, smoothstep(0.25, 0.8, f));
-
-          // The surf line: a wiggling, slightly diagonal crest
-          float bandCenter = 0.60
-            + 0.07 * fbm(vec2(p.x * 1.3 + t * 1.6, t * 0.7))
-            + 0.05 * (uv.x - 0.5);
-          // Finger-like streaks trail off the band edge
-          float edgeNoise = 0.5 + 0.5 * fbm(vec2(p.x * 4.2 + t * 0.8, uv.y * 2.0 - t * 0.5) + q * 0.8);
-          float d = abs(uv.y - bandCenter) / (0.06 + 0.18 * edgeNoise * edgeNoise);
-          float band = smoothstep(1.6, 0.0, d);
-
-          // Foam as lace: two ridged webs at different scales.
-          // Coverage tightens with distance from the crest, so foam is
-          // dense lace at the surf line and sparse filaments in open water —
-          // but always crisp white, never fog.
-          float lace1 = ridge(warp * 1.9 + vec2(t * 1.2, -t * 0.8));
-          float lace2 = ridge(warp * 4.6 + vec2(-t * 1.5, t * 1.0));
-          float web = lace1 * 0.62 + lace2 * 0.52;
-
-          float cover = mix(1.0, 0.69, band) - stir * 0.22;
-          float foam = smoothstep(cover, cover + 0.05, web);
-
-          // Grainy sparkle inside the churn
-          float sparkle = smoothstep(0.90, 1.0, noise(warp * 16.0 + vec2(t * 4.0, -t * 3.0)));
-          foam = clamp(foam + sparkle * band * 0.8 + sparkle * stir, 0.0, 1.0);
-
-          // Wave shadow: water darkens just past the surf line for depth
-          water *= 1.0 - 0.16 * smoothstep(2.4, 0.6, d);
-          vec3 foamCol = mix(vec3(0.68, 0.82, 0.86), vec3(0.96, 0.99, 1.0), smoothstep(0.3, 0.85, foam));
-          vec3 col = mix(water, foamCol, foam);
-
-          gl_FragColor = vec4(col, 1.0);
-        }
-      `;
-
-      function compile(type, src) {
-        const s = gl.createShader(type);
-        gl.shaderSource(s, src);
-        gl.compileShader(s);
-        return s;
-      }
-      const prog = gl.createProgram();
-      gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
-      gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
-      gl.linkProgram(prog);
-      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { canvas.remove(); return; }
-      gl.useProgram(prog);
-
-      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-      const loc = gl.getAttribLocation(prog, 'a');
-      gl.enableVertexAttribArray(loc);
-      gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-
-      const uRes = gl.getUniformLocation(prog, 'u_res');
-      const uT = gl.getUniformLocation(prog, 'u_t');
-      const uMouse = gl.getUniformLocation(prog, 'u_mouse');
-      const uStir = gl.getUniformLocation(prog, 'u_stir');
-
-      let W = 0, H = 0;
-      function resize() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-        W = Math.floor(hero.clientWidth * dpr * 0.75);
-        H = Math.floor(hero.clientHeight * dpr * 0.75);
-        canvas.width = W;
-        canvas.height = H;
-        canvas.style.width = hero.clientWidth + 'px';
-        canvas.style.height = hero.clientHeight + 'px';
-        gl.viewport(0, 0, W, H);
-      }
-      resize();
-      window.addEventListener('resize', () => { resize(); if (reducedMotion) render(20); });
-
-      // Cursor state: position eases toward the pointer, energy
-      // rises with movement speed and decays — a wake, not a stamp
-      const target = { x: -10, y: -10 };
-      const eased = { x: -10, y: -10 };
-      let energy = 0;
-      hero.addEventListener('pointermove', (e) => {
-        const r = hero.getBoundingClientRect();
-        const nx = ((e.clientX - r.left) / r.width) * (r.width / r.height);
-        const ny = 1.0 - (e.clientY - r.top) / r.height;
-        if (target.x > -5) {
-          energy = Math.min(1, energy + Math.hypot(nx - target.x, ny - target.y) * 4.0);
-        }
-        target.x = nx;
-        target.y = ny;
+      // --- Hero name: split each masked line into letters that rise in beats
+      document.querySelectorAll('.mline-letters').forEach((line) => {
+        const text = line.textContent;
+        line.textContent = '';
+        Array.from(text).forEach((ch, i) => {
+          const s = document.createElement('span');
+          s.className = 'ltr';
+          s.textContent = ch;
+          s.style.setProperty('--ld', (i * 45) + 'ms');
+          line.appendChild(s);
+        });
       });
-      hero.addEventListener('pointerdown', () => { energy = 1; });
-      hero.addEventListener('pointerleave', () => { target.x = -10; target.y = -10; });
 
-      function render(t) {
-        gl.uniform2f(uRes, W, H);
-        gl.uniform1f(uT, t);
-        gl.uniform2f(uMouse, eased.x, eased.y);
-        gl.uniform1f(uStir, energy);
-        gl.drawArrays(gl.TRIANGLES, 0, 3);
+      // --- Stagger assignment: children of a [data-cascade] group enter one beat apart
+      document.querySelectorAll('[data-cascade]').forEach((group) => {
+        const step = parseInt(group.getAttribute('data-cascade'), 10) || 90;
+        const kids = group.querySelectorAll('[data-reveal], .mline');
+        kids.forEach((el, i) => el.style.setProperty('--d', (i * step) + 'ms'));
+      });
+
+      // Note: .mline elements are clipped by their overflow-hidden .mask, so the
+      // observer watches the mask wrapper and flips the lines inside it.
+      const animated = document.querySelectorAll('[data-reveal], .rule, .mask');
+
+      function arrive(el) {
+        if (el.classList.contains('mask')) {
+          el.querySelectorAll('.mline').forEach((line) => line.classList.add('in'));
+        } else {
+          el.classList.add('in');
+        }
       }
 
-      if (reducedMotion) {
-        render(20);
+      if (reduced || !('IntersectionObserver' in window)) {
+        animated.forEach(arrive);
       } else {
-        let t = 0, raf;
-        function loop() {
-          t += 0.016;
-          eased.x += (target.x - eased.x) * 0.08;
-          eased.y += (target.y - eased.y) * 0.08;
-          energy *= 0.975;
-          render(t);
-          raf = requestAnimationFrame(loop);
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              arrive(e.target);
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.05, rootMargin: '0px 0px -6% 0px' });
+        animated.forEach((el) => io.observe(el));
+      }
+
+      // --- Scroll progress hairline: the bar chases the scroll position with easing
+      const bar = document.getElementById('progress');
+      let barTarget = 0, barShown = 0, barRaf = null;
+
+      function barTick() {
+        const diff = barTarget - barShown;
+        if (Math.abs(diff) < 0.0005) {
+          barShown = barTarget;
+          bar.style.transform = 'scaleX(' + barShown + ')';
+          barRaf = null;
+          return;
         }
-        raf = requestAnimationFrame(loop);
-        document.addEventListener('visibilitychange', () => {
-          if (document.hidden) cancelAnimationFrame(raf);
-          else raf = requestAnimationFrame(loop);
-        });
-      }
-    })();
-
-    // ============================================================
-    // THE WATER COLUMN — bubbles rise in the shallows,
-    // marine snow drifts down in the deep
-    // ============================================================
-    (function () {
-      const canvas = document.getElementById('sea');
-      const ctx = canvas.getContext('2d');
-      let W = 0, H = 0;
-
-      function resize() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        W = window.innerWidth;
-        H = window.innerHeight;
-        canvas.width = W * dpr;
-        canvas.height = H * dpr;
-        canvas.style.width = W + 'px';
-        canvas.style.height = H + 'px';
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      if (reducedMotion) return;
-
-      const depthFactor = () => {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        return max > 0 ? Math.min(1, window.scrollY / max) : 0;
-      };
-
-      const N = window.innerWidth < 768 ? 16 : 34;
-      const parts = [];
-
-      function spawn(p, fresh) {
-        p.snow = Math.random() < depthFactor() * 0.9;
-        p.x = Math.random() * W;
-        p.r = p.snow ? (0.6 + Math.random() * 1.3) : (0.9 + Math.random() * 2.2);
-        p.v = p.snow ? (0.12 + Math.random() * 0.25) : (0.25 + Math.random() * 0.55);
-        p.phase = Math.random() * Math.PI * 2;
-        p.wob = 0.3 + Math.random() * 0.7;
-        p.a = p.snow ? (0.12 + Math.random() * 0.2) : (0.10 + Math.random() * 0.25);
-        p.y = fresh ? Math.random() * H : (p.snow ? -8 : H + 8);
+        barShown += diff * 0.14;
+        bar.style.transform = 'scaleX(' + barShown + ')';
+        barRaf = requestAnimationFrame(barTick);
       }
 
-      for (let i = 0; i < N; i++) { const p = {}; spawn(p, true); parts.push(p); }
-
-      let t = 0, raf;
-      function loop() {
-        t += 0.016;
-        ctx.clearRect(0, 0, W, H);
-        parts.forEach(p => {
-          p.y += p.snow ? p.v : -p.v;
-          p.x += Math.sin(t * p.wob + p.phase) * 0.25;
-          if ((p.snow && p.y > H + 10) || (!p.snow && p.y < -10)) spawn(p, false);
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          if (p.snow) {
-            ctx.fillStyle = 'rgba(214, 235, 255, ' + p.a + ')';
-            ctx.fill();
-          } else {
-            ctx.strokeStyle = 'rgba(147, 197, 253, ' + p.a + ')';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        });
-        raf = requestAnimationFrame(loop);
-      }
-      raf = requestAnimationFrame(loop);
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) cancelAnimationFrame(raf);
-        else raf = requestAnimationFrame(loop);
-      });
-    })();
-
-    // ============================================================
-    // THE DEPTH GAUGE — your dive computer
-    // ============================================================
-    (function () {
-      const depthEl = document.getElementById('gauge-depth');
-      const zoneEl = document.getElementById('gauge-zone');
-      const marker = document.getElementById('gauge-marker');
-      const surfaceBtn = document.getElementById('surface-btn');
-      const MAX_DEPTH = 6000;
-
-      function zoneName(d) {
-        if (d < 10) return 'SURFACE';
-        if (d < 200) return 'SUNLIGHT ZONE';
-        if (d < 1000) return 'TWILIGHT ZONE';
-        if (d < 4000) return 'MIDNIGHT ZONE';
-        if (d < 5900) return 'ABYSS';
-        return 'SEAFLOOR';
-      }
-
-      function update() {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-        const depth = Math.round(progress * MAX_DEPTH);
-        depthEl.textContent = '−' + String(depth).padStart(4, '0') + ' M';
-        zoneEl.textContent = zoneName(depth);
-        marker.style.top = (progress * 100) + '%';
-        surfaceBtn.classList.toggle('visible', window.scrollY > 500);
-      }
-
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-      update();
-
-      // Clickable section stops along the dive line
-      const STOPS = [
-        { id: 'hero',       label: 'SURFACE',    depth: '0 M' },
-        { id: 'about',      label: 'ABOUT',      depth: '−0010 M' },
-        { id: 'skills',     label: 'SKILLS',     depth: '−0150 M' },
-        { id: 'experience', label: 'EXPERIENCE', depth: '−0400 M' },
-        { id: 'projects',   label: 'PROJECTS',   depth: '−1200 M' },
-        { id: 'leadership', label: 'LEADERSHIP', depth: '−2500 M' },
-        { id: 'education',  label: 'EDUCATION',  depth: '−3800 M' },
-        { id: 'writing',    label: 'WRITING',    depth: '−5000 M' },
-        { id: 'seafloor',   label: 'SEAFLOOR',   depth: '−6000 M' },
+      // --- Chapter marker: tracks the section under the reading line, digits roll on change
+      const chapterEl = document.getElementById('chapter');
+      const chapterNum = document.getElementById('chapter-num');
+      const chapterName = document.getElementById('chapter-name');
+      const chapters = [
+        { num: '01', name: 'Profile' },
+        { num: '02', name: 'Experience' },
+        { num: '03', name: 'Projects' },
+        { num: '04', name: 'Leadership' },
+        { num: '05', name: 'Education' },
+        { num: '06', name: 'Writing' },
+        { num: '07', name: 'Contact' },
       ];
-
-      const track = document.getElementById('gauge-track');
-      STOPS.forEach((s) => {
-        const a = document.createElement('a');
-        a.href = '#' + s.id;
-        a.className = 'gauge-stop';
-        a.setAttribute('aria-label', s.label.toLowerCase() + ', ' + s.depth);
-        const tip = document.createElement('span');
-        tip.className = 'gauge-tip';
-        tip.textContent = s.label + ' · ' + s.depth;
-        a.appendChild(tip);
-        track.appendChild(a);
-        s.el = a;
+      chapters.forEach((c) => {
+        c.el = c.name === 'Contact' ? document.querySelector('footer') : document.getElementById(c.name.toLowerCase());
       });
+      let currentChapter = -1;
 
-      function placeStops() {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        if (max <= 0) return;
-        STOPS.forEach((s) => {
-          const target = document.getElementById(s.id);
-          if (!target) return;
-          const pct = Math.min(1, Math.max(0, target.offsetTop / max));
-          s.el.style.top = (pct * 100) + '%';
-        });
+      function setChapter(idx) {
+        if (idx === currentChapter) return;
+        currentChapter = idx;
+        if (idx < 0) { chapterEl.classList.remove('show'); return; }
+        chapterEl.classList.add('show');
+        chapterEl.classList.toggle('on-dark', idx === chapters.length - 1);
+        chapterNum.textContent = chapters[idx].num;
+        chapterName.textContent = chapters[idx].name;
+        if (!reduced) {
+          [chapterNum, chapterName].forEach((s) => {
+            s.classList.remove('roll');
+            void s.offsetWidth;
+            s.classList.add('roll');
+          });
+        }
       }
-      placeStops();
-      window.addEventListener('load', placeStops);
-      window.addEventListener('resize', placeStops);
+
+      // --- Frame painter: progress + chapter + multi-speed parallax on the ghost numerals
+      const drifters = Array.from(document.querySelectorAll('[data-speed]'));
+      let ticking = false;
+
+      function paint() {
+        ticking = false;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        barTarget = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+        if (!barRaf) barRaf = requestAnimationFrame(barTick);
+
+        if (!reduced && window.innerWidth >= 1024) {
+          const mid = window.innerHeight / 2;
+          drifters.forEach((el) => {
+            const speed = parseFloat(el.getAttribute('data-speed')) || 0;
+            const r = el.getBoundingClientRect();
+            const delta = (r.top + r.height / 2 - mid) * speed;
+            el.style.transform = 'translate3d(0,' + delta.toFixed(1) + 'px,0)';
+          });
+        } else {
+          drifters.forEach((el) => { el.style.transform = ''; });
+        }
+
+        const probe = window.innerHeight * 0.55;
+        let idx = -1;
+        for (let i = 0; i < chapters.length; i++) {
+          if (chapters[i].el && chapters[i].el.getBoundingClientRect().top <= probe) idx = i;
+        }
+        setChapter(idx);
+      }
+
+      function onScroll() {
+        if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      paint();
     })();
   </script>
 
