@@ -32,7 +32,7 @@
             ink: '#1c2f42',
             steel: '#2c4a6e',
             silver: '#c3ccd2',
-            red: '#d2402f',
+            red: '#9c1909',
             deep: '#152638',
           },
         }
@@ -80,35 +80,62 @@
       color: #2c4a6e;
       white-space: nowrap;
       padding: 6px 8px;
-      transition: color 0.25s ease;
+      opacity: 1;
+      visibility: visible;
+      /* returning: quick fade back in, staggered in reverse around the circle */
+      transition: color 0.25s ease,
+                  opacity 0.3s ease var(--ldi, 0ms),
+                  visibility 0s linear var(--ldi, 0ms);
       pointer-events: auto;
+    }
+    /* leaving the title page: labels wink out first, one after another */
+    #ringNav.out .ring-label {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: color 0.25s ease,
+                  opacity 0.24s ease var(--ldo, 0ms),
+                  visibility 0s linear calc(var(--ldo, 0ms) + 0.24s);
     }
     .ring-label:hover, .ring-label:focus-visible { color: #d2402f; }
     .ring-label .n { color: #d2402f; margin-right: 0.5em; }
 
-    /* ===== Reveals: content swims in the direction the fish travel ===== */
-    .rv {
-      opacity: 0;
-      transform: translateX(-30px);
-      transition: opacity 0.7s ease var(--d, 0ms), transform 1s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
+    /* ===== Reveals: content swims in the direction the fish travel =====
+       Driven by an animation on the independent `translate` property, so it
+       can't be overridden by Tailwind transition utilities or .card hover
+       transitions — every piece honors its --d slot in the sequence. */
+    .rv { opacity: 0; }
+    .rv.on {
+      opacity: 1;
+      animation: rvIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms) backwards;
     }
-    .rv.on { opacity: 1; transform: none; }
+    @keyframes rvIn {
+      from { opacity: 0; translate: -30px 0; }
+      to { opacity: 1; translate: 0 0; }
+    }
 
     .mask { display: block; overflow: hidden; }
     .ml {
       display: block;
       transform: translateY(114%);
-      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.06s;
+      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--d, 0ms) + 60ms);
     }
     .mask.on .ml { transform: none; }
 
-    /* Arc of fish that swims in to frame each section */
-    .arc .af {
-      opacity: 0;
-      transform: translateX(-130px);
-      transition: opacity 0.55s ease var(--fd, 0ms), transform 1s cubic-bezier(0.22, 1, 0.36, 1) var(--fd, 0ms);
+    /* ===== Exit gate: a leaving chapter cascades out before the move =====
+       Applied piece-by-piece in reverse document order (--xd delays), so the
+       cards go first and the eyebrow leaves last — the load-in, rewound. */
+    .xg-out, .rv.on.xg-out {
+      animation: rvOut 0.3s cubic-bezier(0.55, 0, 0.85, 0.4) var(--xd, 0ms) forwards;
     }
-    .arc.on .af { opacity: 1; transform: none; }
+    @keyframes rvOut {
+      to { opacity: 0; translate: 34px 0; }
+    }
+    .mask.xg-out { animation: none; }
+    .mask.xg-out .ml, .mask.on.xg-out .ml {
+      transform: translateY(114%);
+      transition: transform 0.34s cubic-bezier(0.6, 0, 0.8, 0.4) var(--xd, 0ms);
+    }
 
     /* ===== Editorial pieces ===== */
     .card {
@@ -146,11 +173,23 @@
     .xrow { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
     @media (hover: hover) { .xrow:hover { transform: translateX(10px); } }
 
-    /* ===== The compass: the red fish is the cursor of the site ===== */
-    #compass { transition: opacity 0.4s ease; }
-    #compass.hide { opacity: 0; pointer-events: none; }
-    #compassBtn { cursor: pointer; }
-    #compassBtn:hover #cTrack { stroke: #9fb0bc; }
+    /* ===== The traveling school: fish that peel off the ring and swim the page ===== */
+    #school {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 40;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+      overflow: visible;
+    }
+    #school.on { opacity: 1; }
+    #school .sred { pointer-events: auto; cursor: pointer; }
+
+    /* The ring visibly sheds part of the school when you dive below the hero */
+    #ringSvg.shed .f.peel { opacity: 0; }
 
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: #eef0ed; }
@@ -171,7 +210,15 @@
 
     @media (prefers-reduced-motion: reduce) {
       #ringSvg .f { opacity: 1; transition: none; }
-      .rv, .ml, .arc .af { transition: none !important; opacity: 1 !important; transform: none !important; }
+      #school { display: none; }
+      .rv, .ml, .mask, .motto, .hero-socials, .hero-hint {
+        transition: none !important; animation: none !important;
+        opacity: 1 !important; transform: none !important; translate: none !important;
+      }
+      .ring-label, #ringNav.out .ring-label {
+        transition: none !important; opacity: 1 !important;
+        visibility: visible !important; pointer-events: auto !important;
+      }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -279,13 +326,8 @@
       </div>
     </div>
 
-    <!-- Microcopy hint -->
-    <p class="font-mono text-[11px] tracking-[0.2em] text-steel mt-8 text-center">
-      ( every school has one — <a href="#profile" class="text-red hover:underline underline-offset-4">follow the red fish</a> )
-    </p>
-
     <!-- Mobile contents (the radial labels need room) -->
-    <nav aria-label="Contents" class="md:hidden mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 px-4">
+    <nav aria-label="Contents" class="hero-hint md:hidden mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 px-4">
       <a href="#profile" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">01</span> Profile</a>
       <a href="#experience" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">02</span> Experience</a>
       <a href="#projects" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">03</span> Projects</a>
@@ -301,12 +343,6 @@
   <section id="profile" class="px-6 md:px-16 py-24 md:py-32">
     <div class="max-w-5xl mx-auto">
       <header class="mb-12 md:mb-16">
-        <svg class="arc mb-5" viewBox="0 0 260 30" width="230" aria-hidden="true">
-          <g class="af" style="--fd:0ms"><use href="#fishB1" transform="translate(0 3) scale(0.48)"/></g>
-          <g class="af" style="--fd:110ms"><use href="#fishB2" transform="translate(58 8) scale(0.44)"/></g>
-          <g class="af" style="--fd:220ms"><use href="#fishR" transform="translate(112 2) scale(0.5)"/></g>
-          <g class="af" style="--fd:330ms"><use href="#fishB1" transform="translate(172 7) scale(0.42)"/></g>
-        </svg>
         <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">01</span> · Profile</p>
         <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">The one red fish</span></span></h2>
       </header>
@@ -393,12 +429,6 @@
   <section id="experience" class="px-6 md:px-16 py-24 md:py-32">
     <div class="max-w-5xl mx-auto">
       <header class="mb-12 md:mb-16">
-        <svg class="arc mb-5" viewBox="0 0 260 30" width="230" aria-hidden="true">
-          <g class="af" style="--fd:0ms"><use href="#fishB2" transform="translate(0 6) scale(0.46)"/></g>
-          <g class="af" style="--fd:110ms"><use href="#fishB1" transform="translate(56 2) scale(0.5)"/></g>
-          <g class="af" style="--fd:220ms"><use href="#fishB2" transform="translate(116 8) scale(0.42)"/></g>
-          <g class="af" style="--fd:330ms"><use href="#fishB1" transform="translate(168 4) scale(0.46)"/></g>
-        </svg>
         <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">02</span> · Experience</p>
         <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Where I've swum</span></span></h2>
       </header>
@@ -503,12 +533,6 @@
   <section id="projects" class="px-6 md:px-16 py-24 md:py-32">
     <div class="max-w-5xl mx-auto">
       <header class="mb-12 md:mb-16">
-        <svg class="arc mb-5" viewBox="0 0 260 30" width="230" aria-hidden="true">
-          <g class="af" style="--fd:0ms"><use href="#fishB1" transform="translate(0 5) scale(0.5)"/></g>
-          <g class="af" style="--fd:110ms"><use href="#fishB2" transform="translate(60 1) scale(0.44)"/></g>
-          <g class="af" style="--fd:220ms"><use href="#fishB1" transform="translate(114 8) scale(0.46)"/></g>
-          <g class="af" style="--fd:330ms"><use href="#fishB2" transform="translate(170 4) scale(0.42)"/></g>
-        </svg>
         <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">03</span> · Projects</p>
         <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Things I've built</span></span></h2>
       </header>
@@ -553,12 +577,6 @@
   <section id="leadership" class="px-6 md:px-16 py-24 md:py-32">
     <div class="max-w-5xl mx-auto">
       <header class="mb-12 md:mb-16">
-        <svg class="arc mb-5" viewBox="0 0 260 30" width="230" aria-hidden="true">
-          <g class="af" style="--fd:0ms"><use href="#fishB2" transform="translate(0 2) scale(0.46)"/></g>
-          <g class="af" style="--fd:110ms"><use href="#fishB1" transform="translate(54 7) scale(0.48)"/></g>
-          <g class="af" style="--fd:220ms"><use href="#fishB2" transform="translate(114 3) scale(0.42)"/></g>
-          <g class="af" style="--fd:330ms"><use href="#fishB1" transform="translate(166 8) scale(0.46)"/></g>
-        </svg>
         <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">04</span> · Leadership</p>
         <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Leading the school</span></span></h2>
       </header>
@@ -602,12 +620,6 @@
   <section id="education" class="px-6 md:px-16 py-24 md:py-32">
     <div class="max-w-5xl mx-auto">
       <header class="mb-12 md:mb-16">
-        <svg class="arc mb-5" viewBox="0 0 260 30" width="230" aria-hidden="true">
-          <g class="af" style="--fd:0ms"><use href="#fishB1" transform="translate(0 6) scale(0.44)"/></g>
-          <g class="af" style="--fd:110ms"><use href="#fishB2" transform="translate(52 2) scale(0.5)"/></g>
-          <g class="af" style="--fd:220ms"><use href="#fishB1" transform="translate(114 7) scale(0.44)"/></g>
-          <g class="af" style="--fd:330ms"><use href="#fishB2" transform="translate(166 3) scale(0.46)"/></g>
-        </svg>
         <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">05</span> · Education</p>
         <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Learning to navigate</span></span></h2>
       </header>
@@ -639,12 +651,6 @@
   <section id="writing" class="px-6 md:px-16 py-24 md:py-32">
     <div class="max-w-5xl mx-auto">
       <header class="mb-12 md:mb-16">
-        <svg class="arc mb-5" viewBox="0 0 260 30" width="230" aria-hidden="true">
-          <g class="af" style="--fd:0ms"><use href="#fishB2" transform="translate(0 4) scale(0.48)"/></g>
-          <g class="af" style="--fd:110ms"><use href="#fishB1" transform="translate(58 8) scale(0.42)"/></g>
-          <g class="af" style="--fd:220ms"><use href="#fishB2" transform="translate(110 2) scale(0.46)"/></g>
-          <g class="af" style="--fd:330ms"><use href="#fishB1" transform="translate(166 6) scale(0.44)"/></g>
-        </svg>
         <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">06</span> · Writing</p>
         <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Notes from the water</span></span></h2>
       </header>
@@ -683,12 +689,6 @@
   <!-- ===== 07 CONTACT ===== -->
   <section id="contact" class="bg-deep text-ground px-6 md:px-16 py-24 md:py-32 relative z-10">
     <div class="max-w-5xl mx-auto">
-      <svg class="arc mb-6" viewBox="0 0 260 30" width="230" aria-hidden="true">
-        <g class="af" style="--fd:0ms"><use href="#fishB2" transform="translate(0 5) scale(0.46)"/></g>
-        <g class="af" style="--fd:110ms"><use href="#fishB2" transform="translate(56 1) scale(0.44)"/></g>
-        <g class="af" style="--fd:220ms"><use href="#fishR" transform="translate(108 6) scale(0.5)"/></g>
-        <g class="af" style="--fd:330ms"><use href="#fishB2" transform="translate(168 2) scale(0.44)"/></g>
-      </svg>
       <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-ground/60 mb-6"><span class="text-red">07</span> · Contact</p>
       <h2 class="font-display text-[clamp(2.4rem,6.5vw,5rem)] leading-[1.02] mb-9 text-ground"><span class="mask"><span class="ml">Swim against the current with me.</span></span></h2>
       <a href="mailto:isabellaandrade@college.harvard.edu"
@@ -719,19 +719,8 @@
   </footer>
 
 
-  <!-- ===== The compass: fixed red fish that navigates the page ===== -->
-  <div id="compass" class="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-2 hide">
-    <button id="compassBtn" aria-label="Swim to the next section" title="the red fish knows the way — click to follow"
-            class="block rounded-full">
-      <svg viewBox="0 0 84 84" class="w-[76px] h-[76px] overflow-visible" aria-hidden="true">
-        <circle id="cTrack" cx="42" cy="42" r="36" fill="rgba(238,240,237,0.7)" stroke="#c3ccd2" stroke-width="1" style="transition:stroke 0.25s"/>
-        <circle id="cProg" cx="42" cy="42" r="36" fill="none" stroke="#d2402f" stroke-width="2" stroke-linecap="round"
-                stroke-dasharray="226.2" stroke-dashoffset="226.2" transform="rotate(-90 42 42)"/>
-        <g id="cFish"><use id="cUse" href="#fishR" transform="translate(42 42) scale(0.56) translate(-50 -15)"/></g>
-      </svg>
-    </button>
-    <p id="cLabel" class="font-mono text-[9px] tracking-[0.22em] uppercase text-steel bg-ground/80 px-2 py-0.5 rounded">01 · Profile</p>
-  </div>
+  <!-- ===== The traveling school: fish shed from the ring swim the page with you ===== -->
+  <svg id="school" aria-hidden="true"></svg>
 
 
   <!-- ===== SCRIPTS ===== -->
@@ -760,9 +749,9 @@
     (function buildRing() {
       const R = mulberry32(20260711);
       let redG = null;
-      const mk = (parent, sym, th, r, s, jr, fd) => {
+      const mk = (parent, sym, th, r, s, jr, fd, peel) => {
         const g = document.createElementNS(NS, 'g');
-        g.setAttribute('class', 'f');
+        g.setAttribute('class', 'f' + (peel ? ' peel' : ''));
         g.style.setProperty('--fd', fd + 'ms');
         const u = document.createElementNS(NS, 'use');
         u.setAttribute('href', '#' + sym);
@@ -780,9 +769,9 @@
         const jr = (R() - 0.5) * 10;
         if (i === redIdx) {
           thetaRed = th;
-          redG = mk(gOut, 'fishR', th, r, Math.max(s, 0.9), jr, i * 30);
+          redG = mk(gOut, 'fishR', th, r, Math.max(s, 0.9), jr, i * 30, true);
         } else {
-          mk(gOut, R() < 0.5 ? 'fishB1' : 'fishB2', th, r, s, jr, i * 30);
+          mk(gOut, R() < 0.5 ? 'fishB1' : 'fishB2', th, r, s, jr, i * 30, i % 2 === 0);
         }
       }
       if (redG) gOut.appendChild(redG); // the red fish swims on top
@@ -791,7 +780,7 @@
         const th = i * (360 / nI) + (R() - 0.5) * 8;
         const r = 214 + (R() - 0.5) * 26;
         const s = 0.56 + R() * 0.26;
-        mk(gIn, R() < 0.5 ? 'fishB1' : 'fishB2', th, r, s, (R() - 0.5) * 12, 280 + i * 30);
+        mk(gIn, R() < 0.5 ? 'fishB1' : 'fishB2', th, r, s, (R() - 0.5) * 12, 280 + i * 30, i % 3 === 0);
       }
       requestAnimationFrame(() => requestAnimationFrame(() => ringSvg.classList.add('in')));
     })();
@@ -803,8 +792,8 @@
       ['contact', 'Contact']
     ];
     let hoverTarget = null;
+    const ringNav = document.getElementById('ringNav');
     (function buildNav() {
-      const nav = document.getElementById('ringNav');
       SECTIONS.forEach(([id, name], i) => {
         const phi = 270 + i * (360 / SECTIONS.length); // start at the top, clockwise
         const rad = phi * Math.PI / 180;
@@ -814,55 +803,69 @@
         a.innerHTML = `<span class="n">0${i + 1}</span>${name}`;
         a.style.left = (50 + 47.5 * Math.cos(rad)) + '%';
         a.style.top = (50 + 47.5 * Math.sin(rad)) + '%';
+        // Staged hero exit: labels wink out clockwise, return counter-clockwise
+        a.style.setProperty('--ldo', (i * 45) + 'ms');
+        a.style.setProperty('--ldi', ((SECTIONS.length - 1 - i) * 45) + 'ms');
         a.addEventListener('mouseenter', () => { hoverTarget = norm(phi - thetaRed); });
         a.addEventListener('mouseleave', () => { hoverTarget = null; });
         a.addEventListener('focus', () => { hoverTarget = norm(phi - thetaRed); });
         a.addEventListener('blur', () => { hoverTarget = null; });
-        nav.appendChild(a);
+        ringNav.appendChild(a);
       });
     })();
 
-    /* ===== Reveals ===== */
-    const revealables = document.querySelectorAll('.rv, .mask, .arc');
+    /* The seven labels are the first thing to leave the title page:
+       they fade ~14% into the hero scroll, well before the ring sheds. */
+    let labelsOut = false;
+    function updateRingLabels() {
+      if (RM) return;
+      if (gate !== 'idle') return; // mid-gate the exit owns the labels — no flicker
+      const p = window.scrollY / Math.max(1, heroEl.offsetHeight);
+      const out = labelsOut ? p > 0.10 : p > 0.14; // hysteresis, no flicker
+      if (out !== labelsOut) {
+        labelsOut = out;
+        ringNav.classList.toggle('out', out);
+        if (out) hoverTarget = null; // hidden labels can't steer the red fish
+      }
+    }
+
+    /* ===== Reveals: each arrival loads in sequence, not all at once =====
+       Everything that enters the viewport in the same beat is sorted into
+       document order (eyebrow → heading → body → cards) and given an
+       incremental delay, so a chapter assembles piece by piece. */
+    const revealables = Array.from(document.querySelectorAll('.rv, .mask'));
+    let revealIO = null; // shared with the exit gate, which re-arms left chapters
     if (!RM) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+      const rvOrder = new Map(revealables.map((el, i) => [el, i]));
+      const STEP = 110, CAP = 700; // ms — snappy: each chapter settles inside a second
+      const seqNext = new Map();   // per-section: earliest moment the next piece may land
+      revealIO = new IntersectionObserver((entries) => {
+        const now = performance.now();
+        const batch = entries
+          .filter((e) => e.isIntersecting)
+          .map((e) => e.target)
+          .sort((a, b) => rvOrder.get(a) - rvOrder.get(b));
+        batch.forEach((el) => {
+          const key = el.closest('section') || document.body;
+          const at = Math.min(Math.max(now, seqNext.get(key) || 0), now + CAP);
+          seqNext.set(key, at + STEP);
+          el.style.setProperty('--d', Math.round(at - now) + 'ms');
+          el.classList.add('on');
+          revealIO.unobserve(el);
         });
       }, { threshold: 0.12 });
-      revealables.forEach((el) => io.observe(el));
+      revealables.forEach((el) => revealIO.observe(el));
     } else {
       revealables.forEach((el) => el.classList.add('on'));
     }
 
-    /* ===== Motion loop: the school swims; scroll stirs it ===== */
-    const cFish = document.getElementById('cFish');
-    const cProg = document.getElementById('cProg');
-    const cLabel = document.getElementById('cLabel');
-    const compass = document.getElementById('compass');
-    const compassBtn = document.getElementById('compassBtn');
-    const CIRC = 226.2;
+    /* ===== The traveling school: fish shed from the ring and swim the page ===== */
+    const schoolLayer = document.getElementById('school');
+    const heroEl = document.getElementById('hero');
 
-    let aOut = 0, aIn = 0, vel = 0;
-    let cA = 90; // compass fish heading: 90 = down
-    let heroVisible = true;
-    let lastY = window.scrollY, lastScrollT = -9999, scrollDir = 1;
-    let rafId = null, lastT = null;
-    let curSection = 0;
-
-    // Keep the fish's back up: mirror it across its own spine when heading left.
-    // The flip lands while the fish is vertical, so it never shows.
-    const cUse = document.getElementById('cUse');
-    function setCompassHeading(a) {
-      const flip = Math.cos(a * Math.PI / 180) < 0 ? ' scale(1 -1)' : '';
-      cUse.setAttribute('transform', `translate(42 42) scale(0.56)${flip} translate(-50 -15)`);
-      cFish.setAttribute('transform', `rotate(${a} 42 42)`);
-    }
-
-    const heroIO = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { heroVisible = e.isIntersecting; });
-    }, { threshold: 0 });
-    heroIO.observe(document.getElementById('hero'));
+    let fishes = [], trailLen = 0, path = null, actY = Infinity;
+    let leadS = 0, leadInit = false, schoolOn = false, dirLatch = 1, anchorK = 0.62;
+    let posRun = 0, negRun = 0;
 
     function sectionIndex() {
       const probe = window.scrollY + window.innerHeight * 0.42;
@@ -873,6 +876,205 @@
       });
       return idx;
     }
+
+    function buildSchool() {
+      fishes.forEach((f) => f.g.remove());
+      fishes = []; trailLen = 0; leadInit = false;
+      const R = mulberry32(424242);
+      const mob = window.innerWidth < 768;
+      const n = mob ? 8 : 13;
+      for (let i = 0; i < n; i++) {
+        const red = i === 0; // the red fish leads
+        const sc = red ? (mob ? 0.26 : 0.46) : (mob ? 0.16 + R() * 0.07 : 0.27 + R() * 0.15);
+        const g = document.createElementNS(NS, 'g');
+        if (red) {
+          g.setAttribute('class', 'sred');
+          const ti = document.createElementNS(NS, 'title');
+          ti.textContent = 'the red fish knows the way — click to follow';
+          g.appendChild(ti);
+        }
+        const u = document.createElementNS(NS, 'use');
+        u.setAttribute('href', red ? '#fishR' : (R() < 0.5 ? '#fishB1' : '#fishB2'));
+        g.appendChild(u);
+        schoolLayer.appendChild(g);
+        if (i > 0) trailLen += sc * 100 * 0.62 + (mob ? 4 : 7);
+        fishes.push({
+          g, sc,
+          back: trailLen,                 // arc length behind the leader
+          s: 0, hasS: false,
+          lat: red ? 0 : (i % 2 ? 1 : -1) * (mob ? 2.2 : 8) * (0.55 + R() * 0.9),
+          ph: R() * Math.PI * 2,
+          ang: 90, flip: false,
+          tau: 140 + i * (mob ? 26 : 32), // schooling lag grows down the line
+        });
+      }
+      fishes[0].g.addEventListener('click', () => {
+        cancelGate(); // the red fish outranks the exit gate
+        const next = Math.min(sectionIndex() + 1, SECTIONS.length - 1);
+        const el = document.getElementById(SECTIONS[next][0]);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    // A path in document coordinates that threads the margins beside each
+    // section and crosses sides only in the whitespace between sections.
+    function buildPath() {
+      const vw = window.innerWidth, vh = window.innerHeight;
+      actY = heroEl.offsetHeight * 0.42;
+      const inner = document.querySelector('#profile .max-w-5xl');
+      const rect = inner.getBoundingClientRect();
+      const pad = vw < 768 ? 7 : 20;
+      const leftX = Math.max(pad, rect.left * 0.5);
+      const rightX = Math.min(vw - pad, rect.right + (vw - rect.right) * 0.5);
+      const pts = [];
+      const heroB = heroEl.offsetTop + heroEl.offsetHeight;
+      pts.push([vw / 2 + (rightX - vw / 2) * 0.3, heroB - 160]);
+      let side = 1;
+      const co = vw < 768 ? 50 : 70; // corner offset into the inter-section gap
+      SECTIONS.forEach(([id]) => {
+        const el = document.getElementById(id);
+        const top = el.offsetTop, bot = top + el.offsetHeight;
+        const x = side > 0 ? rightX : leftX;
+        pts.push([x, Math.min(top + co, bot - co - 20)]);
+        pts.push([x, Math.max(bot - co, top + co + 20)]);
+        side = -side;
+      });
+      const docH = document.documentElement.scrollHeight;
+      const last = pts[pts.length - 1];
+      pts.push([last[0], Math.max(last[1] + 40, docH - vh * 0.3)]);
+
+      // Straight runs with rounded corners: bounded, never overshoots the margins
+      const smooth = [pts[0]];
+      for (let i = 1; i < pts.length - 1; i++) {
+        const a = pts[i - 1], b = pts[i], c = pts[i + 1];
+        const d1 = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
+        const d2 = Math.hypot(c[0] - b[0], c[1] - b[1]) || 1;
+        const r = Math.min(vw < 768 ? 34 : 90, d1 * 0.45, d2 * 0.45);
+        const A = [b[0] - (b[0] - a[0]) / d1 * r, b[1] - (b[1] - a[1]) / d1 * r];
+        const B = [b[0] + (c[0] - b[0]) / d2 * r, b[1] + (c[1] - b[1]) / d2 * r];
+        for (let j = 0; j <= 8; j++) {
+          const t = j / 8, u = 1 - t;
+          smooth.push([
+            u * u * A[0] + 2 * u * t * b[0] + t * t * B[0],
+            u * u * A[1] + 2 * u * t * b[1] + t * t * B[1],
+          ]);
+        }
+      }
+      smooth.push(pts[pts.length - 1]);
+
+      const xs = [], ys = [], cum = [], monoY = [];
+      let len = 0, my = -1e9;
+      const put = (x, y) => {
+        x = Math.max(pad, Math.min(vw - pad, x));
+        if (xs.length) {
+          const d = Math.hypot(x - xs[xs.length - 1], y - ys[ys.length - 1]);
+          if (d < 0.5) return;
+          len += d;
+        }
+        my = Math.max(my, y);
+        xs.push(x); ys.push(y); cum.push(len); monoY.push(my);
+      };
+      put(smooth[0][0], smooth[0][1]);
+      for (let i = 1; i < smooth.length; i++) {
+        const a = smooth[i - 1], b = smooth[i];
+        const d = Math.hypot(b[0] - a[0], b[1] - a[1]);
+        const steps = Math.max(1, Math.ceil(d / 22));
+        for (let j = 1; j <= steps; j++) {
+          const t = j / steps;
+          put(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t);
+        }
+      }
+      path = { xs, ys, cum, monoY, len };
+    }
+
+    function pathPos(s) {
+      const { xs, ys, cum } = path;
+      s = Math.max(0, Math.min(path.len, s));
+      let lo = 0, hi = cum.length - 1;
+      while (lo < hi) { const m = (lo + hi) >> 1; if (cum[m] < s) lo = m + 1; else hi = m; }
+      const i = Math.max(1, lo);
+      const seg = (cum[i] - cum[i - 1]) || 1e-6;
+      const t = (s - cum[i - 1]) / seg;
+      return {
+        x: xs[i - 1] + (xs[i] - xs[i - 1]) * t,
+        y: ys[i - 1] + (ys[i] - ys[i - 1]) * t,
+        tx: (xs[i] - xs[i - 1]) / seg,
+        ty: (ys[i] - ys[i - 1]) / seg,
+      };
+    }
+
+    function sForY(y) {
+      const { monoY, cum } = path;
+      let lo = 0, hi = monoY.length - 1;
+      while (lo < hi) { const m = (lo + hi) >> 1; if (monoY[m] < y) lo = m + 1; else hi = m; }
+      return cum[lo];
+    }
+
+    function tickSchool(t, dt) {
+      if (!path || !fishes.length) return;
+      const y0 = window.scrollY, vh = window.innerHeight, vw = window.innerWidth;
+      const on = y0 > actY;
+      if (on !== schoolOn) {
+        schoolOn = on;
+        schoolLayer.classList.toggle('on', on);
+        ringSvg.classList.toggle('shed', on); // the ring sheds / regains its fish
+      }
+      if (!on && y0 < actY - vh) return; // far above the dive: nothing to move
+
+      // The leader eases toward an anchor point in the viewport along the path
+      anchorK += ((dirLatch > 0 ? 0.62 : 0.4) - anchorK) * Math.min(1, dt * 0.003);
+      let tS = sForY(y0 + vh * anchorK);
+      let loS = sForY(y0 + 30) + (dirLatch > 0 ? trailLen : 0);
+      let hiS = sForY(y0 + vh - 36) - (dirLatch < 0 ? trailLen : 0);
+      if (loS > hiS) loS = hiS = (loS + hiS) / 2;
+      tS = Math.max(loS, Math.min(hiS, tS));
+      if (!leadInit) { leadS = tS; leadInit = true; }
+      leadS += (tS - leadS) * (1 - Math.exp(-dt / 170));
+      leadS = Math.max(loS - 90, Math.min(hiS + 90, leadS));
+
+      const idle = (performance.now() - lastScrollT) > 700;
+      // Fish may only occupy the on-screen stretch of the path, so they can
+      // never be edge-clamped into content that the path itself avoids.
+      const sMin = sForY(y0 + 16), sMax = Math.max(sMin, sForY(y0 + vh - 20) - 2);
+      for (let i = 0; i < fishes.length; i++) {
+        const f = fishes[i];
+        const tgt = leadS - dirLatch * f.back;
+        if (!f.hasS) { f.s = tgt; f.hasS = true; }
+        f.s += (tgt - f.s) * (1 - Math.exp(-dt / f.tau));
+        const drift = idle ? Math.sin(t * 0.00058 + f.ph) * 7 : 0; // milling at rest
+        const p = pathPos(Math.max(sMin, Math.min(sMax, f.s + drift)));
+        const angT = Math.atan2(p.ty * dirLatch, p.tx * dirLatch) * 180 / Math.PI;
+        f.ang += shortest(angT, f.ang) * Math.min(1, dt * 0.008);
+        // Mirror across the spine when heading left, so the back stays up
+        const c = Math.cos(f.ang * Math.PI / 180);
+        if (!f.flip && c < -0.12) f.flip = true;
+        else if (f.flip && c > 0.12) f.flip = false;
+        const mobF = vw < 768 ? 0.55 : 1;
+        const wob = Math.sin(t * (idle ? 0.0011 : 0.0035) + f.ph) * (idle ? 5 : 2.5) * mobF;
+        const lat = f.lat + Math.sin(t * 0.0012 + f.ph * 2) * (idle ? 3 : 1.5) * mobF;
+        let x = p.x - p.ty * lat;
+        let y = p.y + p.tx * lat - y0;
+        // Never clip the viewport: clamp by the fish's rotated footprint
+        const aC = Math.abs(c), aS = Math.abs(Math.sin(f.ang * Math.PI / 180));
+        const xHalf = f.sc * (52 * aC + 17 * aS) + 3;
+        const yHalf = f.sc * (52 * aS + 17 * aC) + 3;
+        x = Math.max(xHalf, Math.min(vw - xHalf, x));
+        y = Math.max(yHalf, Math.min(vh - yHalf, y));
+        f.g.setAttribute('transform',
+          `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(f.ang + wob).toFixed(1)}) scale(${f.sc} ${f.flip ? -f.sc : f.sc}) translate(-50 -15)`);
+      }
+    }
+
+    /* ===== Motion loop: one rAF drives the ring and the school ===== */
+    let aOut = 0, aIn = 0, vel = 0;
+    let heroVisible = true;
+    let lastY = window.scrollY, lastScrollT = -9999;
+    let rafId = null, lastT = null;
+
+    const heroIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { heroVisible = e.isIntersecting; });
+    }, { threshold: 0 });
+    heroIO.observe(heroEl);
 
     function tick(t) {
       if (lastT === null) lastT = t;
@@ -893,23 +1095,9 @@
       }
       vel *= Math.exp(-dt / 260);
 
-      // The compass fish: points where you're going, then at what you found
-      const scrolling = (performance.now() - lastScrollT) < 380;
-      const target = scrolling ? (scrollDir >= 0 ? 90 : 270) : 180;
-      cA += shortest(target, cA) * Math.min(1, dt * 0.006);
-      setCompassHeading(cA);
+      tickSchool(t, dt);
 
       rafId = requestAnimationFrame(tick);
-    }
-
-    function updateChrome() {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-      cProg.setAttribute('stroke-dashoffset', String(CIRC * (1 - p)));
-      const idx = sectionIndex();
-      curSection = idx;
-      cLabel.textContent = idx < 0 ? '00 · Surface' : `0${idx + 1} · ${SECTIONS[idx][1]}`;
-      compass.classList.toggle('hide', window.scrollY < window.innerHeight * 0.5);
     }
 
     window.addEventListener('scroll', () => {
@@ -917,18 +1105,162 @@
       const d = y - lastY;
       lastY = y;
       if (!RM) {
-        scrollDir = d >= 0 ? 1 : -1;
+        if (d > 0) { posRun += d; negRun = 0; if (posRun > 60) dirLatch = 1; }
+        else if (d < 0) { negRun -= d; posRun = 0; if (negRun > 60) dirLatch = -1; }
         lastScrollT = performance.now();
         vel = Math.max(-0.05, Math.min(0.05, vel + d * 0.00014));
+        updateRingLabels();
+        // the exit gate holds the viewport with preventDefault only; if the
+        // scrollbar or a script moves it anyway, the gate bows out gracefully
+        if (gate === 'exiting' && Math.abs(y - gateHoldY) > 40) cancelGate();
       }
-      updateChrome();
     }, { passive: true });
 
-    compassBtn.addEventListener('click', () => {
-      const next = Math.min(curSection + 1, SECTIONS.length - 1);
-      const el = document.getElementById(SECTIONS[next][0]);
-      if (el) el.scrollIntoView({ behavior: RM ? 'auto' : 'smooth' });
-    });
+    /* ===== Exit gate: a chapter's text leaves before the viewport does =====
+       Wheel-only. When a wheel-down would carry the viewport across the next
+       chapter's top edge, the crossing is held, the current chapter cascades
+       out (reverse of its load-in), and only then does the page glide to the
+       next chapter — whose usual staggered load-in takes over. Keyboard,
+       scrollbar, touch and in-page links all scroll natively and are never
+       fought; upward scrolling is always free (left chapters are re-armed so
+       their load-ins replay on the way back up). */
+    const chapterEls = ['hero'].concat(SECTIONS.map((s) => s[0]))
+      .map((id) => document.getElementById(id));
+    let gate = 'idle', gateFrom = -1, gateTo = -1, gateTimer = 0, gateHoldY = 0;
+    let exitAccum = 0, upAccum = 0, advToken = 0, lastWheelT = -1e9;
+
+    function exitPieces(sec) {
+      const sel = sec.id === 'hero'
+        ? '.rv, .mask, .motto, .hero-socials, .hero-hint'
+        : '.rv, .mask';
+      return Array.from(sec.querySelectorAll(sel));
+    }
+
+    function playExit(sec) {
+      const els = exitPieces(sec).reverse(); // the load-in, rewound
+      const n = els.length;
+      const step = n > 1 ? Math.min(50, 260 / (n - 1)) : 0;
+      els.forEach((el, i) => {
+        el.style.setProperty('--xd', Math.round(i * step) + 'ms');
+        el.classList.add('xg-out');
+      });
+      let dur = (n - 1) * step + 340;
+      if (sec.id === 'hero') {
+        // the seven labels wink out clockwise first, exactly as they always have
+        labelsOut = true; ringNav.classList.add('out'); hoverTarget = null;
+        dur = Math.max(dur, 580);
+      }
+      return Math.round(dur);
+    }
+
+    function resetSection(sec) {
+      sec.querySelectorAll('.xg-out').forEach((el) => {
+        el.classList.remove('xg-out');
+        el.style.removeProperty('--xd');
+        if (el.matches('.rv, .mask')) {
+          el.classList.remove('on');
+          if (revealIO) revealIO.observe(el); // the load-in replays on return
+        }
+      });
+    }
+
+    function animateScrollTo(target, done) {
+      const token = ++advToken;
+      const startY = window.scrollY, dist = target - startY;
+      const D = Math.min(950, Math.max(500, Math.abs(dist) * 0.75));
+      const t0 = performance.now();
+      const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      let wrote = startY;
+      (function stepFrame() {
+        if (token !== advToken) return; // a click or key took over — stand down
+        if (Math.abs(window.scrollY - wrote) > 60) { cancelGate(); return; } // someone else is steering
+        const p = Math.min(1, (performance.now() - t0) / D);
+        wrote = startY + dist * ease(p);
+        window.scrollTo({ top: wrote, behavior: 'instant' });
+        if (p < 1) requestAnimationFrame(stepFrame);
+        else done();
+      })();
+    }
+
+    function startGate(from) {
+      gate = 'exiting'; gateFrom = from; gateTo = from + 1;
+      exitAccum = 0; upAccum = 0; gateHoldY = window.scrollY;
+      gateTimer = setTimeout(beginAdvance, playExit(chapterEls[from]));
+    }
+
+    function beginAdvance() {
+      clearTimeout(gateTimer);
+      gate = 'advancing';
+      const sec = chapterEls[gateFrom];
+      const target = Math.min(chapterEls[gateTo].offsetTop,
+        document.documentElement.scrollHeight - window.innerHeight);
+      animateScrollTo(target, () => {
+        gate = 'idle';
+        resetSection(sec); // out of view now — armed to replay if she swims back up
+        updateRingLabels();
+      });
+    }
+
+    function cancelGate() {
+      if (gate === 'idle') return;
+      clearTimeout(gateTimer);
+      advToken++; // stops any advance mid-flight
+      const sec = chapterEls[gateFrom];
+      gate = 'idle';
+      if (sec) resetSection(sec); // never leave a chapter half-vanished
+      updateRingLabels();         // labels come back if we're still on the title page
+    }
+
+    function chapterAtBottomEdge() {
+      const yb = window.scrollY + window.innerHeight - 2;
+      for (let i = chapterEls.length - 1; i >= 0; i--) {
+        if (yb >= chapterEls[i].offsetTop) return i;
+      }
+      return 0;
+    }
+
+    function onWheel(e) {
+      if (e.ctrlKey) return; // pinch-zoom stays native
+      const now = performance.now();
+      const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1);
+      if (gate === 'exiting') {
+        e.preventDefault();
+        if (dy > 0) {
+          exitAccum += dy; upAccum = 0;
+          // a second decisive gesture (or real piling-on) skips straight to the move
+          if ((now - lastWheelT > 180 && dy > 18) || exitAccum > 1400) beginAdvance();
+        } else if (dy < 0) {
+          upAccum -= dy;
+          if (upAccum > 120) cancelGate(); // changed her mind — the text swims back
+        }
+        lastWheelT = now;
+        return;
+      }
+      if (gate === 'advancing') { e.preventDefault(); lastWheelT = now; return; }
+      lastWheelT = now;
+      if (dy <= 0) return; // upward scrolling is always free
+      const i = chapterAtBottomEdge();
+      if (i >= chapterEls.length - 1) return; // beyond the last boundary
+      const nextTop = chapterEls[i + 1].offsetTop;
+      if (window.scrollY + window.innerHeight + Math.min(dy, 240) >= nextTop + 1) {
+        e.preventDefault(); // hold the viewport: the chapter leaves first
+        startGate(i);
+      }
+    }
+
+    if (!RM) {
+      window.addEventListener('wheel', onWheel, { passive: false });
+      // keyboard and in-page links go where they're told — the gate steps aside
+      window.addEventListener('keydown', (e) => {
+        if (gate !== 'idle' &&
+            [' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
+          cancelGate();
+        }
+      });
+      document.addEventListener('click', (e) => {
+        if (gate !== 'idle' && e.target.closest && e.target.closest('a[href^="#"]')) cancelGate();
+      }, true);
+    }
 
     // Run only when the tab is visible
     function startLoop() { if (rafId === null && !RM) { lastT = null; rafId = requestAnimationFrame(tick); } }
@@ -936,13 +1268,20 @@
     document.addEventListener('visibilitychange', () => {
       document.hidden ? stopLoop() : startLoop();
     });
-    startLoop();
-    updateChrome();
 
-    if (RM) {
-      // Static composition: the ring holds still, the compass points at the content
-      setCompassHeading(180);
+    if (!RM) {
+      updateRingLabels(); // page may load mid-scroll (bfcache, refresh)
+      buildSchool();
+      buildPath();
+      window.addEventListener('load', buildPath);           // images shift offsets
+      setTimeout(buildPath, 1400);                          // late font/layout shifts
+      let rsT;
+      window.addEventListener('resize', () => {
+        clearTimeout(rsT);
+        rsT = setTimeout(() => { buildSchool(); buildPath(); }, 160);
+      });
     }
+    startLoop();
   </script>
 
 </body>

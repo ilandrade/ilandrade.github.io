@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Isabella Andrade — Currents</title>
+  <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student. Currents edition.">
+  <meta name="theme-color" content="#f2efe6">
+
+  <!-- Favicon: a fish -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%90%9F%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Schibsted Grotesk"', 'sans-serif'],
+            display: ['"Bricolage Grotesque"', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          colors: {
+            cobalt: '#1d4ed8',
+            ink: '#1e3a8a',
+            cream: '#f2efe6',
+            paper: '#f7f4ec',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      background: #f2efe6;
+      color: #1e3a8a;
+      font-family: 'Schibsted Grotesk', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ===== The current: full-page flow field of dash-fish ===== */
+    #currents {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    main, footer { position: relative; z-index: 1; }
+
+    /* Content blocks are reefs — fish part around them, and the block
+       carries a faint cream wash so type always stays legible. */
+    .reef {
+      background: rgba(242, 239, 230, 0.9);
+      border-radius: 1.5rem;
+    }
+
+    /* ===== Dash motif everywhere ===== */
+    /* A row of rounded dashes (the divider) */
+    .dash-row {
+      height: 6px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='6' viewBox='0 0 34 6'%3E%3Crect width='22' height='6' rx='3' fill='%231d4ed8'/%3E%3C/svg%3E");
+      background-size: 34px 6px;
+      background-repeat: repeat-x;
+    }
+    .dash-row-cream {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='6' viewBox='0 0 34 6'%3E%3Crect width='22' height='6' rx='3' fill='%23f2efe6'/%3E%3C/svg%3E");
+    }
+
+    /* Dash bullets */
+    .dash-li { position: relative; padding-left: 1.9rem; }
+    .dash-li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 18px;
+      height: 5px;
+      border-radius: 3px;
+      background: #1d4ed8;
+    }
+
+    /* Dash underline that draws on hover */
+    .u-dash { position: relative; display: inline-block; }
+    .u-dash::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      height: 4px;
+      width: 100%;
+      border-radius: 2px;
+      background: #1d4ed8;
+      transform: scaleX(0.32);
+      transform-origin: left;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .u-dash:hover::after { transform: scaleX(1); }
+    .u-dash-cream::after { background: #f2efe6; }
+
+    /* Skill pills: little swimmers */
+    .pill {
+      background: #f7f4ec;
+      border: 2px solid #1d4ed8;
+      color: #1e3a8a;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .pill:hover {
+      background: #1d4ed8;
+      color: #f2efe6;
+      transform: translateX(6px);
+    }
+
+    /* Cards */
+    .card {
+      background: #f7f4ec;
+      border: 2px solid #1d4ed8;
+      border-radius: 1.5rem;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+    }
+    .card:hover {
+      transform: translate(-2px, -4px);
+      box-shadow: 8px 8px 0 rgba(29, 78, 216, 0.25);
+    }
+
+    /* Experience rows nudge downstream under the cursor */
+    .xp-row { transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+    @media (hover: hover) { .xp-row:hover { transform: translateX(10px); } }
+
+    /* ===== Reveals ===== */
+    .rv {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease var(--d, 0ms), transform 0.95s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
+    }
+    .rv.on { opacity: 1; transform: none; }
+
+    .mask { display: block; overflow: hidden; }
+    .mask-line {
+      display: block;
+      transform: translateY(112%);
+      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
+    }
+    .mask.on .mask-line { transform: none; }
+
+    /* Hero letters swim up into place */
+    .ltr {
+      display: inline-block;
+      transform: translateY(115%);
+      transition: transform 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--hl, 0ms) + var(--ld, 0ms) + 150ms);
+      will-change: transform;
+    }
+    .hero-in .ltr { transform: translateY(0); }
+    .hero-fade {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.9s ease var(--d, 0ms), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
+    }
+    .hero-in .hero-fade { opacity: 1; transform: none; }
+
+    /* Soft cream halo so the hero headline floats above the shoal */
+    .halo {
+      position: absolute;
+      inset: -12% -8%;
+      background: radial-gradient(ellipse 62% 58% at 50% 50%, #f2efe6 42%, rgba(242, 239, 230, 0) 74%);
+      pointer-events: none;
+    }
+
+    /* ===== Right-rail dash gauge: fills as you swim down ===== */
+    #gauge {
+      position: fixed;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      pointer-events: none;
+    }
+    #gauge span {
+      width: 5px;
+      height: 20px;
+      border-radius: 3px;
+      background: rgba(29, 78, 216, 0.18);
+      transition: background 0.3s;
+    }
+    #gauge span.lit { background: #1d4ed8; }
+    @media (max-width: 767px) { #gauge { display: none; } }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #f2efe6; }
+    ::-webkit-scrollbar-thumb { background: #1d4ed8; border-radius: 2px; }
+    ::selection { background: rgba(29, 78, 216, 0.25); }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #1d4ed8;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rv, .mask-line, .ltr, .hero-fade { transition: none !important; opacity: 1 !important; transform: none !important; }
+      .u-dash::after { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="currents" aria-hidden="true"></canvas>
+
+  <!-- Dash gauge -->
+  <div id="gauge" aria-hidden="true"></div>
+
+  <main>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero" class="relative min-h-screen flex flex-col justify-center px-6 py-20 overflow-hidden">
+    <div class="max-w-5xl mx-auto w-full relative flex flex-col items-center text-center">
+      <div class="halo" aria-hidden="true"></div>
+
+      <div class="relative" data-reef>
+        <p class="hero-fade font-mono text-cobalt text-xs md:text-sm tracking-[0.35em] uppercase mb-8" style="--d:0ms">
+          Harvard College · CS &amp; Economics
+        </p>
+
+        <h1 class="font-display font-extrabold text-[clamp(3.2rem,11vw,8.5rem)] leading-[0.92] tracking-tight text-cobalt mb-8">
+          <span class="mask"><span class="hero-line">Isabella</span></span>
+          <span class="mask"><span class="hero-line" style="--hl:300ms">Andrade</span></span>
+        </h1>
+
+        <div class="hero-fade dash-row w-56 mx-auto mb-8" style="--d:1150ms"></div>
+
+        <p class="hero-fade font-display font-semibold text-lg md:text-2xl text-ink mb-3" style="--d:1250ms">
+          Student Founder · AI Product Builder · Venture Fellow
+        </p>
+        <p class="hero-fade text-ink/70 text-sm md:text-base max-w-md mx-auto mb-10" style="--d:1350ms">
+          Every dash on this page is a fish. Scroll, and the current carries the whole shoal — and you — downstream.
+        </p>
+
+        <div class="hero-fade flex flex-wrap items-center justify-center gap-x-8 gap-y-4 font-display font-bold text-base md:text-lg" style="--d:1500ms">
+          <a href="https://github.com/ilandrade" target="_blank" rel="noopener" class="u-dash text-ink hover:text-cobalt transition-colors">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" rel="noopener" class="u-dash text-ink hover:text-cobalt transition-colors">LinkedIn ↗</a>
+          <a href="mailto:isabellaandrade@college.harvard.edu" class="u-dash text-ink hover:text-cobalt transition-colors">Email ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contents -->
+    <nav aria-label="Contents" class="hero-fade max-w-5xl w-full mx-auto px-2 mt-16 relative" style="--d:1700ms" data-reef>
+      <div class="reef px-6 py-5">
+        <p class="font-mono text-[11px] tracking-[0.3em] uppercase text-cobalt/70 mb-4">Follow the current</p>
+        <ol class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-x-6 gap-y-4">
+          <li><a href="#profile" class="group block"><span class="font-mono text-[11px] font-bold text-cobalt block mb-1">01</span><span class="font-display font-semibold text-lg text-ink group-hover:text-cobalt transition-colors">Profile</span></a></li>
+          <li><a href="#experience" class="group block"><span class="font-mono text-[11px] font-bold text-cobalt block mb-1">02</span><span class="font-display font-semibold text-lg text-ink group-hover:text-cobalt transition-colors">Experience</span></a></li>
+          <li><a href="#projects" class="group block"><span class="font-mono text-[11px] font-bold text-cobalt block mb-1">03</span><span class="font-display font-semibold text-lg text-ink group-hover:text-cobalt transition-colors">Projects</span></a></li>
+          <li><a href="#leadership" class="group block"><span class="font-mono text-[11px] font-bold text-cobalt block mb-1">04</span><span class="font-display font-semibold text-lg text-ink group-hover:text-cobalt transition-colors">Leadership</span></a></li>
+          <li><a href="#education" class="group block"><span class="font-mono text-[11px] font-bold text-cobalt block mb-1">05</span><span class="font-display font-semibold text-lg text-ink group-hover:text-cobalt transition-colors">Education</span></a></li>
+          <li><a href="#writing" class="group block"><span class="font-mono text-[11px] font-bold text-cobalt block mb-1">06</span><span class="font-display font-semibold text-lg text-ink group-hover:text-cobalt transition-colors">Writing</span></a></li>
+        </ol>
+      </div>
+    </nav>
+  </section>
+
+
+  <!-- ===== 01 PROFILE ===== -->
+  <section id="profile" class="py-24 px-6 md:px-16" data-current>
+    <div class="max-w-5xl mx-auto">
+      <div class="reef p-7 md:p-12" data-reef>
+        <p class="rv font-mono text-cobalt text-xs tracking-[0.3em] uppercase mb-4">Current 01 — Profile</p>
+        <h2 class="font-display font-extrabold text-4xl md:text-6xl text-cobalt tracking-tight mb-6" data-anchor><span class="mask"><span class="mask-line">Profile</span></span></h2>
+        <div class="rv dash-row w-32 mb-10"></div>
+
+        <p class="rv font-display font-semibold text-2xl md:text-[1.9rem] leading-snug text-ink mb-7 max-w-2xl">
+          I'm a Harvard student pursuing a double A.B. in Computer Science and Economics. I build AI tools, research their failure modes, and study the markets they're reshaping.
+        </p>
+        <p class="rv text-ink/80 leading-relaxed mb-12 max-w-2xl" style="--d:100ms">
+          Currently a student founder with TekTrek in San Francisco and an incoming Product Experience Specialist at Lovable — with past lives in software engineering at Verapath, healthcare LLM research at Harvard Medical School, and venture fellowships at Glade Brook and Milemark.
+        </p>
+
+        <div class="grid md:grid-cols-[240px_1fr] gap-10 items-start mb-14">
+          <div class="rv card p-3 rotate-[-1.5deg] hover:rotate-0" style="--d:150ms">
+            <img src="assets/img/profile-img2.jpg" alt="Isabella Andrade" class="w-full rounded-2xl object-cover">
+          </div>
+
+          <!-- Vitals -->
+          <div class="rv grid grid-cols-2 gap-x-6 gap-y-8" style="--d:250ms">
+            <div>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-cobalt/70 mb-2 font-bold">Location</p>
+              <p class="text-sm font-semibold text-ink">Cambridge, MA</p>
+            </div>
+            <div>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-cobalt/70 mb-2 font-bold">University</p>
+              <p class="text-sm font-semibold text-ink">Harvard College</p>
+            </div>
+            <div>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-cobalt/70 mb-2 font-bold">Email</p>
+              <p class="text-sm font-semibold text-ink break-all"><a href="mailto:isabellaandrade@college.harvard.edu" class="hover:text-cobalt transition-colors">isabellaandrade@college.harvard.edu</a></p>
+            </div>
+            <div>
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-cobalt/70 mb-2 font-bold">Focus</p>
+              <p class="text-sm font-semibold text-ink">AI Tooling · Venture · Product</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="grid md:grid-cols-3 gap-10">
+          <div class="rv" style="--d:0ms">
+            <h3 class="font-mono text-[11px] text-cobalt uppercase tracking-[0.2em] font-bold mb-5">Languages &amp; Data</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="pill text-sm px-4 py-1.5">Python</span>
+              <span class="pill text-sm px-4 py-1.5">C#</span>
+              <span class="pill text-sm px-4 py-1.5">C++</span>
+              <span class="pill text-sm px-4 py-1.5">R</span>
+              <span class="pill text-sm px-4 py-1.5">HTML/CSS</span>
+              <span class="pill text-sm px-4 py-1.5">SQL</span>
+              <span class="pill text-sm px-4 py-1.5">Excel</span>
+            </div>
+          </div>
+          <div class="rv" style="--d:100ms">
+            <h3 class="font-mono text-[11px] text-cobalt uppercase tracking-[0.2em] font-bold mb-5">Web &amp; Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="pill text-sm px-4 py-1.5">React</span>
+              <span class="pill text-sm px-4 py-1.5">Next.js</span>
+              <span class="pill text-sm px-4 py-1.5">Blazor</span>
+              <span class="pill text-sm px-4 py-1.5">Razor Pages</span>
+              <span class="pill text-sm px-4 py-1.5">Git &amp; GitHub</span>
+              <span class="pill text-sm px-4 py-1.5">Azure DevOps</span>
+            </div>
+          </div>
+          <div class="rv" style="--d:200ms">
+            <h3 class="font-mono text-[11px] text-cobalt uppercase tracking-[0.2em] font-bold mb-5">AI Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="pill text-sm px-4 py-1.5">Claude Code</span>
+              <span class="pill text-sm px-4 py-1.5">Codex</span>
+              <span class="pill text-sm px-4 py-1.5">Windsurf</span>
+              <span class="pill text-sm px-4 py-1.5">Lovable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 02 EXPERIENCE ===== -->
+  <section id="experience" class="py-24 px-6 md:px-16" data-current>
+    <div class="max-w-5xl mx-auto">
+      <div class="reef p-7 md:p-12" data-reef>
+        <p class="rv font-mono text-cobalt text-xs tracking-[0.3em] uppercase mb-4">Current 02 — Experience</p>
+        <h2 class="font-display font-extrabold text-4xl md:text-6xl text-cobalt tracking-tight mb-6" data-anchor><span class="mask"><span class="mask-line">Experience</span></span></h2>
+        <div class="rv dash-row w-32 mb-12"></div>
+
+        <div class="space-y-12">
+
+          <!-- Lovable -->
+          <div class="rv xp-row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10">
+            <p class="font-mono text-cobalt text-sm font-bold pt-1">Aug 2026</p>
+            <div>
+              <h3 class="font-display font-bold text-xl mb-1 text-ink">Incoming Product Experience Specialist</h3>
+              <a href="https://lovable.dev/" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold mb-5 inline-block">Lovable ↗</a>
+              <ul class="space-y-3 text-ink/80 text-sm leading-relaxed mt-4">
+                <li class="dash-li">Joining Lovable to work at the edge of AI-assisted software creation.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- TekTrek -->
+          <div class="rv xp-row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10">
+            <p class="font-mono text-cobalt text-sm font-bold pt-1">Jun 2026 – Present</p>
+            <div>
+              <h3 class="font-display font-bold text-xl mb-1 text-ink">Student Founder</h3>
+              <a href="https://tektrek.com/" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold mb-5 inline-block">TekTrek ↗</a>
+              <ul class="space-y-3 text-ink/80 text-sm leading-relaxed mt-4">
+                <li class="dash-li">Selected as one of forty young builders from MIT, Harvard, and Princeton — out of 400+ applicants — to spend the summer building in San Francisco.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Glade Brook -->
+          <div class="rv xp-row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10">
+            <p class="font-mono text-cobalt text-sm font-bold pt-1">Mar – May 2026</p>
+            <div>
+              <h3 class="font-display font-bold text-xl mb-1 text-ink">Spring Fellow</h3>
+              <a href="https://www.gladebrookcapital.com/" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold mb-5 inline-block">Glade Brook Capital ↗</a>
+              <ul class="space-y-3 text-ink/80 text-sm leading-relaxed mt-4">
+                <li class="dash-li">Built an internal knowledge-management tool to centralize firm-wide research — owned it from problem identification through deployment.</li>
+                <li class="dash-li">Produced a research brief on AI in the sciences for investment partners, including a deep dive on orbital data center technology for a portfolio company.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Y Lab -->
+          <div class="rv xp-row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10">
+            <p class="font-mono text-cobalt text-sm font-bold pt-1">Jan – Jun 2026</p>
+            <div>
+              <h3 class="font-display font-bold text-xl mb-1 text-ink">Research Assistant</h3>
+              <a href="https://ylab.top/" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold mb-5 inline-block">Y Lab, Harvard Medical School ↗</a>
+              <ul class="space-y-3 text-ink/80 text-sm leading-relaxed mt-4">
+                <li class="dash-li">Ran a PRISMA-guided systematic review on demographic bias in healthcare LLMs — screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.</li>
+                <li class="dash-li">Translated technical ML findings for a clinical audience; co-authoring a manuscript for publication this fall.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Verapath -->
+          <div class="rv xp-row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10">
+            <p class="font-mono text-cobalt text-sm font-bold pt-1">Jun 2024 – Jan 2026</p>
+            <div>
+              <h3 class="font-display font-bold text-xl mb-1 text-ink">Software Engineer Intern</h3>
+              <a href="https://verapath.com/" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold mb-5 inline-block">Verapath ↗</a>
+              <ul class="space-y-3 text-ink/80 text-sm leading-relaxed mt-4">
+                <li class="dash-li">Prototyped prompt-based agents with OpenAI Codex as a pair-programming tool, validating outputs against structured evaluation criteria and stakeholder feedback.</li>
+                <li class="dash-li">Improved front-end responsiveness by auditing stylesheet load order, refactoring media queries, and resolving UI issues across the full stack.</li>
+                <li class="dash-li">Translated product requirements into scoped work items in Azure DevOps, managing execution and surfacing blockers early.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Milemark -->
+          <div class="rv xp-row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10">
+            <p class="font-mono text-cobalt text-sm font-bold pt-1">May – Aug 2025</p>
+            <div>
+              <h3 class="font-display font-bold text-xl mb-1 text-ink">Venture Fellow</h3>
+              <a href="https://www.milemark.capital/" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold mb-5 inline-block">Milemark Capital ↗</a>
+              <ul class="space-y-3 text-ink/80 text-sm leading-relaxed mt-4">
+                <li class="dash-li">Tracked agentic AI adoption across healthcare, fintech, and agtech; synthesized patterns into concise written briefs for investors.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Goldman Sachs -->
+          <div class="rv xp-row grid md:grid-cols-[170px_1fr] gap-4 md:gap-10">
+            <p class="font-mono text-cobalt text-sm font-bold pt-1">Sep 2024 – Jan 2025</p>
+            <div>
+              <h3 class="font-display font-bold text-xl mb-1 text-ink">Engineering Leader</h3>
+              <p class="text-cobalt text-sm font-bold mb-5">Goldman Sachs Emerging Leaders Program</p>
+              <ul class="space-y-3 text-ink/80 text-sm leading-relaxed">
+                <li class="dash-li">Developed a mutual fund calculator with Spring Boot, MongoDB, and Next.js — modeled projected returns using CAPM and compound interest.</li>
+                <li class="dash-li">Presented the project at the Goldman Sachs Dallas summit.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 03 PROJECTS ===== -->
+  <section id="projects" class="py-24 px-6 md:px-16" data-current>
+    <div class="max-w-5xl mx-auto">
+      <div class="reef p-7 md:p-12" data-reef>
+        <p class="rv font-mono text-cobalt text-xs tracking-[0.3em] uppercase mb-4">Current 03 — Projects</p>
+        <h2 class="font-display font-extrabold text-4xl md:text-6xl text-cobalt tracking-tight mb-6" data-anchor><span class="mask"><span class="mask-line">Projects</span></span></h2>
+        <div class="rv dash-row w-32 mb-12"></div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+          <div class="rv card p-7" style="--d:0ms">
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="font-mono text-xs font-bold text-cobalt border-2 border-cobalt/40 px-3 py-1 rounded-full">HTML</span>
+              <span class="font-mono text-xs font-bold text-cobalt border-2 border-cobalt/40 px-3 py-1 rounded-full">JavaScript</span>
+            </div>
+            <h3 class="font-display font-bold text-xl mb-2 text-ink">Passio Go — Harvard Upgrade</h3>
+            <p class="text-ink/80 text-sm leading-relaxed mb-5">Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.</p>
+            <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold">View Project ↗</a>
+          </div>
+
+          <div class="rv card p-7" style="--d:100ms">
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="font-mono text-xs font-bold text-cobalt border-2 border-cobalt/40 px-3 py-1 rounded-full">Canvas</span>
+              <span class="font-mono text-xs font-bold text-cobalt border-2 border-cobalt/40 px-3 py-1 rounded-full">Vanilla JS</span>
+            </div>
+            <h3 class="font-display font-bold text-xl mb-2 text-ink">This Site — Three Editions</h3>
+            <p class="text-ink/80 text-sm leading-relaxed mb-5">One portfolio, several editions: a Mediterranean summer, an editorial cascade, and this shoal of dash-fish riding a scroll-driven flow field — all hand-built with vanilla JS, no frameworks.</p>
+            <div class="flex flex-wrap gap-x-6 gap-y-2">
+              <a href="index.html" class="u-dash text-cobalt text-sm font-bold">Mediterranean ↗</a>
+              <a href="cascade.html" class="u-dash text-cobalt text-sm font-bold">Cascade ↗</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 04 LEADERSHIP ===== -->
+  <section id="leadership" class="py-24 px-6 md:px-16" data-current>
+    <div class="max-w-5xl mx-auto">
+      <div class="reef p-7 md:p-12" data-reef>
+        <p class="rv font-mono text-cobalt text-xs tracking-[0.3em] uppercase mb-4">Current 04 — Leadership</p>
+        <h2 class="font-display font-extrabold text-4xl md:text-6xl text-cobalt tracking-tight mb-6" data-anchor><span class="mask"><span class="mask-line">Leadership</span></span></h2>
+        <div class="rv dash-row w-32 mb-12"></div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+          <div class="rv card p-7" style="--d:0ms">
+            <p class="font-mono text-xs font-bold text-cobalt mb-4">Mar 2026 – Present</p>
+            <h3 class="font-display font-bold text-xl mb-1 text-ink">Anchor Initiative Student Lead</h3>
+            <a href="https://massaicoalition.com/students" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold mb-4 inline-block">Massachusetts AI Coalition ↗</a>
+            <p class="text-ink/80 text-sm leading-relaxed mt-3">
+              Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.
+            </p>
+          </div>
+
+          <div class="rv card p-7" style="--d:100ms">
+            <p class="font-mono text-xs font-bold text-cobalt mb-4">Jul 2025 – Present</p>
+            <h3 class="font-display font-bold text-xl mb-1 text-ink">SCOUT Program Co-Director</h3>
+            <p class="text-cobalt text-sm font-bold mb-3">Harvard Undergraduate Clean Energy Group</p>
+            <p class="text-ink/80 text-sm leading-relaxed">
+              Founded HUCEG's first VC education program from scratch — designed the curriculum, recruited analysts, and run research workflows across four clean-energy verticals as the cohort's primary point of contact.
+            </p>
+          </div>
+
+          <div class="rv card p-7" style="--d:0ms">
+            <p class="font-mono text-xs font-bold text-cobalt mb-4">Jul 2024 – Present</p>
+            <h3 class="font-display font-bold text-xl mb-1 text-ink">Junior Outreach Representative</h3>
+            <p class="text-cobalt text-sm font-bold mb-3">Society of Hispanic Professional Engineers (SHPE)</p>
+            <p class="text-ink/80 text-sm leading-relaxed">
+              Planned and executed outreach and service events with campus and community partners; managed logistics to support engagement with underrepresented students in STEM.
+            </p>
+          </div>
+
+          <div class="rv card p-7" style="--d:100ms">
+            <p class="font-mono text-xs font-bold text-cobalt mb-4">Jul – Aug 2023</p>
+            <h3 class="font-display font-bold text-xl mb-1 text-ink">Technical Fellowship</h3>
+            <p class="text-cobalt text-sm font-bold mb-3">Harvard AI Safety Team</p>
+            <p class="text-ink/80 text-sm leading-relaxed">
+              Synthesized research on interpretability, RLHF, goal misgeneralization, and eliciting latent knowledge; shared takeaways with a 5-member cohort over 8 weeks.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 05 EDUCATION ===== -->
+  <section id="education" class="py-24 px-6 md:px-16" data-current>
+    <div class="max-w-5xl mx-auto">
+      <div class="reef p-7 md:p-12" data-reef>
+        <p class="rv font-mono text-cobalt text-xs tracking-[0.3em] uppercase mb-4">Current 05 — Education</p>
+        <h2 class="font-display font-extrabold text-4xl md:text-6xl text-cobalt tracking-tight mb-6" data-anchor><span class="mask"><span class="mask-line">Education</span></span></h2>
+        <div class="rv dash-row w-32 mb-12"></div>
+
+        <div class="rv card p-8 md:p-10">
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+            <div>
+              <h3 class="font-display font-bold text-2xl mb-1 text-ink">A.B. Computer Science &amp; Economics</h3>
+              <p class="text-cobalt text-sm font-bold">Harvard University</p>
+            </div>
+            <p class="font-mono text-ink/60 text-xs font-bold shrink-0 md:pt-2">Expected May 2027 · Cambridge, MA</p>
+          </div>
+
+          <p class="font-mono text-[11px] text-cobalt uppercase tracking-widest font-bold mb-4">Relevant Coursework</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="pill text-xs px-3.5 py-1.5">Data Structures &amp; Algorithms</span>
+            <span class="pill text-xs px-3.5 py-1.5">Systems Programming &amp; Machine Organization</span>
+            <span class="pill text-xs px-3.5 py-1.5">Economics &amp; Computation</span>
+            <span class="pill text-xs px-3.5 py-1.5">Probability with Engineering Applications</span>
+            <span class="pill text-xs px-3.5 py-1.5">Linear Algebra</span>
+            <span class="pill text-xs px-3.5 py-1.5">Discrete Mathematics</span>
+            <span class="pill text-xs px-3.5 py-1.5">Calculus 2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 06 WRITING ===== -->
+  <section id="writing" class="py-24 px-6 md:px-16" data-current>
+    <div class="max-w-5xl mx-auto">
+      <div class="reef p-7 md:p-12" data-reef>
+        <p class="rv font-mono text-cobalt text-xs tracking-[0.3em] uppercase mb-4">Current 06 — Writing</p>
+        <h2 class="font-display font-extrabold text-4xl md:text-6xl text-cobalt tracking-tight mb-6" data-anchor><span class="mask"><span class="mask-line">Writing</span></span></h2>
+        <div class="rv dash-row w-32 mb-12"></div>
+
+        <div class="space-y-8">
+
+          <div class="rv card p-7">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div>
+                <h3 class="font-display font-bold text-xl mb-1 text-ink">Political Voices: Deepfakes and the Future of Democracy</h3>
+                <p class="text-cobalt text-sm font-bold">CS 1050: Privacy and Surveillance</p>
+              </div>
+              <a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold shrink-0">Read Paper ↗</a>
+            </div>
+            <p class="text-ink/80 text-sm leading-relaxed">
+              Argues that voice-cloning deepfakes pose a fundamental threat to democratic communication that existing legal frameworks and reactive policy measures cannot adequately address. Examines the growing tension between AI and privacy — moving beyond individual personhood to focus on AI's broader impact on democratic systems.
+            </p>
+          </div>
+
+          <div class="rv card p-7">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div>
+                <h3 class="font-display font-bold text-xl mb-1 text-ink">Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</h3>
+                <p class="text-cobalt text-sm font-bold">Economics 1343: The Economics of Development and Global Health</p>
+              </div>
+              <a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank" rel="noopener" class="u-dash text-cobalt text-sm font-bold shrink-0">Read Paper ↗</a>
+            </div>
+            <p class="text-ink/80 text-sm leading-relaxed">
+              Examines how AI diagnostic tools validated in high-income settings fail catastrophically when deployed in low-income countries. Through two cases — CAD4TB (TB detection in sub-Saharan Africa) and First-Derm (dermatology AI in Uganda, with a 52.9 percentage point accuracy collapse) — the paper argues that absent rigorous local validation, algorithmic bias becomes a structural health equity crisis.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+
+  <!-- ===== 07 CONTACT: the two-tone flip ===== -->
+  <section id="contact" class="relative z-[1] bg-cobalt text-cream py-24 px-6 md:px-16">
+    <div class="max-w-5xl mx-auto">
+      <p class="rv font-mono text-cream/70 text-xs tracking-[0.3em] uppercase mb-4">Current 07 — Where the water goes</p>
+      <h2 class="font-display font-extrabold text-[clamp(2.6rem,8vw,6rem)] leading-[0.95] tracking-tight mb-8 text-cream"><span class="mask"><span class="mask-line">Swim over.</span></span></h2>
+      <div class="rv dash-row dash-row-cream w-40 mb-10"></div>
+      <a href="mailto:isabellaandrade@college.harvard.edu"
+         class="rv u-dash u-dash-cream font-display font-semibold text-xl md:text-3xl text-cream break-all">
+        isabellaandrade@college.harvard.edu
+      </a>
+      <div class="rv flex flex-wrap gap-x-8 gap-y-3 mt-12 font-display font-bold text-lg" style="--d:100ms">
+        <a href="https://github.com/ilandrade" target="_blank" rel="noopener" class="u-dash u-dash-cream text-cream/90 hover:text-cream transition-colors">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" rel="noopener" class="u-dash u-dash-cream text-cream/90 hover:text-cream transition-colors">LinkedIn ↗</a>
+      </div>
+      <p class="rv mt-14 font-mono text-[11px] tracking-[0.25em] uppercase text-cream/60" style="--d:200ms">Cambridge, MA · Harvard College · AI Tooling · Venture · Product</p>
+    </div>
+  </section>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-cobalt text-cream border-t-2 border-cream/25 py-10 px-6 text-center">
+    <p class="font-display font-bold text-xl mb-4">Isabella Andrade<span class="text-cream/60">.</span></p>
+    <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 font-mono text-[12px] tracking-[0.2em] uppercase">
+      <a href="index.html" class="u-dash u-dash-cream text-cream/80 hover:text-cream transition-colors">Mediterranean edition</a>
+      <a href="cascade.html" class="u-dash u-dash-cream text-cream/80 hover:text-cream transition-colors">Cascade edition</a>
+    </div>
+  </footer>
+
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    (function () {
+      'use strict';
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---------- Hero: split the name into letters that swim up ---------- */
+      if (!reducedMotion) {
+        document.querySelectorAll('.hero-line').forEach((line) => {
+          const text = line.textContent;
+          const lineDelay = line.style.getPropertyValue('--hl') || '0ms';
+          line.textContent = '';
+          Array.from(text).forEach((ch, i) => {
+            const s = document.createElement('span');
+            s.className = 'ltr';
+            s.textContent = ch;
+            s.style.setProperty('--hl', lineDelay);
+            s.style.setProperty('--ld', (i * 75) + 'ms');
+            line.appendChild(s);
+          });
+        });
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          document.documentElement.classList.add('hero-in');
+        }));
+      } else {
+        document.documentElement.classList.add('hero-in');
+      }
+
+      /* ---------- Reveals ---------- */
+      if (!reducedMotion) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.rv, .mask').forEach((el) => io.observe(el));
+      } else {
+        document.querySelectorAll('.rv, .mask').forEach((el) => el.classList.add('on'));
+      }
+
+      /* ---------- Right-rail dash gauge ---------- */
+      const gauge = document.getElementById('gauge');
+      const GAUGE_N = 14;
+      for (let i = 0; i < GAUGE_N; i++) gauge.appendChild(document.createElement('span'));
+      const gaugeDashes = gauge.children;
+      function updateGauge() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? window.scrollY / max : 0;
+        const lit = Math.round(p * GAUGE_N);
+        for (let i = 0; i < GAUGE_N; i++) gaugeDashes[i].classList.toggle('lit', i < lit);
+      }
+      window.addEventListener('scroll', updateGauge, { passive: true });
+      updateGauge();
+
+      /* ==================================================================
+         THE CURRENT — a flow field of dash-fish.
+         Direction = drifting vortices (the fingerprint swirls)
+                   + a downstream pull toward the next chapter while you scroll
+                   + a parting force around visible content "reefs"
+                   + a scatter around the cursor.
+         ================================================================== */
+      const canvas = document.getElementById('currents');
+      const ctx = canvas.getContext('2d');
+      let W = 0, H = 0, DPR = 1, mobile = false;
+
+      const COBALT = '#1d4ed8';
+      const INK = '#1e3a8a';
+
+      let particles = [];
+      let vortices = [];
+      let reefs = [];        // {x, y, hw, hh} in viewport coords
+      let anchor = null;     // {x, y} target of the next chapter heading
+      let mouse = { x: -9999, y: -9999 };
+      let scrollY = window.scrollY;
+      let scrollVel = 0;     // smoothed px/frame
+      let time = 0;
+      let running = false;
+      let rafId = null;
+      let frame = 0;
+
+      function resize() {
+        DPR = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        mobile = W < 768;
+        canvas.width = Math.round(W * DPR);
+        canvas.height = Math.round(H * DPR);
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+        ctx.lineCap = 'round';
+        buildVortices();
+        updateReefs();
+        buildParticles();
+      }
+
+      function buildVortices() {
+        const r = Math.min(W, H);
+        vortices = [
+          { bx: W * 0.22, by: H * 0.28, r2: (r * 0.42) * (r * 0.42), dir: 1,  sp: 0.00011, ph: 0.0 },
+          { bx: W * 0.80, by: H * 0.62, r2: (r * 0.38) * (r * 0.38), dir: -1, sp: 0.00009, ph: 2.1 },
+          { bx: W * 0.45, by: H * 0.95, r2: (r * 0.46) * (r * 0.46), dir: 1,  sp: 0.00007, ph: 4.2 },
+        ];
+      }
+
+      function inReef(x, y) {
+        for (let i = 0; i < reefs.length; i++) {
+          const r = reefs[i];
+          if (Math.abs(x - r.x) < r.hw && Math.abs(y - r.y) < r.hh) return true;
+        }
+        return false;
+      }
+
+      function spawn(p, anywhere) {
+        for (let tries = 0; tries < 6; tries++) {
+          p.x = Math.random() * W;
+          p.y = anywhere ? Math.random() * H : (Math.random() < 0.5 ? -20 : Math.random() * H);
+          if (!inReef(p.x, p.y)) break;
+        }
+        p.mx = p.x; p.my = p.y;
+        p.speed = 1.8 + Math.random() * 1.8;
+        p.width = mobile ? 2.5 + Math.random() * 2 : 3 + Math.random() * 2.5;
+        p.life = 240 + Math.random() * 360;
+        p.shade = Math.random() < 0.75 ? COBALT : INK;
+        p.trail = [{ x: p.x, y: p.y }];
+        return p;
+      }
+
+      function buildParticles() {
+        const n = mobile ? 150 : 430;
+        particles = [];
+        for (let i = 0; i < n; i++) particles.push(spawn({}, true));
+      }
+
+      /* Field sample: writes a unit direction into `out` */
+      const out = { x: 0, y: 0 };
+      function fieldAt(px, py) {
+        let vx = 0, vy = 0;
+
+        // Swirling vortices, drifting slowly and sliding up as you scroll
+        for (let i = 0; i < vortices.length; i++) {
+          const v = vortices[i];
+          const wrap = H * 1.7;
+          let vyPos = v.by - (scrollY * 0.12);
+          vyPos = ((vyPos % wrap) + wrap) % wrap - H * 0.35;
+          const vxPos = v.bx + Math.sin(time * v.sp + v.ph) * W * 0.08;
+          const dx = px - vxPos, dy = py - vyPos;
+          const d2 = dx * dx + dy * dy;
+          const w = v.r2 / (d2 + v.r2);          // 0..1, wide reach
+          const d = Math.sqrt(d2) + 1;
+          // unit tangent, weighted — this is what draws the fingerprint arcs
+          vx += (-dy / d) * w * v.dir * 1.15;
+          vy += (dx / d) * w * v.dir * 1.15;
+        }
+
+        // Gentle lateral breathing so streams undulate like the print
+        vx += Math.sin(py * 0.0045 + time * 0.0004) * 0.14;
+
+        // Downstream pull: idle drift plus the scroll's momentum
+        vy += 0.07 + Math.max(-1.2, Math.min(2.2, scrollVel * 0.04));
+
+        // Converge on the next chapter heading while the reader moves
+        if (anchor) {
+          const ax = anchor.x - px, ay = anchor.y - py;
+          const al = Math.hypot(ax, ay) + 60;
+          const wA = 0.08 + Math.min(0.85, Math.abs(scrollVel) * 0.035);
+          vx += (ax / al) * wA;
+          vy += (ay / al) * wA;
+        }
+
+        // Cursor scatters the shoal
+        const mdx = px - mouse.x, mdy = py - mouse.y;
+        const md2 = mdx * mdx + mdy * mdy;
+        if (md2 < 22500) { // 150px
+          const md = Math.sqrt(md2) + 1;
+          const f = (1 - md / 150) * 2.6;
+          vx += (mdx / md) * f;
+          vy += (mdy / md) * f;
+        }
+
+        // Part around the reefs (visible content blocks)
+        for (let i = 0; i < reefs.length; i++) {
+          const r = reefs[i];
+          const rx = (px - r.x) / r.hw;
+          const ry = (py - r.y) / r.hh;
+          const m = Math.max(Math.abs(rx), Math.abs(ry));
+          if (m < 1.16) {
+            const f = (1.16 - m) * 3.4;
+            const l = Math.hypot(rx, ry) + 0.001;
+            vx += (rx / l) * f;
+            vy += (ry / l) * f;
+          }
+        }
+
+        const len = Math.hypot(vx, vy) || 1;
+        out.x = vx / len;
+        out.y = vy / len;
+        return out;
+      }
+
+      function updateReefs() {
+        reefs = [];
+        document.querySelectorAll('[data-reef]').forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.bottom < -60 || r.top > H + 60 || r.width === 0) return;
+          reefs.push({
+            x: r.left + r.width / 2,
+            y: r.top + r.height / 2,
+            hw: r.width / 2 + 26,
+            hh: r.height / 2 + 26,
+          });
+        });
+      }
+
+      function updateAnchor() {
+        anchor = null;
+        const heads = document.querySelectorAll('[data-anchor]');
+        for (let i = 0; i < heads.length; i++) {
+          const r = heads[i].getBoundingClientRect();
+          if (r.top > H * 0.45) {
+            anchor = {
+              x: r.left + Math.min(r.width, 300) / 2,
+              y: Math.min(r.top, H + 260),
+            };
+            return;
+          }
+        }
+        // Past the last chapter: the current runs off the bottom
+        anchor = { x: W * 0.5, y: H + 320 };
+      }
+
+      const TRAIL = 10;
+      function step() {
+        time += 16.7;
+        frame++;
+
+        // decay scroll momentum
+        scrollVel *= 0.92;
+
+        if (frame % 4 === 0) { updateReefs(); updateAnchor(); }
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.globalAlpha = 0.85;
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          const d = fieldAt(p.x, p.y);
+          p.x += d.x * p.speed;
+          p.y += d.y * p.speed;
+          // fish stay glued to the page while you scroll
+          p.trail.push({ x: p.x, y: p.y });
+          if (p.trail.length > TRAIL) p.trail.shift();
+          p.life--;
+
+          // A fish that stops making headway is coiling in a trap — release it
+          if ((frame + i) % 50 === 0) {
+            const md = Math.hypot(p.x - p.mx, p.y - p.my);
+            if (md < 38) { spawn(p, false); continue; }
+            p.mx = p.x; p.my = p.y;
+          }
+
+          if (p.life <= 0 || p.x < -40 || p.x > W + 40 || p.y < -40 || p.y > H + 40) {
+            spawn(p, false);
+            continue;
+          }
+
+          if (p.trail.length > 2) {
+            ctx.strokeStyle = p.shade;
+            ctx.lineWidth = p.width;
+            ctx.beginPath();
+            ctx.moveTo(p.trail[0].x, p.trail[0].y);
+            for (let t = 1; t < p.trail.length; t++) ctx.lineTo(p.trail[t].x, p.trail[t].y);
+            ctx.stroke();
+          }
+        }
+        ctx.globalAlpha = 1;
+
+        if (running) rafId = requestAnimationFrame(step);
+      }
+
+      function start() {
+        if (running || reducedMotion) return;
+        running = true;
+        rafId = requestAnimationFrame(step);
+      }
+      function stop() {
+        running = false;
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      }
+
+      /* Reduced motion: one static pass of dashes along the field */
+      function staticRender() {
+        ctx.clearRect(0, 0, W, H);
+        ctx.globalAlpha = 0.75;
+        const stepPx = mobile ? 40 : 30;
+        for (let y = 10; y < H; y += stepPx) {
+          for (let x = 10; x < W; x += stepPx) {
+            if (Math.random() < 0.25) continue;
+            const jx = x + (Math.random() - 0.5) * 14;
+            const jy = y + (Math.random() - 0.5) * 14;
+            if (inReef(jx, jy)) continue;
+            const d = fieldAt(jx, jy);
+            const len = 7 + Math.random() * 6;
+            ctx.strokeStyle = Math.random() < 0.75 ? COBALT : INK;
+            ctx.lineWidth = 3 + Math.random() * 2;
+            ctx.beginPath();
+            ctx.moveTo(jx - d.x * len, jy - d.y * len);
+            ctx.lineTo(jx + d.x * len, jy + d.y * len);
+            ctx.stroke();
+          }
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      /* ---------- Events ---------- */
+      let lastScrollY = window.scrollY;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        scrollVel = scrollVel * 0.6 + (y - lastScrollY) * 0.4;
+        lastScrollY = y;
+        scrollY = y;
+      }, { passive: true });
+
+      window.addEventListener('pointermove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      }, { passive: true });
+      window.addEventListener('pointerleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+      let resizeT = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeT);
+        resizeT = setTimeout(() => {
+          resize();
+          updateReefs();
+          updateAnchor();
+          if (reducedMotion) staticRender();
+        }, 150);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else start();
+      });
+
+      /* ---------- Boot ---------- */
+      resize();
+      updateReefs();
+      updateAnchor();
+      if (reducedMotion) {
+        staticRender();
+      } else {
+        start();
+      }
+    })();
+  </script>
+
+</body>
+</html>
