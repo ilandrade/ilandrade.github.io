@@ -1,1387 +1,465 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Isabella Andrade</title>
-  <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student. Experience, projects, leadership, and writing — one red fish in a school of sardines.">
-  <meta name="theme-color" content="#eef0ed">
+  <meta name="description" content="Isabella Andrade — Harvard CS & Economics student and student founder. Three portfolio editions, one red fish: spin the wheel for today's edition.">
+  <meta name="theme-color" content="#f6f3ea">
   <meta property="og:title" content="Isabella Andrade">
-  <meta property="og:description" content="Student founder, AI product builder, and Harvard CS & Economics student.">
+  <meta property="og:description" content="Three portfolios, one fish — spin for today's edition.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ilandrade.github.io/">
   <link rel="canonical" href="https://ilandrade.github.io/">
 
-  <!-- Favicon: a red fish (assets/img/favicon.png was removed from the repo) -->
+  <!-- Favicon: the red fish -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%90%9F%3C/text%3E%3C/svg%3E" type="image/svg+xml">
 
-  <!-- Fonts: Gloock (display) · Karla (body) · Fragment Mono (labels) -->
+  <!-- Fonts: Fragment Mono (voice of the door) + each edition's display face for its own segment -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Karla', 'sans-serif'],
-            display: ['Gloock', 'serif'],
-            mono: ['"Fragment Mono"', 'monospace'],
-          },
-          colors: {
-            ground: '#eef0ed',
-            ink: '#1c2f42',
-            steel: '#2c4a6e',
-            silver: '#c3ccd2',
-            red: '#9c1909',
-            deep: '#152638',
-          },
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=Fraunces:opsz,wght@9..144,600&family=Instrument+Serif&family=Gloock&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --ground: #f6f3ea;
+      --ink: #16365c;
+      --red: #d2402f;
+      --cobalt: #1d59a8;
+      --cream: #fdf6e9;
+      --pine: #2E5941;
+      --paper: #F5F4EF;
+      --steel: #2c4a6e;
+      --silver: #e9ecea;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
 
     body {
-      background: #eef0ed;
-      background-image: radial-gradient(120% 90% at 50% 0%, #f4f5f2 0%, #eef0ed 55%, #e7eae6 100%);
-      background-attachment: fixed;
-      color: #1c2f42;
-      font-family: 'Karla', sans-serif;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: 'Fragment Mono', monospace;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    /* ===== Silvery painted ground: fine grain over the whole page ===== */
-    #grain {
+    /* hairline frame — the door has a doorframe */
+    .frame {
       position: fixed;
-      inset: 0;
-      z-index: 45;
+      inset: 14px;
+      border: 1px solid rgba(22, 54, 92, .28);
       pointer-events: none;
-      opacity: 0.05;
-      mix-blend-mode: multiply;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 5;
     }
 
-    /* ===== The ring ===== */
-    #ringSvg { overflow: visible; }
-    #ringSvg .f { opacity: 0; transition: opacity 0.9s ease var(--fd, 0ms); }
-    #ringSvg.in .f { opacity: 1; }
+    .door {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 40px 20px 34px;
+      text-align: center;
+    }
 
-    /* Radial section labels around the ring */
-    .ring-label {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      font-family: 'Fragment Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.22em;
+    .brand {
+      font-size: 13px;
+      letter-spacing: .42em;
+      text-indent: .42em; /* balance tracking on centered text */
       text-transform: uppercase;
-      color: #2c4a6e;
-      white-space: nowrap;
-      padding: 6px 8px;
-      opacity: 1;
-      visibility: visible;
-      /* returning: quick fade back in, staggered in reverse around the circle */
-      transition: color 0.25s ease,
-                  opacity 0.3s ease var(--ldi, 0ms),
-                  visibility 0s linear var(--ldi, 0ms);
-      pointer-events: auto;
-    }
-    /* leaving the title page: labels wink out first, one after another */
-    #ringNav.out .ring-label {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: color 0.25s ease,
-                  opacity 0.24s ease var(--ldo, 0ms),
-                  visibility 0s linear calc(var(--ldo, 0ms) + 0.24s);
-    }
-    .ring-label:hover, .ring-label:focus-visible { color: #d2402f; }
-    .ring-label.hot { color: #d2402f; } /* the wheel's pick: hover style, forced */
-    .ring-label .n { color: #d2402f; margin-right: 0.5em; }
-
-    /* Spin-the-wheel: quiet mono affordance below the socials */
-    #spinBtn { cursor: pointer; }
-    #spinBtn:disabled { opacity: 0.35; cursor: default; pointer-events: none; }
-
-    /* ===== Reveals: content swims in the direction the fish travel =====
-       Driven by an animation on the independent `translate` property, so it
-       can't be overridden by Tailwind transition utilities or .card hover
-       transitions — every piece honors its --d slot in the sequence. */
-    .rv { opacity: 0; }
-    .rv.on {
-      opacity: 1;
-      animation: rvIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms) backwards;
-    }
-    @keyframes rvIn {
-      from { opacity: 0; translate: -30px 0; }
-      to { opacity: 1; translate: 0 0; }
+      color: var(--ink);
     }
 
-    .mask { display: block; overflow: hidden; }
-    .ml {
-      display: block;
-      transform: translateY(114%);
-      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--d, 0ms) + 60ms);
-    }
-    .mask.on .ml { transform: none; }
+    .brand .dot { color: var(--red); }
 
-    /* ===== Exit gate: a leaving chapter cascades out before the move =====
-       Applied piece-by-piece in reverse document order (--xd delays), so the
-       cards go first and the eyebrow leaves last — the load-in, rewound. */
-    .xg-out, .rv.on.xg-out {
-      animation: rvOut 0.3s cubic-bezier(0.55, 0, 0.85, 0.4) var(--xd, 0ms) forwards;
-    }
-    @keyframes rvOut {
-      to { opacity: 0; translate: 34px 0; }
-    }
-    .mask.xg-out { animation: none; }
-    .mask.xg-out .ml, .mask.on.xg-out .ml {
-      transform: translateY(114%);
-      transition: transform 0.34s cubic-bezier(0.6, 0, 0.8, 0.4) var(--xd, 0ms);
+    .eyebrow {
+      margin-top: 14px;
+      font-size: 12px;
+      font-style: italic;
+      color: rgba(22, 54, 92, .62);
     }
 
-    /* ===== Editorial pieces ===== */
-    .card {
-      background: #f9faf8;
-      border: 1px solid #c6cfd5;
-      border-radius: 6px;
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: #9fb0bc;
-      box-shadow: 0 14px 30px -18px rgba(28, 47, 66, 0.35);
+    /* ---- the wheel ---- */
+    .stage {
+      position: relative;
+      margin-top: 40px;
+      width: min(85vw, 420px);
     }
 
-    .pill {
-      border: 1px solid #b6c2ca;
-      color: #1c2f42;
-      background: #f6f8f6;
-      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    .pointer {
+      position: absolute;
+      top: -34px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      z-index: 3;
+      filter: drop-shadow(0 3px 4px rgba(22, 54, 92, .25));
     }
-    .pill:hover { border-color: #d2402f; color: #d2402f; transform: translateY(-2px); }
 
-    .redlink {
-      color: #2c4a6e;
-      font-weight: 600;
-      text-decoration: underline;
-      text-decoration-color: #d2402f;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 4px;
-      transition: color 0.2s;
-    }
-    .redlink:hover { color: #d2402f; }
+    .pointer svg { display: block; width: 100%; }
 
-    /* Experience rows nudge like a fish darting forward */
-    .xrow { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-    @media (hover: hover) { .xrow:hover { transform: translateX(10px); } }
-
-    /* ===== The traveling school: fish that peel off the ring and swim the page ===== */
-    #school {
-      position: fixed;
-      inset: 0;
+    .wheelbox {
       width: 100%;
-      height: 100%;
-      z-index: 40;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.9s ease;
-      overflow: visible;
-    }
-    #school.on { opacity: 1; }
-    #school .sred { pointer-events: auto; cursor: pointer; }
-
-    /* The ring visibly sheds part of the school when you dive below the hero */
-    #ringSvg.shed .f.peel { opacity: 0; }
-
-    ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: #eef0ed; }
-    ::-webkit-scrollbar-thumb { background: #2c4a6e; border-radius: 2px; }
-    ::selection { background: rgba(210, 64, 47, 0.22); }
-
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid #d2402f;
-      outline-offset: 3px;
-      border-radius: 4px;
+      will-change: transform;
     }
 
-    @media (max-width: 767px) {
-      .ring-center h1 { font-size: clamp(1.4rem, 7.4vmin, 2rem) !important; }
-      .ring-center .motto { display: none; }
-      .ring-center .hero-socials { display: none; }
+    .wheelbox svg { display: block; width: 100%; height: auto; }
+
+    body.armed .stage { cursor: pointer; }
+
+    .stage:focus-visible {
+      outline: 2px dashed var(--red);
+      outline-offset: 10px;
+      border-radius: 50%;
     }
+
+    /* winner beat */
+    .seg { transition: opacity .45s ease; }
+    .settled .seg:not(.win) { opacity: .3; }
+    .settled .seg.win { animation: winpulse .3s ease-in-out 2; }
+
+    @keyframes winpulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.14) saturate(1.2); }
+    }
+
+    /* fish behaviours */
+    .pointer.bob svg { animation: bob 2.6s ease-in-out infinite; }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    .pointer svg.tick { animation: nudge .14s ease-out 1; }
+    @keyframes nudge {
+      0% { transform: rotate(0) translateY(0); }
+      40% { transform: rotate(9deg) translateY(2px); }
+      100% { transform: rotate(0) translateY(0); }
+    }
+
+    .pointer svg.cheer { animation: cheer .55s ease-in-out 1; }
+    @keyframes cheer {
+      0%, 100% { transform: rotate(0); }
+      20% { transform: rotate(-14deg); }
+      45% { transform: rotate(12deg); }
+      70% { transform: rotate(-8deg); }
+    }
+
+    /* ---- copy + controls ---- */
+    .copy {
+      margin-top: 34px;
+      font-size: 13.5px;
+      color: var(--ink);
+      min-height: 1.4em;
+    }
+
+    .copy.result { color: var(--red); }
+
+    .spinbtn {
+      margin-top: 18px;
+      font-family: 'Fragment Mono', monospace;
+      font-size: 13px;
+      letter-spacing: .32em;
+      text-indent: .32em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      padding: 12px 38px;
+      cursor: pointer;
+      transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
+    }
+
+    .spinbtn:hover:not(:disabled),
+    .spinbtn:focus-visible {
+      color: var(--ground);
+      background: var(--red);
+      border-color: var(--red);
+      transform: translateY(-1px);
+    }
+
+    .spinbtn:focus-visible { outline: 2px dashed var(--red); outline-offset: 4px; }
+
+    .spinbtn:disabled {
+      cursor: default;
+      color: rgba(22, 54, 92, .45);
+      border-color: rgba(22, 54, 92, .3);
+      background: transparent;
+      transform: none;
+    }
+
+    .alt {
+      margin-top: 30px;
+      font-size: 12px;
+      color: rgba(22, 54, 92, .62);
+    }
+
+    .alt a {
+      color: var(--ink);
+      text-decoration: none;
+      background-image: linear-gradient(currentColor, currentColor);
+      background-repeat: no-repeat;
+      background-size: 0% 1px;
+      background-position: 0 100%;
+      padding-bottom: 2px;
+      transition: background-size .28s ease;
+    }
+
+    .alt a:hover, .alt a:focus-visible { background-size: 100% 1px; }
+    .alt a:focus-visible { outline: 1px dashed currentColor; outline-offset: 3px; }
+    .alt a.med { color: var(--cobalt); }
+    .alt a.cas { color: var(--pine); }
+    .alt a.rng { color: var(--red); }
+
+    .sr {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    /* load-in */
+    .rise { opacity: 0; transform: translateY(14px); animation: rise .7s ease-out forwards; }
+    .rise.r2 { animation-delay: .12s; }
+    .rise.r3 { animation-delay: .26s; }
+    .rise.r4 { animation-delay: .4s; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
 
     @media (prefers-reduced-motion: reduce) {
-      #ringSvg .f { opacity: 1; transition: none; }
-      #school { display: none; }
-      .rv, .ml, .mask, .motto, .hero-socials, .hero-hint {
-        transition: none !important; animation: none !important;
-        opacity: 1 !important; transform: none !important; translate: none !important;
-      }
-      .ring-label, #ringNav.out .ring-label {
-        transition: none !important; opacity: 1 !important;
-        visibility: visible !important; pointer-events: auto !important;
-      }
-      #spinBtn { display: none !important; } /* RM keeps the plain nav */
-      html { scroll-behavior: auto; }
+      .rise { animation: none; opacity: 1; transform: none; }
+      .pointer.bob svg, .pointer svg.tick, .pointer svg.cheer, .settled .seg.win { animation: none; }
+      .spinbtn, .alt a, .seg { transition: none; }
+    }
+
+    @media (max-height: 700px) {
+      .stage { margin-top: 30px; width: min(80vw, 340px); }
+      .copy { margin-top: 26px; }
     }
   </style>
 </head>
 
 <body>
+  <div class="frame" aria-hidden="true"></div>
 
-  <div id="grain" aria-hidden="true"></div>
+  <main class="door">
+    <h1 class="brand rise">Isabella Andrade<span class="dot">.</span></h1>
+    <p class="eyebrow rise r2" id="eyebrow">( choose your edition )</p>
 
-  <!-- ===== Shared sardine geometry: one school, three tints ===== -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <linearGradient id="gB1" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#17334f"/>
-        <stop offset="0.42" stop-color="#33567a"/>
-        <stop offset="0.6" stop-color="#8ba6ba"/>
-        <stop offset="0.84" stop-color="#ccd8de"/>
-        <stop offset="1" stop-color="#e3eaec"/>
-      </linearGradient>
-      <linearGradient id="gB2" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#2b4a6a"/>
-        <stop offset="0.44" stop-color="#5d7d97"/>
-        <stop offset="0.62" stop-color="#aabfcc"/>
-        <stop offset="1" stop-color="#e8eef0"/>
-      </linearGradient>
-      <linearGradient id="gRed" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#8f2113"/>
-        <stop offset="0.42" stop-color="#c33322"/>
-        <stop offset="0.6" stop-color="#d2402f"/>
-        <stop offset="0.86" stop-color="#ee8a70"/>
-        <stop offset="1" stop-color="#f6b39c"/>
-      </linearGradient>
+    <div class="stage rise r3" id="stage" aria-label="Portfolio wheel">
+      <div class="pointer" id="pointer" aria-hidden="true">
+        <!-- the one red fish, nose down -->
+        <svg viewBox="0 0 60 100" id="fish">
+          <g fill="#d2402f">
+            <path d="M30 22 C22 12 14 5 8 2 C16 8 24 10 28 9 L30 16 L32 9 C36 10 44 8 52 2 C46 5 38 12 30 22 Z"/>
+            <path d="M30 97 C16 72 17 38 30 14 C43 38 44 72 30 97 Z"/>
+            <path d="M19 46 C14 52 12 60 13 66 C17 61 19 54 19 46 Z"/>
+            <path d="M41 46 C46 52 48 60 47 66 C43 61 41 54 41 46 Z"/>
+          </g>
+          <circle cx="25.5" cy="78" r="2.4" fill="#fdf6e9"/>
+        </svg>
+      </div>
 
-      <!-- Sardine, nose pointing right, 100 x 30, centred on (50,15) -->
-      <g id="fishB1">
-        <path d="M14 15 L1 5.5 C4.6 12 4.6 18 1 24.5 Z" fill="#1d3a58"/>
-        <path d="M97 15 C90 8.2 73 3.8 54 4.4 C37 5 19 9.2 9.5 15 C19 20.8 37 25 54 25.6 C73 26.2 90 21.8 97 15 Z" fill="url(#gB1)"/>
-        <path d="M47 5 L54 0.6 L61 5.2 Z" fill="#1d3a58"/>
-        <path d="M43 25.1 L48 29.3 L54 25.4 Z" fill="#2c4a6e" opacity="0.85"/>
-        <path d="M80.5 7.5 C84 11 84 19 80.5 22.5" fill="none" stroke="#16324f" stroke-width="1.1" opacity="0.45"/>
-        <path d="M74 17.2 C70 19.4 65.5 20 62 19.3" fill="none" stroke="#16324f" stroke-width="1.2" opacity="0.35"/>
-        <circle cx="87.5" cy="12.2" r="1.9" fill="#0d1f33"/>
-        <circle cx="88.1" cy="11.6" r="0.6" fill="#eef3f5"/>
-      </g>
-      <g id="fishB2">
-        <path d="M14 15 L1 5.5 C4.6 12 4.6 18 1 24.5 Z" fill="#3a5a78"/>
-        <path d="M97 15 C90 8.2 73 3.8 54 4.4 C37 5 19 9.2 9.5 15 C19 20.8 37 25 54 25.6 C73 26.2 90 21.8 97 15 Z" fill="url(#gB2)"/>
-        <path d="M47 5 L54 0.6 L61 5.2 Z" fill="#3a5a78"/>
-        <path d="M43 25.1 L48 29.3 L54 25.4 Z" fill="#54748e" opacity="0.85"/>
-        <path d="M80.5 7.5 C84 11 84 19 80.5 22.5" fill="none" stroke="#28455f" stroke-width="1.1" opacity="0.45"/>
-        <path d="M74 17.2 C70 19.4 65.5 20 62 19.3" fill="none" stroke="#28455f" stroke-width="1.2" opacity="0.35"/>
-        <circle cx="87.5" cy="12.2" r="1.9" fill="#122740"/>
-        <circle cx="88.1" cy="11.6" r="0.6" fill="#eef3f5"/>
-      </g>
-      <g id="fishR">
-        <path d="M14 15 L1 5.5 C4.6 12 4.6 18 1 24.5 Z" fill="#9c2717"/>
-        <path d="M97 15 C90 8.2 73 3.8 54 4.4 C37 5 19 9.2 9.5 15 C19 20.8 37 25 54 25.6 C73 26.2 90 21.8 97 15 Z" fill="url(#gRed)"/>
-        <path d="M47 5 L54 0.6 L61 5.2 Z" fill="#9c2717"/>
-        <path d="M43 25.1 L48 29.3 L54 25.4 Z" fill="#b53523" opacity="0.9"/>
-        <path d="M80.5 7.5 C84 11 84 19 80.5 22.5" fill="none" stroke="#7c1e10" stroke-width="1.1" opacity="0.5"/>
-        <path d="M74 17.2 C70 19.4 65.5 20 62 19.3" fill="none" stroke="#7c1e10" stroke-width="1.2" opacity="0.4"/>
-        <circle cx="87.5" cy="12.2" r="1.9" fill="#3d0e05"/>
-        <circle cx="88.1" cy="11.6" r="0.6" fill="#fdf1ec"/>
-      </g>
-    </defs>
-  </svg>
+      <div class="wheelbox" id="wheelbox">
+        <svg viewBox="-220 -220 440 440" id="wheel" role="img" aria-label="A wheel with three segments: Mediterranean, Cascade, and Ring — the three editions of this portfolio.">
+          <defs>
+            <!-- Mediterranean: cobalt awning stripes on cream -->
+            <pattern id="p-med" patternUnits="userSpaceOnUse" width="30" height="30" patternTransform="rotate(-30)">
+              <rect width="30" height="30" fill="#fdf6e9"/>
+              <rect width="13" height="30" fill="#1d59a8"/>
+            </pattern>
+            <!-- Cascade: pine editorial rules on warm paper -->
+            <pattern id="p-cas" patternUnits="userSpaceOnUse" width="20" height="15">
+              <rect width="20" height="15" fill="#F5F4EF"/>
+              <rect y="13.5" width="20" height="1" fill="#2E5941" opacity=".28"/>
+            </pattern>
+            <!-- a little steel sardine for the Ring segment -->
+            <g id="srd">
+              <path d="M0 0 C7 -4.5 16 -4.5 22 0 C16 4.5 7 4.5 0 0 Z" fill="#2c4a6e"/>
+              <path d="M22 0 L29 -4.5 L26.5 0 L29 4.5 Z" fill="#2c4a6e"/>
+              <circle cx="5" cy="-0.8" r="1" fill="#e9ecea"/>
+            </g>
+            <clipPath id="c0"><path d="M0 0 L0 -193 A193 193 0 0 1 167.1 96.5 Z"/></clipPath>
+            <clipPath id="c1"><path d="M0 0 L167.1 96.5 A193 193 0 0 1 -167.1 96.5 Z"/></clipPath>
+            <clipPath id="c2"><path d="M0 0 L-167.1 96.5 A193 193 0 0 1 0 -193 Z"/></clipPath>
+          </defs>
 
+          <!-- rim -->
+          <circle r="204" fill="none" stroke="#16365c" stroke-width="2"/>
+          <circle r="197" fill="#f6f3ea" stroke="none"/>
 
-  <main>
+          <!-- segment 0 · MEDITERRANEAN · top-right -->
+          <g class="seg" id="seg0">
+            <path d="M0 0 L0 -193 A193 193 0 0 1 167.1 96.5 Z" fill="url(#p-med)" stroke="#16365c" stroke-width="2" stroke-linejoin="round"/>
+            <g clip-path="url(#c0)">
+              <g transform="rotate(-30) translate(112 0)">
+                <rect x="-72" y="-16" width="144" height="32" rx="16" fill="#fffdf6" stroke="#1d59a8" stroke-width="1.4"/>
+                <text x="0" y="5.5" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="16.5" letter-spacing="1" fill="#1d59a8">Mediterranean</text>
+              </g>
+            </g>
+          </g>
 
-  <!-- ===== HERO: the ring ===== -->
-  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center px-6 py-14">
-    <div id="ringBox" class="relative shrink-0" style="width:min(84vmin,720px);height:min(84vmin,720px)">
+          <!-- segment 1 · CASCADE · bottom -->
+          <g class="seg" id="seg1">
+            <path d="M0 0 L167.1 96.5 A193 193 0 0 1 -167.1 96.5 Z" fill="url(#p-cas)" stroke="#16365c" stroke-width="2" stroke-linejoin="round"/>
+            <g clip-path="url(#c1)">
+              <g transform="translate(0 118)">
+                <rect x="-72" y="-16" width="144" height="32" rx="2" fill="#F5F4EF" stroke="#2E5941" stroke-width="1.2"/>
+                <line x1="-58" y1="-10" x2="58" y2="-10" stroke="#2E5941" stroke-width="1" opacity=".5"/>
+                <line x1="-58" y1="11.5" x2="58" y2="11.5" stroke="#2E5941" stroke-width="1" opacity=".5"/>
+                <text x="0" y="6.5" text-anchor="middle" font-family="'Instrument Serif', serif" font-size="19" letter-spacing="1.5" fill="#2E5941">Cascade</text>
+              </g>
+            </g>
+          </g>
 
-      <svg id="ringSvg" class="absolute inset-0 w-full h-full" viewBox="0 0 800 800" aria-hidden="true">
-        <g id="gIn"></g>
-        <g id="gOut"></g>
-      </svg>
+          <!-- segment 2 · RING · top-left -->
+          <g class="seg" id="seg2">
+            <path d="M0 0 L-167.1 96.5 A193 193 0 0 1 0 -193 Z" fill="#e9ecea" stroke="#16365c" stroke-width="2" stroke-linejoin="round"/>
+            <g clip-path="url(#c2)">
+              <!-- a small school of steel sardines -->
+              <use href="#srd" transform="translate(-142 40) rotate(-24)"/>
+              <use href="#srd" transform="translate(-150 -22) rotate(-28) scale(.85)"/>
+              <use href="#srd" transform="translate(-96 -102) rotate(-38)"/>
+              <use href="#srd" transform="translate(-52 -150) rotate(-52) scale(.9)"/>
+              <use href="#srd" transform="translate(-58 -66) rotate(-35) scale(.75)"/>
+              <use href="#srd" transform="translate(-116 -58) rotate(-30) scale(1.05)"/>
+              <use href="#srd" transform="translate(-24 -108) rotate(-55) scale(.7)"/>
+              <use href="#srd" transform="translate(-88 6) rotate(-20) scale(.8)"/>
+              <g transform="rotate(30) translate(-112 0)">
+                <rect x="-58" y="-16" width="116" height="32" rx="16" fill="#fdfdfc" stroke="#2c4a6e" stroke-width="1.2"/>
+                <text x="0" y="6" text-anchor="middle" font-family="Gloock, serif" font-size="17" letter-spacing="2" fill="#1c2f42">Ring</text>
+              </g>
+            </g>
+          </g>
 
-      <!-- Radial contents: hover a chapter and the red fish swims to it -->
-      <nav id="ringNav" aria-label="Contents" class="absolute inset-0 hidden md:block pointer-events-none"></nav>
-
-      <!-- The still centre of the school -->
-      <div class="ring-center absolute inset-0 flex flex-col items-center justify-center text-center px-6 pointer-events-none">
-        <p class="rv on font-mono text-[9px] tracking-[0.18em] uppercase text-steel mb-4 max-w-[24ch]" style="opacity:1;transform:none">
-          Harvard College · CS &amp; Economics
-        </p>
-        <h1 class="font-display text-ink leading-[1.02] tracking-tight" style="font-size:clamp(1.5rem,5.4vmin,3.2rem)">
-          <span class="mask"><span class="ml">Isabella</span></span>
-          <span class="mask"><span class="ml" style="transition-delay:0.22s">Andrade</span></span>
-        </h1>
-        <p class="motto font-sans italic text-steel text-sm md:text-base mt-4 max-w-[26ch]">
-          Student founder · AI product builder · Venture fellow
-        </p>
-        <div class="hero-socials flex items-center gap-3 mt-5 pointer-events-auto">
-          <a href="https://github.com/ilandrade" target="_blank" rel="noopener" aria-label="GitHub"
-             class="w-9 h-9 rounded-full border border-silver text-steel hover:text-red hover:border-red transition-colors flex items-center justify-center bg-ground/70">
-            <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-          </a>
-          <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" rel="noopener" aria-label="LinkedIn"
-             class="w-9 h-9 rounded-full border border-silver text-steel hover:text-red hover:border-red transition-colors flex items-center justify-center bg-ground/70">
-            <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
-          </a>
-        </div>
-        <button id="spinBtn" type="button"
-                class="hero-spin hidden md:inline-flex items-center gap-1.5 mt-6 pointer-events-auto font-mono text-[10px] tracking-[0.22em] uppercase text-steel hover:text-red transition-colors"
-                aria-label="Spin the wheel — let the school pick a chapter">
-          <span aria-hidden="true">↻</span> spin the wheel
-        </button>
+          <!-- hub -->
+          <circle r="37" fill="#f6f3ea" stroke="#16365c" stroke-width="2"/>
+          <circle r="30" fill="#16365c"/>
+          <text x="0" y="6" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-style="italic" font-size="17" fill="#fdf6e9">IA</text>
+        </svg>
       </div>
     </div>
 
-    <!-- Mobile contents (the radial labels need room) -->
-    <nav aria-label="Contents" class="hero-hint md:hidden mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 px-4">
-      <a href="#profile" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">01</span> Profile</a>
-      <a href="#experience" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">02</span> Experience</a>
-      <a href="#projects" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">03</span> Projects</a>
-      <a href="#leadership" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">04</span> Leadership</a>
-      <a href="#education" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">05</span> Education</a>
-      <a href="#writing" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">06</span> Writing</a>
-      <a href="#contact" class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel"><span class="text-red">07</span> Contact</a>
-    </nav>
-  </section>
+    <p class="copy rise r4" id="copy">three portfolios, one fish — choose your edition</p>
+    <button class="spinbtn rise r4" id="spinbtn" type="button" hidden>Spin</button>
 
+    <p class="alt rise r4">or choose your own current:
+      <a class="med" href="/mediterranean.html">mediterranean</a> ·
+      <a class="cas" href="/cascade.html">cascade</a> ·
+      <a class="rng" href="/ring.html">ring</a>
+    </p>
 
-  <!-- ===== 01 PROFILE ===== -->
-  <section id="profile" class="px-6 md:px-16 py-24 md:py-32">
-    <div class="max-w-5xl mx-auto">
-      <header class="mb-12 md:mb-16">
-        <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">01</span> · Profile</p>
-        <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">The one red fish</span></span></h2>
-      </header>
-
-      <div class="md:grid md:grid-cols-[1fr_280px] md:gap-14 items-start">
-        <div>
-          <p class="rv font-display text-[clamp(1.25rem,2.4vw,1.7rem)] leading-snug text-ink mb-6 max-w-2xl">
-            I'm a Harvard student pursuing a double A.B. in Computer Science and Economics. I build AI tools, research their failure modes, and study the markets they're reshaping.
-          </p>
-          <p class="rv text-ink/80 leading-relaxed mb-6 max-w-2xl" style="--d:100ms">
-            Currently a student founder with TekTrek in San Francisco and an incoming Product Experience Specialist at Lovable — with past lives in software engineering at Verapath, healthcare LLM research at Harvard Medical School, and venture fellowships at Glade Brook and Milemark.
-          </p>
-          <p class="rv font-mono text-[11px] tracking-[0.14em] text-steel mb-12 max-w-2xl" style="--d:200ms">
-            every shoal has one fish that swims its own way. <span class="text-red">( hello — that's me )</span>
-          </p>
-
-          <!-- Vitals -->
-          <div class="rv grid grid-cols-2 gap-x-8 gap-y-7 mb-14 max-w-xl" style="--d:250ms">
-            <div>
-              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-steel mb-1.5">Location</p>
-              <p class="text-sm font-medium">Cambridge, MA</p>
-            </div>
-            <div>
-              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-steel mb-1.5">University</p>
-              <p class="text-sm font-medium">Harvard College</p>
-            </div>
-            <div>
-              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-steel mb-1.5">Email</p>
-              <p class="text-sm font-medium break-all"><a href="mailto:isabellaandrade@college.harvard.edu" class="hover:text-red transition-colors">isabellaandrade@college.harvard.edu</a></p>
-            </div>
-            <div>
-              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-steel mb-1.5">Focus</p>
-              <p class="text-sm font-medium">AI Tooling · Venture · Product</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="rv card p-3 rotate-[-1.5deg] hover:rotate-0 transition-transform duration-500 mb-14 md:mb-0 max-w-[300px]" style="--d:150ms">
-          <img src="assets/img/profile-img2.jpg" alt="Isabella Andrade" class="w-full rounded object-cover">
-          <p class="font-mono text-[10px] tracking-[0.2em] text-steel text-center pt-2 pb-1">the red one, on land</p>
-        </div>
-      </div>
-
-      <!-- Skills -->
-      <div class="grid md:grid-cols-3 gap-10 mt-2">
-        <div class="rv" style="--d:0ms">
-          <h3 class="font-mono text-[10px] tracking-[0.22em] uppercase text-steel mb-4">Languages &amp; Data</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Python</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">C#</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">C++</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">R</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">HTML/CSS</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">SQL</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Excel</span>
-          </div>
-        </div>
-        <div class="rv" style="--d:100ms">
-          <h3 class="font-mono text-[10px] tracking-[0.22em] uppercase text-steel mb-4">Web &amp; Tools</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">React</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Next.js</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Blazor</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Razor Pages</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Git &amp; GitHub</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Azure DevOps</span>
-          </div>
-        </div>
-        <div class="rv" style="--d:200ms">
-          <h3 class="font-mono text-[10px] tracking-[0.22em] uppercase text-steel mb-4">AI Tools</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Claude Code</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Codex</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Windsurf</span>
-            <span class="pill text-[13px] px-3.5 py-1 rounded-full">Lovable</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== 02 EXPERIENCE ===== -->
-  <section id="experience" class="px-6 md:px-16 py-24 md:py-32">
-    <div class="max-w-5xl mx-auto">
-      <header class="mb-12 md:mb-16">
-        <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">02</span> · Experience</p>
-        <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Where I've swum</span></span></h2>
-      </header>
-
-      <div>
-
-        <!-- Lovable -->
-        <div class="rv xrow grid md:grid-cols-[170px_1fr] gap-3 md:gap-10 py-9 border-t border-silver">
-          <p class="font-mono text-xs text-steel pt-1">Aug 2026</p>
-          <div>
-            <h3 class="font-display text-xl text-ink mb-1">Incoming Product Experience Specialist</h3>
-            <a href="https://lovable.dev/" target="_blank" rel="noopener" class="redlink text-sm mb-4 inline-block">Lovable ↗</a>
-            <ul class="space-y-2.5 text-ink/80 text-sm leading-relaxed">
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Joining Lovable to work at the edge of AI-assisted software creation.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- TekTrek -->
-        <div class="rv xrow grid md:grid-cols-[170px_1fr] gap-3 md:gap-10 py-9 border-t border-silver">
-          <p class="font-mono text-xs text-steel pt-1">Jun 2026 – Present</p>
-          <div>
-            <h3 class="font-display text-xl text-ink mb-1">Student Founder</h3>
-            <a href="https://tektrek.com/" target="_blank" rel="noopener" class="redlink text-sm mb-4 inline-block">TekTrek ↗</a>
-            <ul class="space-y-2.5 text-ink/80 text-sm leading-relaxed">
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Selected as one of forty young builders from MIT, Harvard, and Princeton — out of 400+ applicants — to spend the summer building in San Francisco.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Glade Brook -->
-        <div class="rv xrow grid md:grid-cols-[170px_1fr] gap-3 md:gap-10 py-9 border-t border-silver">
-          <p class="font-mono text-xs text-steel pt-1">Mar – May 2026</p>
-          <div>
-            <h3 class="font-display text-xl text-ink mb-1">Spring Fellow</h3>
-            <a href="https://www.gladebrookcapital.com/" target="_blank" rel="noopener" class="redlink text-sm mb-4 inline-block">Glade Brook Capital ↗</a>
-            <ul class="space-y-2.5 text-ink/80 text-sm leading-relaxed">
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Built an internal knowledge-management tool to centralize firm-wide research — owned it from problem identification through deployment.</li>
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Produced a research brief on AI in the sciences for investment partners, including a deep dive on orbital data center technology for a portfolio company.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Y Lab -->
-        <div class="rv xrow grid md:grid-cols-[170px_1fr] gap-3 md:gap-10 py-9 border-t border-silver">
-          <p class="font-mono text-xs text-steel pt-1">Jan – Jun 2026</p>
-          <div>
-            <h3 class="font-display text-xl text-ink mb-1">Research Assistant</h3>
-            <a href="https://ylab.top/" target="_blank" rel="noopener" class="redlink text-sm mb-4 inline-block">Y Lab, Harvard Medical School ↗</a>
-            <ul class="space-y-2.5 text-ink/80 text-sm leading-relaxed">
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Ran a PRISMA-guided systematic review on demographic bias in healthcare LLMs — screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.</li>
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Translated technical ML findings for a clinical audience; co-authoring a manuscript for publication this fall.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Verapath -->
-        <div class="rv xrow grid md:grid-cols-[170px_1fr] gap-3 md:gap-10 py-9 border-t border-silver">
-          <p class="font-mono text-xs text-steel pt-1">Jun 2024 – Jan 2026</p>
-          <div>
-            <h3 class="font-display text-xl text-ink mb-1">Software Engineer Intern</h3>
-            <a href="https://verapath.com/" target="_blank" rel="noopener" class="redlink text-sm mb-4 inline-block">Verapath ↗</a>
-            <ul class="space-y-2.5 text-ink/80 text-sm leading-relaxed">
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Prototyped prompt-based agents with OpenAI Codex as a pair-programming tool, validating outputs against structured evaluation criteria and stakeholder feedback.</li>
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Improved front-end responsiveness by auditing stylesheet load order, refactoring media queries, and resolving UI issues across the full stack.</li>
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Translated product requirements into scoped work items in Azure DevOps, managing execution and surfacing blockers early.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Milemark -->
-        <div class="rv xrow grid md:grid-cols-[170px_1fr] gap-3 md:gap-10 py-9 border-t border-silver">
-          <p class="font-mono text-xs text-steel pt-1">May – Aug 2025</p>
-          <div>
-            <h3 class="font-display text-xl text-ink mb-1">Venture Fellow</h3>
-            <a href="https://www.milemark.capital/" target="_blank" rel="noopener" class="redlink text-sm mb-4 inline-block">Milemark Capital ↗</a>
-            <ul class="space-y-2.5 text-ink/80 text-sm leading-relaxed">
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Tracked agentic AI adoption across healthcare, fintech, and agtech; synthesized patterns into concise written briefs for investors.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Goldman Sachs -->
-        <div class="rv xrow grid md:grid-cols-[170px_1fr] gap-3 md:gap-10 py-9 border-t border-b border-silver">
-          <p class="font-mono text-xs text-steel pt-1">Sep 2024 – Jan 2025</p>
-          <div>
-            <h3 class="font-display text-xl text-ink mb-1">Engineering Leader</h3>
-            <p class="text-steel text-sm font-semibold mb-4">Goldman Sachs Emerging Leaders Program</p>
-            <ul class="space-y-2.5 text-ink/80 text-sm leading-relaxed">
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Developed a mutual fund calculator with Spring Boot, MongoDB, and Next.js — modeled projected returns using CAPM and compound interest.</li>
-              <li class="flex gap-3"><span class="text-red shrink-0 mt-0.5">›</span>Presented the project at the Goldman Sachs Dallas summit.</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== 03 PROJECTS ===== -->
-  <section id="projects" class="px-6 md:px-16 py-24 md:py-32">
-    <div class="max-w-5xl mx-auto">
-      <header class="mb-12 md:mb-16">
-        <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">03</span> · Projects</p>
-        <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Things I've built</span></span></h2>
-      </header>
-
-      <div class="grid md:grid-cols-2 gap-7">
-
-        <div class="rv card p-7" style="--d:0ms">
-          <div class="flex items-start justify-between gap-3 mb-5">
-            <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-red">Redesign</p>
-            <div class="flex gap-2">
-              <span class="font-mono text-[10px] text-steel border border-silver px-2.5 py-0.5 rounded-full">HTML</span>
-              <span class="font-mono text-[10px] text-steel border border-silver px-2.5 py-0.5 rounded-full">JavaScript</span>
-            </div>
-          </div>
-          <h3 class="font-display text-xl text-ink mb-2">Passio Go — Harvard Upgrade</h3>
-          <p class="text-ink/80 text-sm leading-relaxed mb-5">Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.</p>
-          <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" rel="noopener" class="redlink text-sm">View project ↗</a>
-        </div>
-
-        <div class="rv card p-7" style="--d:120ms">
-          <div class="flex items-start justify-between gap-3 mb-5">
-            <p class="font-mono text-[10px] tracking-[0.2em] uppercase text-red">This site</p>
-            <div class="flex gap-2">
-              <span class="font-mono text-[10px] text-steel border border-silver px-2.5 py-0.5 rounded-full">SVG</span>
-              <span class="font-mono text-[10px] text-steel border border-silver px-2.5 py-0.5 rounded-full">Vanilla JS</span>
-            </div>
-          </div>
-          <h3 class="font-display text-xl text-ink mb-2">This Site — A School of Editions</h3>
-          <p class="text-ink/80 text-sm leading-relaxed mb-5">One portfolio, several editions: a Mediterranean summer, an editorial cascade, and this ring of sardines — all hand-built with vanilla JS, no frameworks.</p>
-          <div class="flex flex-wrap gap-x-6 gap-y-2">
-            <a href="mediterranean.html" class="redlink text-sm">Mediterranean edition ↗</a>
-            <a href="cascade.html" class="redlink text-sm">Cascade edition ↗</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== 04 LEADERSHIP ===== -->
-  <section id="leadership" class="px-6 md:px-16 py-24 md:py-32">
-    <div class="max-w-5xl mx-auto">
-      <header class="mb-12 md:mb-16">
-        <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">04</span> · Leadership</p>
-        <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Leading the school</span></span></h2>
-      </header>
-
-      <div class="grid md:grid-cols-2 gap-7">
-
-        <div class="rv card p-7" style="--d:0ms">
-          <p class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel mb-4">Mar 2026 – Present</p>
-          <h3 class="font-display text-lg text-ink mb-1.5">Anchor Initiative Student Lead</h3>
-          <a href="https://massaicoalition.com/students" target="_blank" rel="noopener" class="redlink text-sm mb-4 inline-block">Massachusetts AI Coalition ↗</a>
-          <p class="text-ink/80 text-sm leading-relaxed">Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.</p>
-        </div>
-
-        <div class="rv card p-7" style="--d:110ms">
-          <p class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel mb-4">Jul 2025 – Present</p>
-          <h3 class="font-display text-lg text-ink mb-1.5">SCOUT Program Co-Director</h3>
-          <p class="text-steel text-sm font-semibold mb-4">Harvard Undergraduate Clean Energy Group</p>
-          <p class="text-ink/80 text-sm leading-relaxed">Founded HUCEG's first VC education program from scratch — designed the curriculum, recruited analysts, and run research workflows across four clean-energy verticals as the cohort's primary point of contact.</p>
-        </div>
-
-        <div class="rv card p-7" style="--d:220ms">
-          <p class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel mb-4">Jul 2024 – Present</p>
-          <h3 class="font-display text-lg text-ink mb-1.5">Junior Outreach Representative</h3>
-          <p class="text-steel text-sm font-semibold mb-4">Society of Hispanic Professional Engineers (SHPE)</p>
-          <p class="text-ink/80 text-sm leading-relaxed">Planned and executed outreach and service events with campus and community partners; managed logistics to support engagement with underrepresented students in STEM.</p>
-        </div>
-
-        <div class="rv card p-7" style="--d:330ms">
-          <p class="font-mono text-[10px] tracking-[0.18em] uppercase text-steel mb-4">Jul – Aug 2023</p>
-          <h3 class="font-display text-lg text-ink mb-1.5">Technical Fellowship</h3>
-          <p class="text-steel text-sm font-semibold mb-4">Harvard AI Safety Team</p>
-          <p class="text-ink/80 text-sm leading-relaxed">Synthesized research on interpretability, RLHF, goal misgeneralization, and eliciting latent knowledge; shared takeaways with a 5-member cohort over 8 weeks.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== 05 EDUCATION ===== -->
-  <section id="education" class="px-6 md:px-16 py-24 md:py-32">
-    <div class="max-w-5xl mx-auto">
-      <header class="mb-12 md:mb-16">
-        <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">05</span> · Education</p>
-        <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Learning to navigate</span></span></h2>
-      </header>
-
-      <div class="rv card p-8 md:p-10">
-        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-7">
-          <div>
-            <h3 class="font-display text-2xl text-ink mb-1.5">A.B. Computer Science &amp; Economics</h3>
-            <p class="text-steel text-sm font-semibold">Harvard University</p>
-          </div>
-          <p class="font-mono text-xs text-steel shrink-0 md:pt-2">Expected May 2027 · Cambridge, MA</p>
-        </div>
-        <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-steel mb-4">Relevant Coursework</p>
-        <div class="flex flex-wrap gap-2">
-          <span class="pill text-xs px-3.5 py-1.5 rounded-full">Data Structures &amp; Algorithms</span>
-          <span class="pill text-xs px-3.5 py-1.5 rounded-full">Systems Programming &amp; Machine Organization</span>
-          <span class="pill text-xs px-3.5 py-1.5 rounded-full">Economics &amp; Computation</span>
-          <span class="pill text-xs px-3.5 py-1.5 rounded-full">Probability with Engineering Applications</span>
-          <span class="pill text-xs px-3.5 py-1.5 rounded-full">Linear Algebra</span>
-          <span class="pill text-xs px-3.5 py-1.5 rounded-full">Discrete Mathematics</span>
-          <span class="pill text-xs px-3.5 py-1.5 rounded-full">Calculus 2</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== 06 WRITING ===== -->
-  <section id="writing" class="px-6 md:px-16 py-24 md:py-32">
-    <div class="max-w-5xl mx-auto">
-      <header class="mb-12 md:mb-16">
-        <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-steel mb-3"><span class="text-red">06</span> · Writing</p>
-        <h2 class="font-display text-ink text-[clamp(2.2rem,5vw,3.4rem)] leading-tight"><span class="mask"><span class="ml">Notes from the water</span></span></h2>
-      </header>
-
-      <div class="space-y-7">
-
-        <div class="rv card p-7 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-            <div>
-              <h3 class="font-display text-xl text-ink mb-1.5">Political Voices: Deepfakes and the Future of Democracy</h3>
-              <p class="text-steel text-sm font-semibold">CS 1050: Privacy and Surveillance</p>
-            </div>
-            <a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank" rel="noopener" class="redlink text-sm shrink-0">Read paper ↗</a>
-          </div>
-          <p class="text-ink/80 text-sm leading-relaxed">Argues that voice-cloning deepfakes pose a fundamental threat to democratic communication that existing legal frameworks and reactive policy measures cannot adequately address. Examines the growing tension between AI and privacy — moving beyond individual personhood to focus on AI's broader impact on democratic systems.</p>
-        </div>
-
-        <div class="rv card p-7 md:p-8" style="--d:120ms">
-          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-            <div>
-              <h3 class="font-display text-xl text-ink mb-1.5">Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</h3>
-              <p class="text-steel text-sm font-semibold">Economics 1343: The Economics of Development and Global Health</p>
-            </div>
-            <a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank" rel="noopener" class="redlink text-sm shrink-0">Read paper ↗</a>
-          </div>
-          <p class="text-ink/80 text-sm leading-relaxed">Examines how AI diagnostic tools validated in high-income settings fail catastrophically when deployed in low-income countries. Through two cases — CAD4TB (TB detection in sub-Saharan Africa) and First-Derm (dermatology AI in Uganda, with a 52.9 percentage point accuracy collapse) — the paper argues that absent rigorous local validation, algorithmic bias becomes a structural health equity crisis.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
+    <p class="sr" role="status" aria-live="polite" id="status"></p>
   </main>
 
-
-  <!-- ===== 07 CONTACT ===== -->
-  <section id="contact" class="bg-deep text-ground px-6 md:px-16 py-24 md:py-32 relative z-10">
-    <div class="max-w-5xl mx-auto">
-      <p class="rv font-mono text-[11px] tracking-[0.3em] uppercase text-ground/60 mb-6"><span class="text-red">07</span> · Contact</p>
-      <h2 class="font-display text-[clamp(2.4rem,6.5vw,5rem)] leading-[1.02] mb-9 text-ground"><span class="mask"><span class="ml">Swim against the current with me.</span></span></h2>
-      <a href="mailto:isabellaandrade@college.harvard.edu"
-         class="rv font-display text-lg md:text-2xl underline decoration-red decoration-2 underline-offset-8 hover:text-red transition-colors break-all inline-block">
-        isabellaandrade@college.harvard.edu
-      </a>
-      <div class="rv flex gap-5 mt-10" style="--d:120ms">
-        <a href="https://github.com/ilandrade" target="_blank" rel="noopener" aria-label="GitHub" class="text-ground/80 hover:text-red transition-colors">
-          <svg viewBox="0 0 16 16" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-        </a>
-        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-ground/80 hover:text-red transition-colors">
-          <svg viewBox="0 0 16 16" width="21" height="21" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
-        </a>
-      </div>
-      <p class="rv mt-12 font-mono text-[11px] tracking-[0.25em] uppercase text-ground/50" style="--d:200ms">Cambridge, MA · Harvard College · AI Tooling · Venture · Product</p>
-      <p class="rv mt-5 font-mono text-[11px] tracking-[0.14em] text-ground/50" style="--d:260ms">prefer the riviera? → <a href="mediterranean.html" class="text-ground/70 underline decoration-red decoration-1 underline-offset-4 hover:text-red transition-colors">the mediterranean edition</a></p>
-    </div>
-  </section>
-
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="px-6 py-10 text-center relative z-10">
-    <p class="font-display text-lg text-ink mb-3">Isabella Andrade<span class="text-red">.</span></p>
-    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
-      <a href="mediterranean.html" class="font-mono text-[11px] tracking-[0.18em] uppercase text-steel hover:text-red transition-colors underline decoration-red decoration-1 underline-offset-4">Mediterranean edition</a>
-      <a href="cascade.html" class="font-mono text-[11px] tracking-[0.18em] uppercase text-steel hover:text-red transition-colors underline decoration-red decoration-1 underline-offset-4">Cascade edition</a>
-    </div>
-    <a href="#hero" class="font-mono text-[10px] tracking-[0.2em] text-steel/70 hover:text-red transition-colors">( swim back up )</a>
-  </footer>
-
-
-  <!-- ===== The traveling school: fish shed from the ring swim the page with you ===== -->
-  <svg id="school" aria-hidden="true"></svg>
-
-
-  <!-- ===== SCRIPTS ===== -->
   <script>
-    const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const NS = 'http://www.w3.org/2000/svg';
-    const norm = a => ((a % 360) + 360) % 360;
-    const shortest = (target, cur) => norm(target - cur + 180) - 180;
+    (function () {
+      'use strict';
 
-    // Deterministic randomness so the school always assembles the same way
-    function mulberry32(seed) {
-      return function () {
-        seed |= 0; seed = seed + 0x6D2B79F5 | 0;
-        let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-        return ((t ^ t >>> 14) >>> 0) / 4294967296;
-      };
-    }
+      var editions = [
+        { name: 'Mediterranean', href: '/mediterranean.html', line: 'today you’re riviera-bound →' },
+        { name: 'Cascade',       href: '/cascade.html',       line: 'today you’re deep in the chapters →' },
+        { name: 'Ring',          href: '/ring.html',          line: 'today you swim with the school →' }
+      ];
 
-    /* ===== Build the ring ===== */
-    const gOut = document.getElementById('gOut');
-    const gIn = document.getElementById('gIn');
-    const ringSvg = document.getElementById('ringSvg');
-    let thetaRed = 0; // the red fish's angle inside the outer group
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return; // static triptych: the direct links are the primary action
 
-    (function buildRing() {
-      const R = mulberry32(20260711);
-      let redG = null;
-      const mk = (parent, sym, th, r, s, jr, fd, peel) => {
-        const g = document.createElementNS(NS, 'g');
-        g.setAttribute('class', 'f' + (peel ? ' peel' : ''));
-        g.style.setProperty('--fd', fd + 'ms');
-        const u = document.createElementNS(NS, 'use');
-        u.setAttribute('href', '#' + sym);
-        u.setAttribute('transform',
-          `translate(400 400) rotate(${th}) translate(${r} 0) rotate(${90 + jr}) scale(${s}) translate(-50 -15)`);
-        g.appendChild(u);
-        parent.appendChild(g);
-        return g;
-      };
-      const nO = 28, redIdx = 6;
-      for (let i = 0; i < nO; i++) {
-        const th = i * (360 / nO) + (R() - 0.5) * 6;
-        const r = 302 + (R() - 0.5) * 34;
-        const s = 0.72 + R() * 0.3;
-        const jr = (R() - 0.5) * 10;
-        if (i === redIdx) {
-          thetaRed = th;
-          redG = mk(gOut, 'fishR', th, r, Math.max(s, 0.9), jr, i * 30, true);
-        } else {
-          mk(gOut, R() < 0.5 ? 'fishB1' : 'fishB2', th, r, s, jr, i * 30, i % 2 === 0);
+      var stage    = document.getElementById('stage');
+      var wheelbox = document.getElementById('wheelbox');
+      var pointer  = document.getElementById('pointer');
+      var fish     = document.getElementById('fish');
+      var btn      = document.getElementById('spinbtn');
+      var copy     = document.getElementById('copy');
+      var eyebrow  = document.getElementById('eyebrow');
+      var status   = document.getElementById('status');
+
+      // arm the door
+      document.body.classList.add('armed');
+      btn.hidden = false;
+      eyebrow.textContent = '( spin to enter )';
+      copy.textContent = 'three portfolios, one fish — spin for today’s edition';
+      pointer.classList.add('bob');
+      stage.setAttribute('role', 'button');
+      stage.setAttribute('tabindex', '0');
+      stage.setAttribute('aria-label', 'Spin the wheel to pick a portfolio edition');
+
+      var spun = false;
+
+      function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+      function spin() {
+        if (spun) return;
+        spun = true;
+
+        btn.disabled = true;
+        btn.setAttribute('aria-disabled', 'true');
+        btn.textContent = 'round she goes…';
+        stage.setAttribute('aria-disabled', 'true');
+        pointer.classList.remove('bob');
+        status.textContent = 'Spinning the wheel…';
+
+        // uniform-random winner; land the pointer well inside the segment
+        var w = Math.floor(Math.random() * 3);
+        var r = 18 + Math.random() * 84;                       // degrees into the segment (margin from edges)
+        var revs = 3 + Math.floor(Math.random() * 3);          // 3–5 full revolutions
+        var total = 360 * revs + ((360 - (120 * w + r)) % 360);
+        var duration = 3400 + Math.random() * 700;
+
+        var start = null;
+        var lastTick = 0;
+
+        function frame(ts) {
+          if (start === null) start = ts;
+          var t = Math.min((ts - start) / duration, 1);
+          var th = total * easeOutQuart(t);
+          wheelbox.style.transform = 'rotate(' + th + 'deg)';
+
+          // a segment boundary slides past the fish every 120°
+          var tickIndex = Math.floor(th / 120);
+          if (tickIndex > lastTick) {
+            lastTick = tickIndex;
+            fish.classList.remove('tick');
+            void fish.getBoundingClientRect();
+            fish.classList.add('tick');
+          }
+
+          if (t < 1) { requestAnimationFrame(frame); }
+          else { settle(w, total); }
         }
+        requestAnimationFrame(frame);
       }
-      if (redG) gOut.appendChild(redG); // the red fish swims on top
-      const nI = 18;
-      for (let i = 0; i < nI; i++) {
-        const th = i * (360 / nI) + (R() - 0.5) * 8;
-        const r = 214 + (R() - 0.5) * 26;
-        const s = 0.56 + R() * 0.26;
-        mk(gIn, R() < 0.5 ? 'fishB1' : 'fishB2', th, r, s, (R() - 0.5) * 12, 280 + i * 30, i % 3 === 0);
+
+      function settle(w, total) {
+        var ed = editions[w];
+        wheelbox.classList.add('settled');
+        document.getElementById('seg' + w).classList.add('win');
+        fish.classList.remove('tick');
+        void fish.getBoundingClientRect();
+        fish.classList.add('cheer');
+        copy.textContent = ed.line;
+        copy.classList.add('result');
+        btn.textContent = ed.name.toLowerCase() + ' it is';
+        status.textContent = 'The wheel landed on ' + ed.name + '. Taking you there.';
+        window.__result = { winner: w, name: ed.name, rotation: total % 360 };
+        setTimeout(function () { window.location.href = ed.href; }, 850);
       }
-      requestAnimationFrame(() => requestAnimationFrame(() => ringSvg.classList.add('in')));
+
+      btn.addEventListener('click', spin);
+      stage.addEventListener('click', spin);
+      stage.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          spin();
+        }
+      });
     })();
-
-    /* ===== Radial contents around the ring ===== */
-    const SECTIONS = [
-      ['profile', 'Profile'], ['experience', 'Experience'], ['projects', 'Projects'],
-      ['leadership', 'Leadership'], ['education', 'Education'], ['writing', 'Writing'],
-      ['contact', 'Contact']
-    ];
-    let hoverTarget = null;
-    let spinAnim = null;   // in-flight wheel spin: { t0, dur, a0, dA, a0In, dAIn, idx, finalA }
-    let spinPhase = null;  // 'spin' | 'land' | 'nav' | null — a spin suppresses the hero gate
-    const ringNav = document.getElementById('ringNav');
-    (function buildNav() {
-      SECTIONS.forEach(([id, name], i) => {
-        const phi = 270 + i * (360 / SECTIONS.length); // start at the top, clockwise
-        const rad = phi * Math.PI / 180;
-        const a = document.createElement('a');
-        a.className = 'ring-label';
-        a.href = '#' + id;
-        a.innerHTML = `<span class="n">0${i + 1}</span>${name}`;
-        a.style.left = (50 + 47.5 * Math.cos(rad)) + '%';
-        a.style.top = (50 + 47.5 * Math.sin(rad)) + '%';
-        // Staged hero exit: labels wink out clockwise, return counter-clockwise
-        a.style.setProperty('--ldo', (i * 45) + 'ms');
-        a.style.setProperty('--ldi', ((SECTIONS.length - 1 - i) * 45) + 'ms');
-        a.addEventListener('mouseenter', () => { hoverTarget = norm(phi - thetaRed); });
-        a.addEventListener('mouseleave', () => { hoverTarget = null; });
-        a.addEventListener('focus', () => { hoverTarget = norm(phi - thetaRed); });
-        a.addEventListener('blur', () => { hoverTarget = null; });
-        ringNav.appendChild(a);
-      });
-    })();
-
-    /* The seven labels are the first thing to leave the title page:
-       they fade ~14% into the hero scroll, well before the ring sheds. */
-    let labelsOut = false;
-    function updateRingLabels() {
-      if (RM) return;
-      if (gate !== 'idle') return; // mid-gate the exit owns the labels — no flicker
-      if (spinPhase) return;       // mid-spin the wheel owns them — they stay lit
-      const p = window.scrollY / Math.max(1, heroEl.offsetHeight);
-      const out = labelsOut ? p > 0.10 : p > 0.14; // hysteresis, no flicker
-      if (out !== labelsOut) {
-        labelsOut = out;
-        ringNav.classList.toggle('out', out);
-        if (out) hoverTarget = null; // hidden labels can't steer the red fish
-      }
-    }
-
-    /* ===== Reveals: each arrival loads in sequence, not all at once =====
-       Everything that enters the viewport in the same beat is sorted into
-       document order (eyebrow → heading → body → cards) and given an
-       incremental delay, so a chapter assembles piece by piece. */
-    const revealables = Array.from(document.querySelectorAll('.rv, .mask'));
-    let revealIO = null; // shared with the exit gate, which re-arms left chapters
-    if (!RM) {
-      const rvOrder = new Map(revealables.map((el, i) => [el, i]));
-      const STEP = 110, CAP = 700; // ms — snappy: each chapter settles inside a second
-      const seqNext = new Map();   // per-section: earliest moment the next piece may land
-      revealIO = new IntersectionObserver((entries) => {
-        const now = performance.now();
-        const batch = entries
-          .filter((e) => e.isIntersecting)
-          .map((e) => e.target)
-          .sort((a, b) => rvOrder.get(a) - rvOrder.get(b));
-        batch.forEach((el) => {
-          const key = el.closest('section') || document.body;
-          const at = Math.min(Math.max(now, seqNext.get(key) || 0), now + CAP);
-          seqNext.set(key, at + STEP);
-          el.style.setProperty('--d', Math.round(at - now) + 'ms');
-          el.classList.add('on');
-          revealIO.unobserve(el);
-        });
-      }, { threshold: 0.12 });
-      revealables.forEach((el) => revealIO.observe(el));
-    } else {
-      revealables.forEach((el) => el.classList.add('on'));
-    }
-
-    /* ===== The traveling school: fish shed from the ring and swim the page ===== */
-    const schoolLayer = document.getElementById('school');
-    const heroEl = document.getElementById('hero');
-
-    let fishes = [], trailLen = 0, path = null, actY = Infinity;
-    let leadS = 0, leadInit = false, schoolOn = false, dirLatch = 1, anchorK = 0.62;
-    let posRun = 0, negRun = 0;
-
-    function sectionIndex() {
-      const probe = window.scrollY + window.innerHeight * 0.42;
-      let idx = -1;
-      SECTIONS.forEach(([id], i) => {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= probe) idx = i;
-      });
-      return idx;
-    }
-
-    function buildSchool() {
-      fishes.forEach((f) => f.g.remove());
-      fishes = []; trailLen = 0; leadInit = false;
-      const R = mulberry32(424242);
-      const mob = window.innerWidth < 768;
-      const n = mob ? 8 : 13;
-      for (let i = 0; i < n; i++) {
-        const red = i === 0; // the red fish leads
-        const sc = red ? (mob ? 0.26 : 0.46) : (mob ? 0.16 + R() * 0.07 : 0.27 + R() * 0.15);
-        const g = document.createElementNS(NS, 'g');
-        if (red) {
-          g.setAttribute('class', 'sred');
-          const ti = document.createElementNS(NS, 'title');
-          ti.textContent = 'the red fish knows the way — click to follow';
-          g.appendChild(ti);
-        }
-        const u = document.createElementNS(NS, 'use');
-        u.setAttribute('href', red ? '#fishR' : (R() < 0.5 ? '#fishB1' : '#fishB2'));
-        g.appendChild(u);
-        schoolLayer.appendChild(g);
-        if (i > 0) trailLen += sc * 100 * 0.62 + (mob ? 4 : 7);
-        fishes.push({
-          g, sc,
-          back: trailLen,                 // arc length behind the leader
-          s: 0, hasS: false,
-          lat: red ? 0 : (i % 2 ? 1 : -1) * (mob ? 2.2 : 8) * (0.55 + R() * 0.9),
-          ph: R() * Math.PI * 2,
-          ang: 90, flip: false,
-          tau: 140 + i * (mob ? 26 : 32), // schooling lag grows down the line
-        });
-      }
-      fishes[0].g.addEventListener('click', () => {
-        cancelGate(); // the red fish outranks the exit gate
-        const next = Math.min(sectionIndex() + 1, SECTIONS.length - 1);
-        const el = document.getElementById(SECTIONS[next][0]);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      });
-    }
-
-    // A path in document coordinates that threads the margins beside each
-    // section and crosses sides only in the whitespace between sections.
-    function buildPath() {
-      const vw = window.innerWidth, vh = window.innerHeight;
-      actY = heroEl.offsetHeight * 0.42;
-      const inner = document.querySelector('#profile .max-w-5xl');
-      const rect = inner.getBoundingClientRect();
-      const pad = vw < 768 ? 7 : 20;
-      const leftX = Math.max(pad, rect.left * 0.5);
-      const rightX = Math.min(vw - pad, rect.right + (vw - rect.right) * 0.5);
-      const pts = [];
-      const heroB = heroEl.offsetTop + heroEl.offsetHeight;
-      pts.push([vw / 2 + (rightX - vw / 2) * 0.3, heroB - 160]);
-      let side = 1;
-      const co = vw < 768 ? 50 : 70; // corner offset into the inter-section gap
-      SECTIONS.forEach(([id]) => {
-        const el = document.getElementById(id);
-        const top = el.offsetTop, bot = top + el.offsetHeight;
-        const x = side > 0 ? rightX : leftX;
-        pts.push([x, Math.min(top + co, bot - co - 20)]);
-        pts.push([x, Math.max(bot - co, top + co + 20)]);
-        side = -side;
-      });
-      const docH = document.documentElement.scrollHeight;
-      const last = pts[pts.length - 1];
-      pts.push([last[0], Math.max(last[1] + 40, docH - vh * 0.3)]);
-
-      // Straight runs with rounded corners: bounded, never overshoots the margins
-      const smooth = [pts[0]];
-      for (let i = 1; i < pts.length - 1; i++) {
-        const a = pts[i - 1], b = pts[i], c = pts[i + 1];
-        const d1 = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
-        const d2 = Math.hypot(c[0] - b[0], c[1] - b[1]) || 1;
-        const r = Math.min(vw < 768 ? 34 : 90, d1 * 0.45, d2 * 0.45);
-        const A = [b[0] - (b[0] - a[0]) / d1 * r, b[1] - (b[1] - a[1]) / d1 * r];
-        const B = [b[0] + (c[0] - b[0]) / d2 * r, b[1] + (c[1] - b[1]) / d2 * r];
-        for (let j = 0; j <= 8; j++) {
-          const t = j / 8, u = 1 - t;
-          smooth.push([
-            u * u * A[0] + 2 * u * t * b[0] + t * t * B[0],
-            u * u * A[1] + 2 * u * t * b[1] + t * t * B[1],
-          ]);
-        }
-      }
-      smooth.push(pts[pts.length - 1]);
-
-      const xs = [], ys = [], cum = [], monoY = [];
-      let len = 0, my = -1e9;
-      const put = (x, y) => {
-        x = Math.max(pad, Math.min(vw - pad, x));
-        if (xs.length) {
-          const d = Math.hypot(x - xs[xs.length - 1], y - ys[ys.length - 1]);
-          if (d < 0.5) return;
-          len += d;
-        }
-        my = Math.max(my, y);
-        xs.push(x); ys.push(y); cum.push(len); monoY.push(my);
-      };
-      put(smooth[0][0], smooth[0][1]);
-      for (let i = 1; i < smooth.length; i++) {
-        const a = smooth[i - 1], b = smooth[i];
-        const d = Math.hypot(b[0] - a[0], b[1] - a[1]);
-        const steps = Math.max(1, Math.ceil(d / 22));
-        for (let j = 1; j <= steps; j++) {
-          const t = j / steps;
-          put(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t);
-        }
-      }
-      path = { xs, ys, cum, monoY, len };
-    }
-
-    function pathPos(s) {
-      const { xs, ys, cum } = path;
-      s = Math.max(0, Math.min(path.len, s));
-      let lo = 0, hi = cum.length - 1;
-      while (lo < hi) { const m = (lo + hi) >> 1; if (cum[m] < s) lo = m + 1; else hi = m; }
-      const i = Math.max(1, lo);
-      const seg = (cum[i] - cum[i - 1]) || 1e-6;
-      const t = (s - cum[i - 1]) / seg;
-      return {
-        x: xs[i - 1] + (xs[i] - xs[i - 1]) * t,
-        y: ys[i - 1] + (ys[i] - ys[i - 1]) * t,
-        tx: (xs[i] - xs[i - 1]) / seg,
-        ty: (ys[i] - ys[i - 1]) / seg,
-      };
-    }
-
-    function sForY(y) {
-      const { monoY, cum } = path;
-      let lo = 0, hi = monoY.length - 1;
-      while (lo < hi) { const m = (lo + hi) >> 1; if (monoY[m] < y) lo = m + 1; else hi = m; }
-      return cum[lo];
-    }
-
-    function tickSchool(t, dt) {
-      if (!path || !fishes.length) return;
-      const y0 = window.scrollY, vh = window.innerHeight, vw = window.innerWidth;
-      const on = y0 > actY;
-      if (on !== schoolOn) {
-        schoolOn = on;
-        schoolLayer.classList.toggle('on', on);
-        ringSvg.classList.toggle('shed', on); // the ring sheds / regains its fish
-      }
-      if (!on && y0 < actY - vh) return; // far above the dive: nothing to move
-
-      // The leader eases toward an anchor point in the viewport along the path
-      anchorK += ((dirLatch > 0 ? 0.62 : 0.4) - anchorK) * Math.min(1, dt * 0.003);
-      let tS = sForY(y0 + vh * anchorK);
-      let loS = sForY(y0 + 30) + (dirLatch > 0 ? trailLen : 0);
-      let hiS = sForY(y0 + vh - 36) - (dirLatch < 0 ? trailLen : 0);
-      if (loS > hiS) loS = hiS = (loS + hiS) / 2;
-      tS = Math.max(loS, Math.min(hiS, tS));
-      if (!leadInit) { leadS = tS; leadInit = true; }
-      leadS += (tS - leadS) * (1 - Math.exp(-dt / 170));
-      leadS = Math.max(loS - 90, Math.min(hiS + 90, leadS));
-
-      const idle = (performance.now() - lastScrollT) > 700;
-      // Fish may only occupy the on-screen stretch of the path, so they can
-      // never be edge-clamped into content that the path itself avoids.
-      const sMin = sForY(y0 + 16), sMax = Math.max(sMin, sForY(y0 + vh - 20) - 2);
-      for (let i = 0; i < fishes.length; i++) {
-        const f = fishes[i];
-        const tgt = leadS - dirLatch * f.back;
-        if (!f.hasS) { f.s = tgt; f.hasS = true; }
-        f.s += (tgt - f.s) * (1 - Math.exp(-dt / f.tau));
-        const drift = idle ? Math.sin(t * 0.00058 + f.ph) * 7 : 0; // milling at rest
-        const p = pathPos(Math.max(sMin, Math.min(sMax, f.s + drift)));
-        const angT = Math.atan2(p.ty * dirLatch, p.tx * dirLatch) * 180 / Math.PI;
-        f.ang += shortest(angT, f.ang) * Math.min(1, dt * 0.008);
-        // Mirror across the spine when heading left, so the back stays up
-        const c = Math.cos(f.ang * Math.PI / 180);
-        if (!f.flip && c < -0.12) f.flip = true;
-        else if (f.flip && c > 0.12) f.flip = false;
-        const mobF = vw < 768 ? 0.55 : 1;
-        const wob = Math.sin(t * (idle ? 0.0011 : 0.0035) + f.ph) * (idle ? 5 : 2.5) * mobF;
-        const lat = f.lat + Math.sin(t * 0.0012 + f.ph * 2) * (idle ? 3 : 1.5) * mobF;
-        let x = p.x - p.ty * lat;
-        let y = p.y + p.tx * lat - y0;
-        // Never clip the viewport: clamp by the fish's rotated footprint
-        const aC = Math.abs(c), aS = Math.abs(Math.sin(f.ang * Math.PI / 180));
-        const xHalf = f.sc * (52 * aC + 17 * aS) + 3;
-        const yHalf = f.sc * (52 * aS + 17 * aC) + 3;
-        x = Math.max(xHalf, Math.min(vw - xHalf, x));
-        y = Math.max(yHalf, Math.min(vh - yHalf, y));
-        f.g.setAttribute('transform',
-          `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(f.ang + wob).toFixed(1)}) scale(${f.sc} ${f.flip ? -f.sc : f.sc}) translate(-50 -15)`);
-      }
-    }
-
-    /* ===== Motion loop: one rAF drives the ring and the school ===== */
-    let aOut = 0, aIn = 0, vel = 0;
-    let heroVisible = true;
-    let lastY = window.scrollY, lastScrollT = -9999;
-    let rafId = null, lastT = null;
-
-    const heroIO = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { heroVisible = e.isIntersecting; });
-    }, { threshold: 0 });
-    heroIO.observe(heroEl);
-
-    function tick(t) {
-      if (lastT === null) lastT = t;
-      const dt = Math.min(50, t - lastT);
-      lastT = t;
-
-      // The ring
-      if (spinAnim || heroVisible) {
-        if (spinAnim) {
-          // Spin-the-wheel: a fast release that loses to friction, landing the
-          // red fish exactly on the winning label (transform-only, as always).
-          // Runs even if she scrolls off mid-spin, so the wheel always lands.
-          const p = Math.min(1, (t - spinAnim.t0) / spinAnim.dur);
-          const e = 1 - Math.pow(1 - p, 4);
-          aOut = spinAnim.a0 + spinAnim.dA * e;
-          aIn = spinAnim.a0In + spinAnim.dAIn * e;
-          if (p >= 1) landSpin();
-        } else if (hoverTarget !== null) {
-          aOut += shortest(hoverTarget, aOut) * Math.min(1, dt * 0.005);
-          aIn += 0.002 * dt;
-        } else {
-          aOut += (0.0045 + vel) * dt;
-          aIn += (0.0028 + vel * 0.6) * dt;
-        }
-        gOut.setAttribute('transform', `rotate(${aOut} 400 400)`);
-        gIn.setAttribute('transform', `rotate(${aIn} 400 400)`);
-      }
-      vel *= Math.exp(-dt / 260);
-
-      tickSchool(t, dt);
-
-      rafId = requestAnimationFrame(tick);
-    }
-
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      const d = y - lastY;
-      lastY = y;
-      if (!RM) {
-        if (d > 0) { posRun += d; negRun = 0; if (posRun > 60) dirLatch = 1; }
-        else if (d < 0) { negRun -= d; posRun = 0; if (negRun > 60) dirLatch = -1; }
-        lastScrollT = performance.now();
-        vel = Math.max(-0.05, Math.min(0.05, vel + d * 0.00014));
-        updateRingLabels();
-        // the exit gate holds the viewport with preventDefault only; if the
-        // scrollbar or a script moves it anyway, the gate bows out gracefully
-        if (gate === 'exiting' && Math.abs(y - gateHoldY) > 40) cancelGate();
-      }
-    }, { passive: true });
-
-    /* ===== Exit gate: the title page leaves before the viewport does =====
-       Wheel-only, hero-only. When a wheel-down would carry the viewport off
-       the title page, the crossing is held, the hero cascades out (labels
-       wink clockwise, then hint → socials → motto → name → eyebrow), and only
-       then does the page glide to Profile — whose staggered load-in takes
-       over. Past the hero, scrolling is free native scrolling. Keyboard,
-       scrollbar, touch and in-page links all scroll natively and are never
-       fought; upward scrolling is always free. */
-    const chapterEls = ['hero'].concat(SECTIONS.map((s) => s[0]))
-      .map((id) => document.getElementById(id));
-    let gate = 'idle', gateFrom = -1, gateTo = -1, gateTimer = 0, gateHoldY = 0;
-    let exitAccum = 0, upAccum = 0, advToken = 0, lastWheelT = -1e9;
-
-    function exitPieces(sec) {
-      // only the hero gates now — its cascade sweeps text and the spin control
-      return Array.from(sec.querySelectorAll('.rv, .mask, .motto, .hero-socials, .hero-spin, .hero-hint'));
-    }
-
-    function playExit(sec) {
-      const els = exitPieces(sec).reverse(); // the load-in, rewound
-      const n = els.length;
-      const step = n > 1 ? Math.min(50, 260 / (n - 1)) : 0;
-      els.forEach((el, i) => {
-        el.style.setProperty('--xd', Math.round(i * step) + 'ms');
-        el.classList.add('xg-out');
-      });
-      let dur = (n - 1) * step + 340;
-      if (sec.id === 'hero') {
-        // the seven labels wink out clockwise first, exactly as they always have
-        labelsOut = true; ringNav.classList.add('out'); hoverTarget = null;
-        dur = Math.max(dur, 580);
-      }
-      return Math.round(dur);
-    }
-
-    function resetSection(sec) {
-      sec.querySelectorAll('.xg-out').forEach((el) => {
-        el.classList.remove('xg-out');
-        el.style.removeProperty('--xd');
-        if (el.matches('.rv, .mask')) {
-          el.classList.remove('on');
-          if (revealIO) revealIO.observe(el); // the load-in replays on return
-        }
-      });
-    }
-
-    function animateScrollTo(target, done) {
-      const token = ++advToken;
-      const startY = window.scrollY, dist = target - startY;
-      const D = Math.min(950, Math.max(500, Math.abs(dist) * 0.75));
-      const t0 = performance.now();
-      const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-      let wrote = startY;
-      (function stepFrame() {
-        if (token !== advToken) return; // a click or key took over — stand down
-        if (Math.abs(window.scrollY - wrote) > 60) { cancelGate(); return; } // someone else is steering
-        const p = Math.min(1, (performance.now() - t0) / D);
-        wrote = startY + dist * ease(p);
-        window.scrollTo({ top: wrote, behavior: 'instant' });
-        if (p < 1) requestAnimationFrame(stepFrame);
-        else done();
-      })();
-    }
-
-    function startGate(from) {
-      gate = 'exiting'; gateFrom = from; gateTo = from + 1;
-      exitAccum = 0; upAccum = 0; gateHoldY = window.scrollY;
-      gateTimer = setTimeout(beginAdvance, playExit(chapterEls[from]));
-    }
-
-    function beginAdvance() {
-      clearTimeout(gateTimer);
-      gate = 'advancing';
-      const sec = chapterEls[gateFrom];
-      const target = Math.min(chapterEls[gateTo].offsetTop,
-        document.documentElement.scrollHeight - window.innerHeight);
-      animateScrollTo(target, () => {
-        gate = 'idle';
-        resetSection(sec); // out of view now — armed to replay if she swims back up
-        updateRingLabels();
-      });
-    }
-
-    function cancelGate() {
-      if (gate === 'idle') return;
-      clearTimeout(gateTimer);
-      advToken++; // stops any advance mid-flight
-      const sec = chapterEls[gateFrom];
-      gate = 'idle';
-      if (sec) resetSection(sec); // never leave a chapter half-vanished
-      updateRingLabels();         // labels come back if we're still on the title page
-    }
-
-    function chapterAtBottomEdge() {
-      const yb = window.scrollY + window.innerHeight - 2;
-      for (let i = chapterEls.length - 1; i >= 0; i--) {
-        if (yb >= chapterEls[i].offsetTop) return i;
-      }
-      return 0;
-    }
-
-    function onWheel(e) {
-      if (e.ctrlKey) return; // pinch-zoom stays native
-      const now = performance.now();
-      const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1);
-      if (gate === 'exiting') {
-        e.preventDefault();
-        if (dy > 0) {
-          exitAccum += dy; upAccum = 0;
-          // a second decisive gesture (or real piling-on) skips straight to the move
-          if ((now - lastWheelT > 180 && dy > 18) || exitAccum > 1400) beginAdvance();
-        } else if (dy < 0) {
-          upAccum -= dy;
-          if (upAccum > 120) cancelGate(); // changed her mind — the text swims back
-        }
-        lastWheelT = now;
-        return;
-      }
-      if (gate === 'advancing') { e.preventDefault(); lastWheelT = now; return; }
-      lastWheelT = now;
-      if (dy <= 0) return;      // upward scrolling is always free
-      if (spinPhase) return;    // a spin owns the wheel — no gating mid-spin
-      if (chapterAtBottomEdge() !== 0) return; // past the hero, the water is open
-      const nextTop = chapterEls[1].offsetTop;
-      if (window.scrollY + window.innerHeight + Math.min(dy, 240) >= nextTop + 1) {
-        e.preventDefault(); // hold the viewport: the title page leaves first
-        startGate(0);
-      }
-    }
-
-    if (!RM) {
-      window.addEventListener('wheel', onWheel, { passive: false });
-      // keyboard and in-page links go where they're told — the gate steps aside
-      window.addEventListener('keydown', (e) => {
-        if (gate !== 'idle' &&
-            [' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
-          cancelGate();
-        }
-      });
-      document.addEventListener('click', (e) => {
-        if (gate !== 'idle' && e.target.closest && e.target.closest('a[href^="#"]')) cancelGate();
-      }, true);
-
-      // Departed chapters re-arm: once a section has fully left the viewport,
-      // its reveals reset so the load-in replays when she swims back to it.
-      const rearmIO = new IntersectionObserver((entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting) return;
-          const sec = en.target;
-          if (gate !== 'idle' && sec === chapterEls[gateFrom]) return; // the gate resets it itself
-          sec.querySelectorAll('.rv.on, .mask.on').forEach((el) => {
-            if (el.classList.contains('xg-out')) return;
-            el.classList.remove('on');
-            if (revealIO) revealIO.observe(el);
-          });
-        });
-      }, { threshold: 0 });
-      chapterEls.forEach((el) => rearmIO.observe(el));
-    }
-
-    /* ===== Spin the wheel: the school picks a chapter =====
-       A fast spin with real momentum (2–4 extra revolutions, friction ease-out
-       over 2.5–3.5s) lands the red fish on a label chosen uniformly at random
-       from all seven chapters; a short highlight beat, then the usual
-       label-click path scrolls there. Desktop only (the radial labels don't
-       exist below md); hidden entirely under reduced motion. */
-    const spinBtn = document.getElementById('spinBtn');
-
-    function startSpin() {
-      if (RM || spinPhase || !spinBtn) return;
-      cancelGate(); // a spin outranks a half-played hero exit
-      spinPhase = 'spin';
-      spinBtn.disabled = true;
-      spinBtn.setAttribute('aria-disabled', 'true');
-      hoverTarget = null;
-      if (labelsOut) { labelsOut = false; ringNav.classList.remove('out'); } // labels watch the spin
-      const idx = Math.floor(Math.random() * SECTIONS.length);
-      const phi = 270 + idx * (360 / SECTIONS.length);
-      const finalA = norm(phi - thetaRed);
-      const revs = 2 + Math.floor(Math.random() * 3); // 2–4 full turns plus the remainder
-      const dA = revs * 360 + norm(finalA - norm(aOut));
-      spinAnim = {
-        t0: performance.now(),
-        dur: 2500 + Math.random() * 1000,
-        a0: aOut, dA,
-        a0In: aIn, dAIn: dA * 0.62, // the inner ring is carried along, a touch behind
-        idx, finalA,
-      };
-    }
-
-    function landSpin() {
-      const { idx, finalA } = spinAnim;
-      spinAnim = null;
-      spinPhase = 'land';
-      hoverTarget = finalA; // pin the red fish on the winner, as if hovered
-      const label = ringNav.children[idx];
-      if (label) label.classList.add('hot');
-      setTimeout(() => {
-        if (label) label.classList.remove('hot');
-        hoverTarget = null;
-        spinPhase = 'nav'; // still suppress the gate while the page glides
-        if (label) label.click(); // the label-click path — smooth scroll + hash
-        else {
-          const el = document.getElementById(SECTIONS[idx][0]);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }
-        setTimeout(() => {
-          spinPhase = null;
-          spinBtn.disabled = false;
-          spinBtn.removeAttribute('aria-disabled');
-        }, 1000);
-      }, 420);
-    }
-
-    if (spinBtn && !RM) spinBtn.addEventListener('click', startSpin);
-
-    // Run only when the tab is visible
-    function startLoop() { if (rafId === null && !RM) { lastT = null; rafId = requestAnimationFrame(tick); } }
-    function stopLoop() { if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } }
-    document.addEventListener('visibilitychange', () => {
-      document.hidden ? stopLoop() : startLoop();
-    });
-
-    if (!RM) {
-      updateRingLabels(); // page may load mid-scroll (bfcache, refresh)
-      buildSchool();
-      buildPath();
-      window.addEventListener('load', buildPath);           // images shift offsets
-      setTimeout(buildPath, 1400);                          // late font/layout shifts
-      let rsT;
-      window.addEventListener('resize', () => {
-        clearTimeout(rsT);
-        rsT = setTimeout(() => { buildSchool(); buildPath(); }, 160);
-      });
-    }
-    startLoop();
   </script>
-
 </body>
+
 </html>
