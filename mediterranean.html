@@ -1,12 +1,991 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=/">
-  <link rel="canonical" href="https://ilandrade.github.io/">
-  <title>Isabella Andrade</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Isabella Andrade — Mediterranean Edition</title>
+  <meta name="description" content="Isabella Andrade — student founder, AI product builder, and Harvard CS & Economics student. The Mediterranean edition of her portfolio.">
+  <link rel="canonical" href="https://ilandrade.github.io/mediterranean.html">
+  <meta name="theme-color" content="#fdf6e9">
+
+  <!-- Favicon: a beach umbrella -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9B%B1%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Fraunces', 'serif'],
+          },
+          colors: {
+            cobalt: '#1d59a8',
+            navy: '#16365c',
+            rosso: '#d2402f',
+            cream: '#fdf6e9',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      background: #fdf6e9;
+      color: #16365c;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .font-display { font-family: 'Fraunces', serif; }
+
+    /* ===== Ambient background: drifting sea squiggles across the whole page ===== */
+    #bg-squiggles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='48' viewBox='0 0 80 48'%3E%3Cg fill='none' stroke='%23c8dcee' stroke-width='1.6'%3E%3Cpath d='M0 24 A20 20 0 0 1 40 24'/%3E%3Cpath d='M8 24 A12 12 0 0 1 32 24'/%3E%3Cpath d='M14 24 A6 6 0 0 1 26 24'/%3E%3Cpath d='M40 24 A20 20 0 0 1 80 24'/%3E%3Cpath d='M48 24 A12 12 0 0 1 72 24'/%3E%3Cpath d='M54 24 A6 6 0 0 1 66 24'/%3E%3Cpath d='M-20 48 A20 20 0 0 1 20 48'/%3E%3Cpath d='M-12 48 A12 12 0 0 1 12 48'/%3E%3Cpath d='M-6 48 A6 6 0 0 1 6 48'/%3E%3Cpath d='M20 48 A20 20 0 0 1 60 48'/%3E%3Cpath d='M28 48 A12 12 0 0 1 52 48'/%3E%3Cpath d='M34 48 A6 6 0 0 1 46 48'/%3E%3Cpath d='M60 48 A20 20 0 0 1 100 48'/%3E%3Cpath d='M68 48 A12 12 0 0 1 92 48'/%3E%3Cpath d='M74 48 A6 6 0 0 1 86 48'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 48px;
+      animation: squiggleDrift 16s linear infinite;
+    }
+    @keyframes squiggleDrift {
+      to { background-position: 80px 0; }
+    }
+
+    main, footer, #contact { position: relative; z-index: 1; }
+
+    /* ===== Hand-painted vertical stripes, sliding gently sideways ===== */
+    .stripes {
+      background-color: #fffdf6;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='64' viewBox='0 0 40 64'%3E%3Cpath d='M8 0 C6 12 11 24 8 36 C6 48 10 56 8 64 L26 64 C24 52 28 40 26 28 C24 16 28 8 26 0 Z' fill='%232b4d86'/%3E%3C/svg%3E");
+      background-size: 40px 64px;
+      background-repeat: repeat;
+      animation: stripeSlide 22s linear infinite;
+    }
+    .stripes-rosso {
+      background-color: #fffdf6;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='64' viewBox='0 0 40 64'%3E%3Cpath d='M8 0 C6 12 11 24 8 36 C6 48 10 56 8 64 L26 64 C24 52 28 40 26 28 C24 16 28 8 26 0 Z' fill='%23d2402f'/%3E%3C/svg%3E");
+      background-size: 40px 64px;
+      background-repeat: repeat;
+      animation: stripeSlide 22s linear infinite;
+    }
+    @keyframes stripeSlide {
+      to { background-position: 40px 0; }
+    }
+    /* Scalloped awning edge */
+    .awning-edge {
+      height: 18px;
+      background-image: radial-gradient(circle at 50% 0, #d2402f 0 17px, transparent 18px);
+      background-size: 36px 18px;
+      background-repeat: repeat-x;
+    }
+
+    .awning-edge-flip {
+      height: 18px;
+      background-image: radial-gradient(circle at 50% 100%, #d2402f 0 17px, transparent 18px);
+      background-size: 36px 18px;
+      background-repeat: repeat-x;
+    }
+    .stripes-reverse { animation-direction: reverse; }
+
+
+    /* ===== Animated squiggle divider (a drawn sea wave) ===== */
+    .squiggle {
+      height: 14px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'%3E%3Cpath d='M0 7 Q15 0 30 7 T60 7' fill='none' stroke='%231d59a8' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-size: 60px 14px;
+      background-repeat: repeat-x;
+      animation: squiggleDrift2 5s linear infinite;
+    }
+    .squiggle-rosso {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'%3E%3Cpath d='M0 7 Q15 0 30 7 T60 7' fill='none' stroke='%23d2402f' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+    @keyframes squiggleDrift2 {
+      to { background-position: 60px 0; }
+    }
+
+    /* ===== Marquee: moving text bands ===== */
+    .marquee { overflow: hidden; white-space: nowrap; }
+    .marquee-track {
+      display: inline-flex;
+      width: max-content;
+      animation: marquee 26s linear infinite;
+    }
+    @keyframes marquee {
+      to { transform: translateX(-50%); }
+    }
+
+    /* ===== Riviera cards: crisp white, cobalt border, red drop-shadow ===== */
+    .med-card {
+      background: #fffdf6;
+      border: 2px solid #1d59a8;
+      box-shadow: 7px 7px 0 #d2402f;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .med-card:hover {
+      transform: translate(-2px, -4px);
+      box-shadow: 11px 11px 0 #d2402f;
+    }
+
+    .med-pill {
+      background: #fffdf6;
+      border: 1.5px solid #1d59a8;
+      color: #16365c;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .med-pill:hover {
+      background: #d2402f;
+      color: #fffdf6;
+      transform: translateY(-2px);
+    }
+
+    /* Experience timeline: cobalt rope with red buoys */
+    .med-timeline {
+      border-left: 2px solid #1d59a8;
+      padding-left: 2rem;
+      position: relative;
+    }
+    .med-timeline::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      background: #d2402f;
+      border: 2px solid #1d59a8;
+      border-radius: 50%;
+    }
+
+
+    /* ===== Deeper motion: papers settle, squiggles draw ===== */
+    .settle {
+      opacity: 0;
+      transform: translateY(24px) rotate(1.2deg);
+      transition: opacity 0.6s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .settle.on { opacity: 1; transform: none; }
+    .squiggle { transform-origin: left; }
+    .squiggle.draw { transform: scaleX(0); transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s; }
+    .squiggle.draw.on { transform: scaleX(1); }
+
+    /* Marquees pause while you read them */
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+
+
+    /* ===== Title entrance: letters rise behind masks, like the main site ===== */
+    .hero-mask { display: block; overflow: hidden; }
+    .ltr {
+      display: inline-block;
+      transform: translateY(115%);
+      transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--hl, 0ms) + var(--ld, 0ms) + 150ms);
+      will-change: transform;
+    }
+    .hero-in .ltr { transform: translateY(0); }
+    .hero-fade {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.9s ease var(--d, 0ms), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
+    }
+    .hero-in .hero-fade { opacity: 1; transform: none; }
+
+
+    /* ===== Ported from the main site: scroll choreography ===== */
+    .h-mask { display: block; overflow: hidden; }
+    .h-line {
+      display: block;
+      transform: translateY(112%);
+      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
+    }
+    .h-mask.on .h-line { transform: none; }
+    .eb {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .eb.on { opacity: 1; transform: none; }
+
+    /* Progress hairline chases the scroll with an eased lag */
+    #progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0;
+      background: linear-gradient(to right, #1d59a8, #d2402f);
+      z-index: 60;
+      pointer-events: none;
+    }
+
+    /* Experience rows nudge under the cursor, like the main site */
+    .med-timeline { transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+    @media (hover: hover) {
+      #experience .space-y-14 > div:hover .med-timeline { transform: translateX(10px); }
+    }
+
+    /* Oversized outlined chapter numeral in the contents bar */
+    .ghost-num {
+      font-size: 6.5rem;
+      line-height: 1;
+      margin-top: 2rem;
+      color: rgba(29, 89, 168, 0.22);
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #fdf6e9; }
+    ::-webkit-scrollbar-thumb { background: #1d59a8; border-radius: 2px; }
+    ::selection { background: #d2402f; color: #fdf6e9; }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #1d59a8;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    #up-btn { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    #up-btn.visible { opacity: 1; pointer-events: auto; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #bg-squiggles, .stripes, .stripes-rosso, .squiggle, .marquee-track { animation: none; }
+      .settle, .squiggle.draw { transition: none; opacity: 1; transform: none; }
+      .ltr, .hero-fade { transition: none; opacity: 1; transform: none; }
+      .h-line, .eb { transition: none; opacity: 1; transform: none; }
+      #progress { display: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
 </head>
+
 <body>
-  <p>The Mediterranean edition is now the main site — <a href="/">continue to ilandrade.github.io</a>.</p>
+
+  <div id="bg-squiggles" aria-hidden="true"></div>
+
+  <!-- Shared defs -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+    </defs>
+  </svg>
+
+
+  <main>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero" class="relative min-h-screen flex flex-col overflow-hidden">
+
+    <!-- Awning -->
+    <div class="stripes-rosso h-10"></div>
+    <div class="awning-edge"></div>
+
+
+    <div class="flex-1 flex flex-col justify-center px-6 py-16">
+      <div class="max-w-4xl mx-auto w-full relative flex flex-col items-center text-center">
+
+
+        <p class="hero-fade font-display text-cobalt text-sm font-medium tracking-[0.35em] uppercase mb-8" style="--d:0ms">
+          Harvard College · CS &amp; Economics
+        </p>
+
+        <h1 class="font-display font-semibold text-[clamp(3rem,10vw,7.5rem)] leading-[0.95] tracking-tight text-cobalt mb-6">
+          <span class="hero-mask"><span class="hero-line">Isabella</span></span>
+          <span class="hero-mask"><span class="hero-line" style="--hl:320ms">Andrade</span></span>
+        </h1>
+
+        <div class="squiggle w-48 mb-8"></div>
+
+        <p class="hero-fade font-display italic text-xl md:text-2xl text-navy mb-4" style="--d:1250ms">
+          Student Founder · AI Product Builder · Venture Fellow
+        </p>
+
+
+
+        <div class="hero-fade flex flex-wrap items-center justify-center gap-4" style="--d:1450ms">
+          <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub"
+             class="bg-[#fffdf6] border-2 border-cobalt hover:border-rosso transition-colors w-11 h-11 rounded-full flex items-center justify-center text-lg text-navy">
+            <i class="bi bi-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn"
+             class="bg-[#fffdf6] border-2 border-cobalt hover:border-rosso transition-colors w-11 h-11 rounded-full flex items-center justify-center text-lg text-navy">
+            <i class="bi bi-linkedin"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editorial contents index (the hotbar) -->
+    <nav aria-label="Contents" class="hero-fade max-w-6xl w-full mx-auto px-6 pb-9" style="--d:1650ms">
+      <div class="flex items-baseline justify-between font-display text-[11px] tracking-[0.3em] uppercase text-cobalt/70 mb-4">
+        <span>Contents</span>
+      </div>
+      <div class="squiggle mb-6"></div>
+      <ol class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-x-6 gap-y-4">
+        <li><a href="#profile" class="group block"><span class="font-display text-[11px] font-bold text-rosso block mb-1">01</span><span class="font-display text-lg text-cobalt group-hover:text-rosso transition-colors">Profile</span></a></li>
+        <li><a href="#experience" class="group block"><span class="font-display text-[11px] font-bold text-rosso block mb-1">02</span><span class="font-display text-lg text-cobalt group-hover:text-rosso transition-colors">Experience</span></a></li>
+        <li><a href="#projects" class="group block"><span class="font-display text-[11px] font-bold text-rosso block mb-1">03</span><span class="font-display text-lg text-cobalt group-hover:text-rosso transition-colors">Projects</span></a></li>
+        <li><a href="#leadership" class="group block"><span class="font-display text-[11px] font-bold text-rosso block mb-1">04</span><span class="font-display text-lg text-cobalt group-hover:text-rosso transition-colors">Leadership</span></a></li>
+        <li><a href="#education" class="group block"><span class="font-display text-[11px] font-bold text-rosso block mb-1">05</span><span class="font-display text-lg text-cobalt group-hover:text-rosso transition-colors">Education</span></a></li>
+        <li><a href="#writing" class="group block"><span class="font-display text-[11px] font-bold text-rosso block mb-1">06</span><span class="font-display text-lg text-cobalt group-hover:text-rosso transition-colors">Writing</span></a></li>
+      </ol>
+    </nav>
+
+    <!-- Inverse of the top awning: scallops point up, stripes slide the other way -->
+    <div class="awning-edge-flip"></div>
+    <div class="stripes-rosso stripes-reverse h-10"></div>
+  </section>
+
+
+  <!-- ===== 01 PROFILE ===== -->
+  <section id="profile" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto md:grid md:grid-cols-[250px_1fr] md:gap-14 md:items-start">
+
+      <!-- Contents bar: stays pinned until the next chapter arrives -->
+      <div class="md:sticky md:top-24 mb-12 md:mb-0">
+        <p class="font-display text-rosso font-bold text-sm tracking-[0.3em] mb-3">01</p>
+        <h2 class="font-display font-semibold text-3xl md:text-4xl text-cobalt"><span class="h-mask"><span class="h-line">Profile</span></span></h2>
+        <div class="squiggle w-24 mt-5"></div>
+        <p class="ghost-num font-display font-semibold hidden md:block" aria-hidden="true">01</p>
+      </div>
+
+      <div>
+        <p class="js-reveal font-display text-2xl md:text-[1.9rem] leading-snug text-navy mb-7 max-w-2xl">
+          I'm a Harvard student pursuing a double A.B. in Computer Science and Economics. I build AI tools, research their failure modes, and study the markets they're reshaping.
+        </p>
+        <p class="js-reveal text-navy/80 leading-relaxed mb-12 max-w-2xl">
+          Currently a student founder with TekTrek in San Francisco and an incoming Product Experience Specialist at Lovable — with past lives in software engineering at Verapath, healthcare LLM research at Harvard Medical School, and venture fellowships at Glade Brook and Milemark.
+        </p>
+
+        <div class="grid md:grid-cols-[260px_1fr] gap-10 items-start mb-16">
+          <div class="med-card rounded-2xl p-3 rotate-[-1.5deg] hover:rotate-0 transition-transform duration-500">
+            <img
+              src="assets/img/profile-img2.jpg"
+              alt="Isabella Andrade"
+              class="w-full rounded-xl object-cover"
+            >
+          </div>
+
+          <!-- Vitals -->
+          <div class="grid grid-cols-2 gap-x-6 gap-y-8">
+            <div>
+              <p class="font-display text-[10px] tracking-[0.25em] uppercase text-cobalt/70 mb-2 font-bold">Location</p>
+              <p class="text-sm font-medium text-navy">Cambridge, MA</p>
+            </div>
+            <div>
+              <p class="font-display text-[10px] tracking-[0.25em] uppercase text-cobalt/70 mb-2 font-bold">University</p>
+              <p class="text-sm font-medium text-navy">Harvard College</p>
+            </div>
+            <div>
+              <p class="font-display text-[10px] tracking-[0.25em] uppercase text-cobalt/70 mb-2 font-bold">Email</p>
+              <p class="text-sm font-medium text-navy break-all"><a href="mailto:isabellaandrade@college.harvard.edu" class="hover:text-rosso transition-colors">isabellaandrade@college.harvard.edu</a></p>
+            </div>
+            <div>
+              <p class="font-display text-[10px] tracking-[0.25em] uppercase text-cobalt/70 mb-2 font-bold">Focus</p>
+              <p class="text-sm font-medium text-navy">AI Tooling · Venture · Product</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="grid md:grid-cols-3 gap-10">
+          <div>
+            <h3 class="text-[11px] text-cobalt uppercase tracking-[0.2em] font-bold mb-5">Languages &amp; Data</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Python</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">C#</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">C++</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">R</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">HTML/CSS</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">SQL</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Excel</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-[11px] text-cobalt uppercase tracking-[0.2em] font-bold mb-5">Web &amp; Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">React</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Next.js</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Blazor</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Razor Pages</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Git &amp; GitHub</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Azure DevOps</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-[11px] text-cobalt uppercase tracking-[0.2em] font-bold mb-5">AI Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Claude Code</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Codex</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Windsurf</span>
+              <span class="med-pill text-sm px-4 py-1.5 rounded-full">Lovable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto md:grid md:grid-cols-[250px_1fr] md:gap-14 md:items-start">
+
+      <!-- Contents bar: stays pinned until the next chapter arrives -->
+      <div class="md:sticky md:top-24 mb-12 md:mb-0">
+        <p class="font-display text-rosso font-bold text-sm tracking-[0.3em] mb-3">02</p>
+        <h2 class="font-display font-semibold text-3xl md:text-4xl text-cobalt"><span class="h-mask"><span class="h-line">Experience</span></span></h2>
+        <div class="squiggle w-24 mt-5"></div>
+        <p class="ghost-num font-display font-semibold hidden md:block" aria-hidden="true">02</p>
+      </div>
+
+      <div>
+
+      <div class="space-y-14">
+
+        <!-- Lovable -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Aug 2026</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Incoming Product Experience Specialist</h3>
+            <a href="https://lovable.dev/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-rosso decoration-2 underline-offset-4">Lovable <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Joining Lovable to work at the edge of AI-assisted software creation.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TekTrek -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Jun 2026 – Present</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Student Founder</h3>
+            <a href="https://tektrek.com/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-rosso decoration-2 underline-offset-4">TekTrek <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Selected as one of forty young builders from MIT, Harvard, and Princeton — out of 400+ applicants — to spend the summer building in San Francisco.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Glade Brook -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Mar – May 2026</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Spring Fellow</h3>
+            <a href="https://www.gladebrookcapital.com/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-rosso decoration-2 underline-offset-4">Glade Brook Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Built an internal knowledge-management tool to centralize firm-wide research — owned it from problem identification through deployment.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Produced a research brief on AI in the sciences for investment partners, including a deep dive on orbital data center technology for a portfolio company.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Y Lab -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Jan – Jun 2026</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Research Assistant</h3>
+            <a href="https://ylab.top/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-rosso decoration-2 underline-offset-4">Y Lab, Harvard Medical School <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Ran a PRISMA-guided systematic review on demographic bias in healthcare LLMs — screened 528 titles, reviewed 63 abstracts, and advanced 15 papers to full-text review.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Translated technical ML findings for a clinical audience; co-authoring a manuscript for publication this fall.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Verapath -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Jun 2024 – Jan 2026</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Software Engineer Intern</h3>
+            <a href="https://verapath.com/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-rosso decoration-2 underline-offset-4">Verapath <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Prototyped prompt-based agents with OpenAI Codex as a pair-programming tool, validating outputs against structured evaluation criteria and stakeholder feedback.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Improved front-end responsiveness by auditing stylesheet load order, refactoring media queries, and resolving UI issues across the full stack.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Translated product requirements into scoped work items in Azure DevOps, managing execution and surfacing blockers early.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Milemark -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">May – Aug 2025</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Venture Fellow</h3>
+            <a href="https://www.milemark.capital/" target="_blank" class="text-cobalt text-sm font-semibold mb-5 inline-block hover:text-navy transition-colors underline decoration-rosso decoration-2 underline-offset-4">Milemark Capital <i class="bi bi-arrow-up-right text-xs"></i></a>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Tracked agentic AI adoption across healthcare, fintech, and agtech; synthesized patterns into concise written briefs for investors.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Goldman Sachs -->
+        <div class="grid md:grid-cols-[180px_1fr] gap-6 md:gap-10">
+          <div class="pt-1">
+            <p class="text-cobalt text-sm font-bold">Sep 2024 – Jan 2025</p>
+          </div>
+          <div class="med-timeline">
+            <h3 class="font-display font-semibold text-xl mb-1">Engineering Leader</h3>
+            <p class="text-cobalt text-sm font-semibold mb-5">Goldman Sachs Emerging Leaders Program</p>
+            <ul class="space-y-3 text-navy/80 text-sm leading-relaxed">
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Developed a mutual fund calculator with Spring Boot, MongoDB, and Next.js — modeled projected returns using CAPM and compound interest.
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cobalt shrink-0 mt-0.5">▸</span>
+                Presented the project at the Goldman Sachs Dallas summit.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto md:grid md:grid-cols-[250px_1fr] md:gap-14 md:items-start">
+
+      <!-- Contents bar: stays pinned until the next chapter arrives -->
+      <div class="md:sticky md:top-24 mb-12 md:mb-0">
+        <p class="font-display text-rosso font-bold text-sm tracking-[0.3em] mb-3">03</p>
+        <h2 class="font-display font-semibold text-3xl md:text-4xl text-cobalt"><span class="h-mask"><span class="h-line">Projects</span></span></h2>
+        <div class="squiggle w-24 mt-5"></div>
+        <p class="ghost-num font-display font-semibold hidden md:block" aria-hidden="true">03</p>
+      </div>
+
+      <div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <div class="med-card rounded-2xl p-7">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-rosso/15 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-phone text-cobalt"></i>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-xs font-semibold text-cobalt bg-rosso/15 px-3 py-1 rounded-full">HTML</span>
+              <span class="text-xs font-semibold text-cobalt bg-rosso/15 px-3 py-1 rounded-full">JavaScript</span>
+            </div>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">Passio Go — Harvard Upgrade</h3>
+          <p class="text-navy/80 text-sm leading-relaxed mb-5">Redesigned the UI/UX of the Passio Go transit app used on Harvard's campus, improving usability and visual clarity for students navigating campus shuttles.</p>
+          <a href="https://ilandrade.github.io/PassioGoUpgrade/" target="_blank" class="inline-flex items-center gap-1.5 text-cobalt hover:text-navy text-sm font-semibold transition-colors underline decoration-rosso decoration-2 underline-offset-4">
+            View Project <i class="bi bi-arrow-up-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="med-card rounded-2xl p-7">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-rosso/15 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-water text-cobalt"></i>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-xs font-semibold text-cobalt bg-rosso/15 px-3 py-1 rounded-full">WebGL</span>
+              <span class="text-xs font-semibold text-cobalt bg-rosso/15 px-3 py-1 rounded-full">Vanilla JS</span>
+            </div>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">This Site — In Editions</h3>
+          <p class="text-navy/80 text-sm leading-relaxed mb-5">One portfolio, several editions: an editorial cascade, this sunny Mediterranean summer of stripes and squiggles, and a new one holding the front door — all hand-built with vanilla JS, no frameworks.</p>
+          <a href="cascade.html" class="inline-flex items-center gap-1.5 text-cobalt hover:text-navy text-sm font-semibold transition-colors underline decoration-rosso decoration-2 underline-offset-4">
+            Visit the Cascade Edition <i class="bi bi-arrow-up-right text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== LEADERSHIP ===== -->
+  <section id="leadership" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto md:grid md:grid-cols-[250px_1fr] md:gap-14 md:items-start">
+
+      <!-- Contents bar: stays pinned until the next chapter arrives -->
+      <div class="md:sticky md:top-24 mb-12 md:mb-0">
+        <p class="font-display text-rosso font-bold text-sm tracking-[0.3em] mb-3">04</p>
+        <h2 class="font-display font-semibold text-3xl md:text-4xl text-cobalt"><span class="h-mask"><span class="h-line">Leadership</span></span></h2>
+        <div class="squiggle w-24 mt-5"></div>
+        <p class="ghost-num font-display font-semibold hidden md:block" aria-hidden="true">04</p>
+      </div>
+
+      <div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <div class="med-card rounded-2xl p-7">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-rosso/15 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-diagram-3 text-cobalt"></i>
+            </div>
+            <span class="text-xs font-semibold text-cobalt bg-rosso/15 px-3 py-1 rounded-full">Mar 2026 – Present</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">Anchor Initiative Student Lead</h3>
+          <a href="https://massaicoalition.com/students" target="_blank" class="text-cobalt text-sm font-semibold mb-4 inline-block hover:text-navy transition-colors underline decoration-rosso decoration-2 underline-offset-4">Massachusetts AI Coalition <i class="bi bi-arrow-up-right text-xs"></i></a>
+          <p class="text-navy/80 text-sm leading-relaxed">
+            Co-leading the Anchor Initiative alongside the co-founder of Offscript VC — connecting Massachusetts AI companies with student builders across Boston-area universities through startup office visits and on-campus engagements.
+          </p>
+        </div>
+
+        <div class="med-card rounded-2xl p-7">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-rosso/15 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-sun text-cobalt"></i>
+            </div>
+            <span class="text-xs font-semibold text-cobalt bg-rosso/15 px-3 py-1 rounded-full">Jul 2025 – Present</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">SCOUT Program Co-Director</h3>
+          <p class="text-cobalt text-sm font-semibold mb-4">Harvard Undergraduate Clean Energy Group</p>
+          <p class="text-navy/80 text-sm leading-relaxed">
+            Founded HUCEG's first VC education program from scratch — designed the curriculum, recruited analysts, and run research workflows across four clean-energy verticals as the cohort's primary point of contact.
+          </p>
+        </div>
+
+        <div class="med-card rounded-2xl p-7">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-rosso/15 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-people text-cobalt"></i>
+            </div>
+            <span class="text-xs font-semibold text-cobalt bg-rosso/15 px-3 py-1 rounded-full">Jul 2024 – Present</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">Junior Outreach Representative</h3>
+          <p class="text-cobalt text-sm font-semibold mb-4">Society of Hispanic Professional Engineers (SHPE)</p>
+          <p class="text-navy/80 text-sm leading-relaxed">
+            Planned and executed outreach and service events with campus and community partners; managed logistics to support engagement with underrepresented students in STEM.
+          </p>
+        </div>
+
+        <div class="med-card rounded-2xl p-7">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-10 h-10 rounded-xl bg-rosso/15 border-2 border-cobalt flex items-center justify-center">
+              <i class="bi bi-shield-check text-cobalt"></i>
+            </div>
+            <span class="text-xs font-semibold text-cobalt bg-rosso/15 px-3 py-1 rounded-full">Jul – Aug 2023</span>
+          </div>
+          <h3 class="font-display font-semibold text-lg mb-1">Technical Fellowship</h3>
+          <p class="text-cobalt text-sm font-semibold mb-4">Harvard AI Safety Team</p>
+          <p class="text-navy/80 text-sm leading-relaxed">
+            Synthesized research on interpretability, RLHF, goal misgeneralization, and eliciting latent knowledge; shared takeaways with a 5-member cohort over 8 weeks.
+          </p>
+        </div>
+
+      </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== EDUCATION ===== -->
+  <section id="education" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto md:grid md:grid-cols-[250px_1fr] md:gap-14 md:items-start">
+
+      <!-- Contents bar: stays pinned until the next chapter arrives -->
+      <div class="md:sticky md:top-24 mb-12 md:mb-0">
+        <p class="font-display text-rosso font-bold text-sm tracking-[0.3em] mb-3">05</p>
+        <h2 class="font-display font-semibold text-3xl md:text-4xl text-cobalt"><span class="h-mask"><span class="h-line">Education</span></span></h2>
+        <div class="squiggle w-24 mt-5"></div>
+        <p class="ghost-num font-display font-semibold hidden md:block" aria-hidden="true">05</p>
+      </div>
+
+      <div>
+
+      <div class="med-card rounded-2xl p-8 md:p-10">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded-xl bg-rosso/15 border-2 border-cobalt flex items-center justify-center shrink-0">
+              <i class="bi bi-mortarboard text-cobalt text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-display font-semibold text-2xl mb-1">A.B. Computer Science &amp; Economics</h3>
+              <p class="text-cobalt text-sm font-semibold">Harvard University</p>
+            </div>
+          </div>
+          <p class="text-navy/60 text-sm font-medium shrink-0 md:pt-3">Expected May 2027 · Cambridge, MA</p>
+        </div>
+
+        <p class="text-[11px] text-cobalt uppercase tracking-widest font-bold mb-4 md:ml-[68px]">Relevant Coursework</p>
+        <div class="flex flex-wrap gap-2 md:ml-[68px]">
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Data Structures &amp; Algorithms</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Systems Programming &amp; Machine Organization</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Economics &amp; Computation</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Probability with Engineering Applications</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Linear Algebra</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Discrete Mathematics</span>
+          <span class="med-pill text-xs px-3.5 py-1.5 rounded-full">Calculus 2</span>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== WRITING ===== -->
+  <section id="writing" class="py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto md:grid md:grid-cols-[250px_1fr] md:gap-14 md:items-start">
+
+      <!-- Contents bar: stays pinned until the next chapter arrives -->
+      <div class="md:sticky md:top-24 mb-12 md:mb-0">
+        <p class="font-display text-rosso font-bold text-sm tracking-[0.3em] mb-3">06</p>
+        <h2 class="font-display font-semibold text-3xl md:text-4xl text-cobalt"><span class="h-mask"><span class="h-line">Writing</span></span></h2>
+        <div class="squiggle w-24 mt-5"></div>
+        <p class="ghost-num font-display font-semibold hidden md:block" aria-hidden="true">06</p>
+      </div>
+
+      <div>
+
+      <div class="space-y-8">
+
+        <div class="med-card rounded-2xl p-7">
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-rosso/15 border-2 border-cobalt flex items-center justify-center shrink-0 mt-0.5">
+                <i class="bi bi-file-earmark-text text-cobalt"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg mb-1">Political Voices: Deepfakes and the Future of Democracy</h3>
+                <p class="text-cobalt text-sm font-semibold">CS 1050: Privacy and Surveillance</p>
+              </div>
+            </div>
+            <a href="https://docs.google.com/document/d/1oQDBUG8vk4mPYNRRLlvx6Fs2KufgHFvDhSS-ZAUN2Vg/edit" target="_blank"
+               class="inline-flex items-center gap-1.5 text-cobalt hover:text-navy text-sm font-semibold transition-colors shrink-0 underline decoration-rosso decoration-2 underline-offset-4">
+              Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
+            </a>
+          </div>
+          <p class="text-navy/80 text-sm leading-relaxed ml-14">
+            Argues that voice-cloning deepfakes pose a fundamental threat to democratic communication that existing legal frameworks and reactive policy measures cannot adequately address. Examines the growing tension between AI and privacy — moving beyond individual personhood to focus on AI's broader impact on democratic systems.
+          </p>
+        </div>
+
+        <div class="med-card rounded-2xl p-7">
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-rosso/15 border-2 border-cobalt flex items-center justify-center shrink-0 mt-0.5">
+                <i class="bi bi-file-earmark-text text-cobalt"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-semibold text-lg mb-1">Algorithmic Bias in AI Diagnostic Tools in Low-Income Countries</h3>
+                <p class="text-cobalt text-sm font-semibold">Economics 1343: The Economics of Development and Global Health</p>
+              </div>
+            </div>
+            <a href="https://docs.google.com/document/d/12W_X7d-Vnlayptpivs7BT347X1xfwoILFPXXV36Z7u8/edit?usp=sharing" target="_blank"
+               class="inline-flex items-center gap-1.5 text-cobalt hover:text-navy text-sm font-semibold transition-colors shrink-0 underline decoration-rosso decoration-2 underline-offset-4">
+              Read Paper <i class="bi bi-arrow-up-right text-xs"></i>
+            </a>
+          </div>
+          <p class="text-navy/80 text-sm leading-relaxed ml-14">
+            Examines how AI diagnostic tools validated in high-income settings fail catastrophically when deployed in low-income countries. Through two cases — CAD4TB (TB detection in sub-Saharan Africa) and First-Derm (dermatology AI in Uganda, with a 52.9 percentage point accuracy collapse) — the paper argues that absent rigorous local validation, algorithmic bias becomes a structural health equity crisis.
+          </p>
+        </div>
+
+      </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+
+  <!-- ===== 07 CONTACT: the colophon ===== -->
+  <section id="contact" class="bg-navy text-cream py-28 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto">
+      <p class="font-display text-rosso font-bold text-sm tracking-[0.3em] mb-3">07</p>
+      <p class="eb font-display text-cream/60 text-[13px] tracking-[0.3em] uppercase mb-8">Get in touch</p>
+      <h2 class="font-display font-semibold text-[clamp(2.4rem,7vw,5.5rem)] leading-[0.95] mb-10 text-cream"><span class="h-mask"><span class="h-line">Let&rsquo;s build something.</span></span></h2>
+      <a href="mailto:isabellaandrade@college.harvard.edu"
+         class="font-display italic text-xl md:text-3xl underline decoration-rosso decoration-2 underline-offset-8 hover:text-rosso transition-colors break-all">
+        isabellaandrade@college.harvard.edu
+      </a>
+      <div class="flex gap-7 mt-12 text-2xl">
+        <a href="https://github.com/ilandrade" target="_blank" aria-label="GitHub" class="text-cream/80 hover:text-rosso transition-colors"><i class="bi bi-github"></i></a>
+        <a href="https://www.linkedin.com/in/isabella-andrade-l/" target="_blank" aria-label="LinkedIn" class="text-cream/80 hover:text-rosso transition-colors"><i class="bi bi-linkedin"></i></a>
+      </div>
+      <p class="mt-12 font-display text-[12px] tracking-[0.25em] uppercase text-cream/50">Cambridge, MA · Harvard College · AI Tooling · Venture · Product</p>
+    </div>
+  </section>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="marquee bg-[#fffdf6] border-y-2 border-navy" aria-hidden="true">
+      <div class="marquee-track font-display font-medium text-navy text-sm tracking-[0.25em] uppercase py-3">
+        <span class="px-4">Thank You · See You Soon · Thank You · See You Soon ·&nbsp;</span>
+        <span class="px-4">Thank You · See You Soon · Thank You · See You Soon ·&nbsp;</span>
+      </div>
+    </div>
+
+    <div class="py-12 px-6 text-center">
+      <p class="font-display font-semibold text-xl mb-4 text-cobalt">
+        Isabella Andrade<span class="text-rosso">.</span>
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+        <a href="/" class="font-display text-[13px] tracking-[0.2em] text-cobalt hover:text-navy transition-colors uppercase underline decoration-rosso decoration-2 underline-offset-4">
+          Back to the front door
+        </a>
+        <a href="cascade.html" class="font-display text-[13px] tracking-[0.2em] text-cobalt hover:text-navy transition-colors uppercase underline decoration-rosso decoration-2 underline-offset-4">
+          Cascade edition
+        </a>
+      </div>
+    </div>
+
+    <div class="stripes h-10"></div>
+  </footer>
+
+
+  <!-- Scroll progress hairline -->
+  <div id="progress" aria-hidden="true"></div>
+
+
+
+  <!-- Up button -->
+  <a href="#hero" id="up-btn" aria-label="Back to the top"
+     class="med-card fixed bottom-6 right-6 text-navy w-11 h-11 rounded-full flex items-center justify-center z-40">
+    <i class="bi bi-arrow-up-short text-lg"></i>
+  </a>
+
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Title entrance: split the name into letters that rise in beats
+    if (!reducedMotion) {
+      document.querySelectorAll('.hero-line').forEach((line) => {
+        const text = line.textContent;
+        const lineDelay = line.style.getPropertyValue('--hl') || '0ms';
+        line.textContent = '';
+        Array.from(text).forEach((ch, i) => {
+          const s = document.createElement('span');
+          s.className = 'ltr';
+          s.textContent = ch;
+          s.style.setProperty('--hl', lineDelay);
+          s.style.setProperty('--ld', (i * 85) + 'ms');
+          line.appendChild(s);
+        });
+      });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.documentElement.classList.add('hero-in');
+      }));
+    } else {
+      document.documentElement.classList.add('hero-in');
+    }
+
+    // Papers settle onto the table; squiggles draw themselves
+    if (!reducedMotion) {
+      const candidates = document.querySelectorAll(
+        '#profile .js-reveal, #profile .grid-cols-2 > div, #profile .md\\:grid-cols-3 > div, ' +
+        '#experience .space-y-14 > div, #projects .grid > div, ' +
+        '#leadership .grid > div, #education .med-card, #writing .med-card'
+      );
+      candidates.forEach((el) => {
+        if (!/rotate-/.test(el.className)) el.classList.add('settle');
+      });
+      document.querySelectorAll('.grid').forEach((g) => {
+        [...g.children].filter((ch) => ch.classList && ch.classList.contains('settle'))
+          .forEach((ch, i) => { ch.style.transitionDelay = (i * 90) + 'ms'; });
+      });
+      document.querySelectorAll('.squiggle').forEach((s) => s.classList.add('draw'));
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.settle, .squiggle.draw').forEach((el) => io.observe(el));
+    }
+
+    // Headings rise behind masks; eyebrows fade in
+    if (!reducedMotion) {
+      const hio = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('on'); hio.unobserve(e.target); }
+        });
+      }, { threshold: 0.2 });
+      document.querySelectorAll('.h-mask, .eb').forEach((el) => hio.observe(el));
+    }
+
+    // Progress hairline with eased lag
+    const bar = document.getElementById('progress');
+    let barCur = 0, barTarget = 0, barRaf = null;
+    function barTick() {
+      barCur += (barTarget - barCur) * 0.12;
+      bar.style.width = (barCur * 100) + '%';
+      if (Math.abs(barTarget - barCur) > 0.0005) barRaf = requestAnimationFrame(barTick);
+      else { bar.style.width = (barTarget * 100) + '%'; barRaf = null; }
+    }
+
+    function onScroll() {
+      if (reducedMotion) return;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      barTarget = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      if (!barRaf) barRaf = requestAnimationFrame(barTick);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const upBtn = document.getElementById('up-btn');
+    window.addEventListener('scroll', () => {
+      upBtn.classList.toggle('visible', window.scrollY > 500);
+    }, { passive: true });
+  </script>
+
 </body>
 </html>
